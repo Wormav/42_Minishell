@@ -1,0 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
+/*   Updated: 2025/01/06 09:54:12 by stetrel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <token.h>
+
+int	check_simple_token(char *str)
+{
+	static const char	*simple_tokens = "|<>()'\"~";
+
+	if (!str || !*str)
+		return (0);
+	if (ft_strchr(simple_tokens, *str))
+	{
+		if (*(str + 1) && ft_strchr("|<>", *(str + 1)))
+			return (2);
+		return (1);
+	}
+	return (0);
+}
+
+int	check_var(char *str)
+{
+	char	*start;
+
+	start = str;
+	if (*str == '$')
+		while (*str && !ft_strchr("|<>~()", *str))
+			str++;
+	return (str - start);
+}
+
+int	find_token(t_tokenmap *token_map, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (*str == '$')
+		return (TOKEN_VAR);
+	if (*str == '-')
+		return (TOKEN_ARGS);
+	while (token_map[i].symbol != NULL)
+	{
+		if (!ft_strcmp(str, token_map[i].symbol))
+			return (token_map[i].token);
+		i++;
+	}
+	return (TOKEN_WORD);
+}
+
+int	scan_token(char *str)
+{
+	static t_tokenmap	static_map[] = {{"|", TOKEN_PIPE}, {"<",
+		TOKEN_REDIR_IN}, {">", TOKEN_REDIR_OUT}, {"\"", TOKEN_DQUOTE}, {"'",
+		TOKEN_QUOTE}, {"<<", TOKEN_HEREDOC}, {">>", TOKEN_APPEND}, {"(",
+		TOKEN_L_PARENTHESIS}, {")", TOKEN_R_PARENTHESIS}, {"~", TOKEN_WAVE},
+	{"-", TOKEN_ARGS}, {NULL, TOKEN_WORD}};
+
+	return (find_token(static_map, str));
+}
