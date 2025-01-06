@@ -50,3 +50,11 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Custom
+.DS_Store
+minishell
+.cache
+*.json
+.vscode
+.objs
