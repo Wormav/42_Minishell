@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+         #
+#    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/06 09:58:45 by stetrel          ###   ########.fr        #
+#    Updated: 2025/01/06 13:15:28 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		:=	main.c \
 			   	tokenizer/token/token_free.c \
 			   	tokenizer/tokenizer_utils.c \
 				debug/debug.c \
+				ast/ast.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 

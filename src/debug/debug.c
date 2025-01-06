@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 09:58:58 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/06 13:38:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
+#include <ast.h>
 
 static const char *token_to_string(t_tokens token) {
 	switch (token) {
@@ -39,4 +40,19 @@ void	print_token_list(t_token *head)
 		printf("%s\n", token_to_string(head->type));
 		head = head->next;
 	}
+}
+
+void    ast_print(t_ast_node *root)
+{
+    if (!root)
+        return ;
+    if (root->parent != NULL)
+        printf("(%s) -> %s\n", token_to_string(root->parent->type.type),
+               token_to_string(root->type.type));
+    else
+        printf("ROOT -> %s\n", token_to_string(root->type.type));
+    if (root->left != NULL)
+        ast_print(root->left);
+    if (root->right != NULL)
+        ast_print(root->right);
 }
