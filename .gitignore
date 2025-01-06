@@ -57,3 +57,4 @@ minishell
 .cache
 *.json
 .vscode
+.objs
