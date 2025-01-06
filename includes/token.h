@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 10:03:32 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/06 11:26:09 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,22 @@
 
 typedef enum __attribute__((packed)) e_token
 {
-	TOKEN_PIPE = 1 << 0,
-	TOKEN_QUOTE = 1 << 1,
-	TOKEN_DQUOTE = 1 << 2,
-	TOKEN_REDIR_IN = 1 << 3,
-	TOKEN_REDIR_OUT = 1 << 4,
-	TOKEN_L_PARENTHESIS = 1 << 5,
-	TOKEN_R_PARENTHESIS = 1 << 6,
-	TOKEN_WAVE = 1 << 7,
-	TOKEN_HEREDOC = 1 << 8,
-	TOKEN_APPEND = 1 << 9,
-	TOKEN_VAR = 1 << 10,
-	TOKEN_WORD = 1 << 11,
-	TOKEN_ARGS = 1 << 12,
+	TOKEN_PIPE = 0,
+	TOKEN_QUOTE,
+	TOKEN_DQUOTE,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_OUT,
+	TOKEN_L_PARENTHESIS,
+	TOKEN_R_PARENTHESIS,
+	TOKEN_WAVE,
+	TOKEN_HEREDOC,
+	TOKEN_APPEND,
+	TOKEN_VAR,
+	TOKEN_WORD,
+	TOKEN_ARGS,
+	TOKEN_DPIPE,
+	TOKEN_D_AND,
+	TOKEN_WILDCARD
 }				t_tokens;
 
 typedef struct s_map
@@ -60,5 +63,6 @@ int				check_var(char *str);
 int				find_token(t_tokenmap *token_map, char *str);
 int				scan_token(char *str);
 t_token			*parse_string(char *str);
+int				check_multiple_pipe_and(char *str);
 
 #endif

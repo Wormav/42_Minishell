@@ -28,6 +28,9 @@ static const char *token_to_string(t_tokens token) {
 		case TOKEN_WAVE: return "TOKEN_WAVE";
 		case TOKEN_WORD: return "TOKEN_WORD";
 		case TOKEN_ARGS: return "TOKEN_ARGS";
+		case TOKEN_DPIPE: return "TOKEN_DPIPE";
+		case TOKEN_D_AND: return "TOKEN_DOUBLE_AND";
+		case TOKEN_WILDCARD: return "TOKEN_WILDCARD";
 		default: return "UNKNOWN_TOKEN";
 	}
 }
