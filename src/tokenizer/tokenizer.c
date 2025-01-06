@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 09:55:21 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/06 11:14:02 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static int	check_end_of_token(char *str)
 	size = check_var(str);
 	if (!str || !*str)
 		return (0);
+	if (size)
+		return (size);
+	size = check_multiple_pipe_and(str);
 	if (size)
 		return (size);
 	if (*start == '\'' || *start == '"')
