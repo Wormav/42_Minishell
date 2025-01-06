@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
 /*   Updated: 2025/01/06 11:34:32 by stetrel          ###   ########.fr       */

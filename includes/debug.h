@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:56:51 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 10:04:03 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/06 13:27:37 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define DEBUG_H
 
 # include <token.h>
+# include <ast.h>
 
 void	print_token_list(t_token *head);
+void	ast_print(t_ast_node *root);
 
 #endif
