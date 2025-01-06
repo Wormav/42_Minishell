@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 14:30:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:56:25 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 
 //* main de test du tokenizer
 
-// int	main(int argc, char **argv)
-// {
-// 	char	*str;
-// 	t_token	*list;
+int	main(int argc, char **argv)
+ {
+ 	char	*str;
+ 	t_token	*list;
 
-// 	if (argc != 2)
-// 		return (1);
-// 	str = ft_strdup(argv[1]);
-// 	list = NULL;
-// 	list = parse_string(str);
-// 	print_token_list(list);
-// 	free_token(list);
-// 	free(str);
-// }
+	if (argc != 2)
+ 		return (1);
+ 	str = ft_strdup(argv[1]);
+ 	list = NULL;
+ 	list = parse_string(str);
+ 	print_token_list(list);
+ 	free_token(list);
+ 	free(str);
+}
 
 //* main de test de l'AST
 
-int main(void)
+/*int main(void)
 {
     t_token test_token = {.content = NULL, .type = 2048, .next = NULL};
 
@@ -59,4 +59,4 @@ int main(void)
     ast_free(root);
 
     return (0);
-}
+}*/
