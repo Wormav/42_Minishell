@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/06 13:15:28 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/07 08:47:23 by stetrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,9 @@ SRCS		:=	main.c \
 			   	tokenizer/tokenizer_utils.c \
 				debug/debug.c \
 				ast/ast.c \
+				parser/parser.c \
+				parser/token_check.c \
+				errors/token_errors.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 

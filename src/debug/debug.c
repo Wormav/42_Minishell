@@ -6,14 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 16:55:55 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 10:14:49 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
 #include <ast.h>
 
-static const char *token_to_string(t_tokens token) {
+static const char *token_to_string(int token) {
 	switch (token) {
 		case TOKEN_PIPE: return "TOKEN_PIPE";
 		case TOKEN_REDIR_IN: return "TOKEN_REDIR_IN";
@@ -31,6 +31,9 @@ static const char *token_to_string(t_tokens token) {
 		case TOKEN_DPIPE: return "TOKEN_DPIPE";
 		case TOKEN_D_AND: return "TOKEN_DOUBLE_AND";
 		case TOKEN_WILDCARD: return "TOKEN_WILDCARD";
+		case TOKEN_FILE: return "TOKEN_FILE";
+		case TOKEN_CMD: return "TOKEN_CMD";
+		case TOKEN_LIMITER: return "TOKEN_LIMITER";
 		default: return "UNKNOWN_TOKEN";
 	}
 }
