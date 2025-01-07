@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 13:19:17 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 21:05:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int		parser_check(t_token *lst);
 void	token_identify_error(int error);
 t_token	*parser_identify(t_token *list);
 void	parser_define_priority(t_token **list);
-
+t_token *parser_join_tokens(t_token *list);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 11:43:25 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 20:42:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 /*
 * @brief
 * Objectif:
-* 
+*
 *
 */
 
@@ -38,7 +38,7 @@ static t_token	*parser_identify_cmd(t_token *lst)
 			lst->type = TOKEN_CMD;
 		}
 		if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;	
+			lst->next->type = TOKEN_CMD;
 		if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_CMD;
 		if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)

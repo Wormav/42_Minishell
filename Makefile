@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/07 13:40:23 by stetrel          ###   ########.fr        #
+#    Updated: 2025/01/07 21:09:32 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		:=	main.c \
 				parser/parser.c \
 				parser/token_check.c \
 				parser/parser_define_priority.c \
+				parser/parser_join.c \
 				errors/token_errors.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
