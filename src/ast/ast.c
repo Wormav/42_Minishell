@@ -6,13 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/06 15:35:32 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:39:01 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <stdlib.h>
 
+/*
 t_ast_node *ast_add_node(t_token *type)
 {
 	t_ast_node *new;
@@ -46,4 +47,4 @@ t_ast_node	*ast_join(t_ast_node *left, t_ast_node *right, t_token *type)
 	if (right != NULL)
 		right->parent = new;
 	return (new);
-}
+}*/

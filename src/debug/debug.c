@@ -6,12 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 10:14:49 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:52:25 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
 #include <ast.h>
+#include <stdio.h>
 
 static const char *token_to_string(int token) {
 	switch (token) {
@@ -44,21 +45,7 @@ void	print_token_list(t_token *head)
 	{
 		printf("Token content = %s\n", head->content);
 		printf("%s\n", token_to_string(head->type));
+		printf("index = %d || priority = %d\n", head->index, head->priority);
 		head = head->next;
 	}
-}
-
-void    ast_print(t_ast_node *root)
-{
-    if (!root)
-        return ;
-    if (root->parent != NULL)
-        printf("(%s) -> %s\n", token_to_string(root->parent->type.type),
-               token_to_string(root->type.type));
-    else
-        printf("ROOT -> %s\n", token_to_string(root->type.type));
-    if (root->left != NULL)
-        ast_print(root->left);
-    if (root->right != NULL)
-        ast_print(root->right);
 }

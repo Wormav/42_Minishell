@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 10:14:31 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:14:38 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "../libft/include/libft.h"
 # include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 enum __attribute__((packed)) e_token
 {
@@ -49,6 +47,8 @@ typedef struct s_map
 
 typedef struct __attribute__((packed)) s_token
 {
+	int				priority;
+	int				index;
 	const char		*content;
 	enum e_token	type;
 	struct s_token	*next;

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 11:21:43 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:37:14 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int argc, char **argv)
 		return (err);
 	}
 	list = parser_identify(list);
+	parser_define_priority(&list);
 	print_token_list(list);
+
 	free_token(list);
 	free(str);
 }
