@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 10:13:08 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 11:43:25 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static t_token	*parser_identify_cmd(t_token *lst)
 	while (lst->next)
 	{
 		if (lst->type == TOKEN_WORD && !first_flag)
+		{
+			first_flag = 1;
 			lst->type = TOKEN_CMD;
-		first_flag = 1;
+		}
 		if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_CMD;	
 		if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
@@ -42,6 +44,8 @@ static t_token	*parser_identify_cmd(t_token *lst)
 		if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_CMD;
 		if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_WORD)
+			lst->next->type = TOKEN_CMD;
+		if (lst->type == TOKEN_DPIPE && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_CMD;
 		lst = lst->next;
 	}
@@ -65,6 +69,8 @@ static t_token	*parser_identify_files(t_token *lst)
 			lst->next->type = TOKEN_LIMITER;
 		else if (lst->type == TOKEN_LIMITER && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_FILE;
+		if (lst->next->type == TOKEN_WILDCARD)
+			lst->next->type = TOKEN_WORD;
 		lst = lst->next;
 	}
 	return (tmp);
