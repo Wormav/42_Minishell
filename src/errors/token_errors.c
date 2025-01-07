@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_init.c                                       :+:      :+:    :+:   */
+/*   token_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 14:43:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 10:10:04 by stetrel          ###   ########.fr       */
+/*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
+/*   Updated: 2025/01/07 08:58:10 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
+#include <parser.h>
 
-t_token	*token_init(char *content, int type)
+void	token_identify_error(int error)
 {
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	token->content = ft_strdup(content);
-	token->type = type;
-	token->next = NULL;
-	return (token);
+	if (error == ERR_ODD_QUOTE)
+		write (2, "Not an odd number of quote\n", 27);
+	else if (error == ERR_ODD_DQUOTE)
+		write (2, "Not an odd number of dquote\n", 28);
+	else if (error == ERR_ODD_PARENTHESIS)
+		write (2, "Not an odd number of parenthesis\n", 33);
 }
+

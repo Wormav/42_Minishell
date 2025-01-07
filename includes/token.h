@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 11:26:09 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 10:14:31 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef enum __attribute__((packed)) e_token
+enum __attribute__((packed)) e_token
 {
 	TOKEN_PIPE = 0,
 	TOKEN_QUOTE,
@@ -35,8 +35,11 @@ typedef enum __attribute__((packed)) e_token
 	TOKEN_ARGS,
 	TOKEN_DPIPE,
 	TOKEN_D_AND,
-	TOKEN_WILDCARD
-}				t_tokens;
+	TOKEN_WILDCARD,
+	TOKEN_FILE,
+	TOKEN_CMD,
+	TOKEN_LIMITER
+};
 
 typedef struct s_map
 {
@@ -47,12 +50,12 @@ typedef struct s_map
 typedef struct __attribute__((packed)) s_token
 {
 	const char		*content;
-	t_tokens		type;
+	enum e_token	type;
 	struct s_token	*next;
 }	t_token;
 
 // TOKEN
-t_token			*token_init(char *content, t_tokens type);
+t_token			*token_init(char *content, int type);
 int				token_listsize(t_token *list);
 void			token_push(t_token **lst, t_token *token);
 void			free_token(t_token *lst);
