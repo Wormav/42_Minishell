@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 11:43:25 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 21:35:51 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 /*
-* @brief
-* Objectif:
-* 
-*
-*/
+ * @brief
+ * Objectif:
+ *
+ *
+ */
 
 #include "token.h"
 #include <parser.h>
 
-//coder les foncitons de parser list
+// coder les foncitons de parser list
 
 static t_token	*parser_identify_cmd(t_token *lst)
 {
@@ -38,7 +37,7 @@ static t_token	*parser_identify_cmd(t_token *lst)
 			lst->type = TOKEN_CMD;
 		}
 		if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;	
+			lst->next->type = TOKEN_CMD;
 		if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_CMD;
 		if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)
@@ -80,6 +79,6 @@ t_token	*parser_identify(t_token *list)
 {
 	list = parser_identify_files(list);
 	list = parser_identify_cmd(list);
-	//list = parser_identify_string(list);
+//	list = parser_identify_string(list);
 	return (list);
 }

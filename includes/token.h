@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 13:14:38 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 21:21:49 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../libft/include/libft.h"
 # include <stdint.h>
 
-enum __attribute__((packed)) e_token
+enum	e_token
 {
 	TOKEN_PIPE = 0,
 	TOKEN_QUOTE,
@@ -43,13 +43,13 @@ typedef struct s_map
 {
 	char		*symbol;
 	int			token;
-}				t_tokenmap;
+}	t_tokenmap;
 
 typedef struct __attribute__((packed)) s_token
 {
 	int				priority;
 	int				index;
-	const char		*content;
+	char			*content;
 	enum e_token	type;
 	struct s_token	*next;
 }	t_token;
