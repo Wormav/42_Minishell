@@ -6,14 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:09:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 20:31:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:19:16 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
 #include <parser.h>
+#include <token.h>
 
-static	int define_priority(t_token *node)
+static int	define_priority(t_token *node)
 {
 	if (node->type == TOKEN_PIPE)
 		return (P_PIPE);

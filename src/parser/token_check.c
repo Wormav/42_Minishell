@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:11:30 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 08:57:04 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/07 21:33:36 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	token_check_dquote(t_token *lst)
 	dquote += (lst->type == TOKEN_DQUOTE);
 	return (dquote & 1);
 }
-
 
 int	parser_check(t_token *lst)
 {

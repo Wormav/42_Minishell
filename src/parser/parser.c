@@ -6,22 +6,21 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 20:42:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:35:51 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 /*
-* @brief
-* Objectif:
-*
-*
-*/
+ * @brief
+ * Objectif:
+ *
+ *
+ */
 
 #include "token.h"
 #include <parser.h>
 
-//coder les foncitons de parser list
+// coder les foncitons de parser list
 
 static t_token	*parser_identify_cmd(t_token *lst)
 {
@@ -80,6 +79,6 @@ t_token	*parser_identify(t_token *list)
 {
 	list = parser_identify_files(list);
 	list = parser_identify_cmd(list);
-	//list = parser_identify_string(list);
+//	list = parser_identify_string(list);
 	return (list);
 }
