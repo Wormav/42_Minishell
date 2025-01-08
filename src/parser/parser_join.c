@@ -6,19 +6,20 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:22:39 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 10:56:46 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:08:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 #include <token.h>
 
-static int	join_tokens(t_token *current)
+static int	join_tokens(t_token *current, int type)
 {
 	char	*temp_str;
 	t_token	*to_free;
 
-	if (current->content[ft_strlen(current->content) - 1] == '~')
+	if (current->content[ft_strlen(current->content) - 1] == '~'
+		|| type == TOKEN_SPACE)
 		temp_str = ft_strjoin(current->content, "");
 	else
 		temp_str = ft_strjoin(current->content, " ");
@@ -51,9 +52,10 @@ static t_token	*parser_join_word_and_cmd(t_token *list)
 	{
 		if (current->type == TOKEN_CMD && (current->next->type == TOKEN_WORD
 				|| current->next->type == TOKEN_ARGS
-				|| current->next->type == TOKEN_WAVE))
+				|| current->next->type == TOKEN_WAVE
+				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, current->next->type))
 				return (head);
 		}
 		else
@@ -75,9 +77,10 @@ static t_token	*parser_join_redir_and_file(t_token *list)
 	{
 		if ((current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT
 				|| current->type == TOKEN_APPEND)
-			&& current->next->type == TOKEN_FILE)
+			&& (current->next->type == TOKEN_FILE
+				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, current->next->type))
 				return (head);
 		}
 		else
@@ -98,9 +101,10 @@ static t_token	*parser_join_heredoc_and_file(t_token *list)
 	while (current && current->next)
 	{
 		if (current->type == TOKEN_HEREDOC
-			&& current->next->type == TOKEN_LIMITER)
+			&& (current->next->type == TOKEN_LIMITER
+				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, current->next->type))
 				return (head);
 		}
 		else

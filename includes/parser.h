@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 11:31:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:31:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ void				token_identify_error(int error);
 t_token				*parser_identify(t_token *list);
 void				parser_define_priority(t_token **list);
 t_token				*parser_join_tokens(t_token *list);
-
+t_token				*parser_dquotes(t_token *list);
+t_token				*parser_quotes_dquotes(t_token *list);
+int					join_tokens_quotes(t_token *current);
 #endif
