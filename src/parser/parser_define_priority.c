@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:09:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:19:16 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:32:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 static int	define_priority(t_token *node)
 {
-	if (node->type == TOKEN_PIPE)
-		return (P_PIPE);
+	if (node->type == TOKEN_PIPE || node->type == TOKEN_REDIR_OUT
+		|| node->type == TOKEN_APPEND || node->type == TOKEN_REDIR_IN
+		|| node->type == TOKEN_HEREDOC)
+		return (P_OUT_OR_APP_OR_PIPE_OR_HEREDOC);
 	if (node->type == TOKEN_L_PARENTHESIS)
 		return (P_PARENTHESIS);
 	if (node->type == TOKEN_R_PARENTHESIS)

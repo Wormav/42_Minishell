@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:35:51 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:33:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,5 @@ t_token	*parser_identify(t_token *list)
 {
 	list = parser_identify_files(list);
 	list = parser_identify_cmd(list);
-//	list = parser_identify_string(list);
 	return (list);
 }
