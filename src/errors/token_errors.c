@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 08:58:10 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 10:58:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ void	token_identify_error(int error)
 	else if (error == ERR_ODD_PARENTHESIS)
 		write (2, "Not an odd number of parenthesis\n", 33);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:35:51 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 10:57:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@
 
 // coder les foncitons de parser list
 
+static void	set_next_cmd(t_token *lst)
+{
+	if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_DPIPE && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_LIMITER && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+}
+
 static t_token	*parser_identify_cmd(t_token *lst)
 {
 	t_token	*tmp;
@@ -36,16 +52,7 @@ static t_token	*parser_identify_cmd(t_token *lst)
 			first_flag = 1;
 			lst->type = TOKEN_CMD;
 		}
-		if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;
-		if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;
-		if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;
-		if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;
-		if (lst->type == TOKEN_DPIPE && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_CMD;
+		set_next_cmd(lst);
 		lst = lst->next;
 	}
 	return (tmp);
@@ -66,8 +73,6 @@ static t_token	*parser_identify_files(t_token *lst)
 			lst->next->type = TOKEN_FILE;
 		else if (lst->type == TOKEN_HEREDOC && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_LIMITER;
-		else if (lst->type == TOKEN_LIMITER && lst->next->type == TOKEN_WORD)
-			lst->next->type = TOKEN_FILE;
 		if (lst->next->type == TOKEN_WILDCARD)
 			lst->next->type = TOKEN_WORD;
 		lst = lst->next;
@@ -79,6 +84,5 @@ t_token	*parser_identify(t_token *list)
 {
 	list = parser_identify_files(list);
 	list = parser_identify_cmd(list);
-//	list = parser_identify_string(list);
 	return (list);
 }
