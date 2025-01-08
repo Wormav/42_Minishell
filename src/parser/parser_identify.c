@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_identify.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 11:33:11 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:13:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
- * @brief
- * Objectif:
- *
- *
- */
 
 #include "token.h"
 #include <parser.h>
 
-// coder les foncitons de parser list
+static void	set_next_cmd_with_spaces(t_token *lst)
+{
+	if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_DPIPE && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_LIMITER && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+}
 
 static void	set_next_cmd(t_token *lst)
 {
+	if (lst->next && lst->next->type == TOKEN_SPACE)
+		set_next_cmd_with_spaces(lst);
 	if (lst->type == TOKEN_PIPE && lst->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_FILE && lst->next->type == TOKEN_WORD)
@@ -45,7 +60,7 @@ static t_token	*parser_identify_cmd(t_token *lst)
 
 	tmp = lst;
 	first_flag = 0;
-	while (lst->next)
+	while (lst)
 	{
 		if (lst->type == TOKEN_WORD && !first_flag)
 		{
