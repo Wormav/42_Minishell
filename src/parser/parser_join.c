@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:22:39 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:18:58 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 10:56:46 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static int	join_tokens(t_token *current)
 	char	*temp_str;
 	t_token	*to_free;
 
-	temp_str = ft_strjoin(current->content, " ");
+	if (current->content[ft_strlen(current->content) - 1] == '~')
+		temp_str = ft_strjoin(current->content, "");
+	else
+		temp_str = ft_strjoin(current->content, " ");
 	if (!temp_str)
 		return (0);
 	free(current->content);
@@ -46,7 +49,9 @@ static t_token	*parser_join_word_and_cmd(t_token *list)
 	current = list;
 	while (current && current->next)
 	{
-		if (current->type == TOKEN_CMD && current->next->type == TOKEN_WORD)
+		if (current->type == TOKEN_CMD && (current->next->type == TOKEN_WORD
+				|| current->next->type == TOKEN_ARGS
+				|| current->next->type == TOKEN_WAVE))
 		{
 			if (!join_tokens(current))
 				return (head);
@@ -92,8 +97,8 @@ static t_token	*parser_join_heredoc_and_file(t_token *list)
 	current = list;
 	while (current && current->next)
 	{
-		if (current->type == TOKEN_HEREDOC && (current->next->type == TOKEN_FILE
-				|| current->next->type == TOKEN_LIMITER))
+		if (current->type == TOKEN_HEREDOC
+			&& current->next->type == TOKEN_LIMITER)
 		{
 			if (!join_tokens(current))
 				return (head);
