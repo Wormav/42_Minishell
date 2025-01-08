@@ -6,11 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 11:14:03 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 16:03:50 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
+#include "ast.h"
 #include <debug.h>
 #include <parser.h>
 #include <token.h>
@@ -35,17 +36,11 @@ int	main(int argc, char **argv)
 		token_identify_error(err);
 		return (err);
 	}
-	printf("--------before before before---------\n");
-	print_token_list(list);
 	list = parser_identify(list);
-	printf("--------before before---------\n");
-	print_token_list(list);
 	parser_define_priority(&list);
-	printf("--------before---------\n");
-	print_token_list(list);
 	parser_join_tokens(list);
-	printf("---------after----------\n");
-	print_token_list(list);
+	//t_ast *ast = ast_create(list);
+//	print_tree(ast);
 	free_token(list);
 	free(str);
 }
