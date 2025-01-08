@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:19:50 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:31:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ enum				e_token_error
 
 enum				e_priority
 {
-	P_PIPE = 1,
+	P_OUT_OR_APP_OR_PIPE_OR_HEREDOC = 1,
 	P_PARENTHESIS,
 	P_DOUBLEAND,
 	P_TOKENS,
