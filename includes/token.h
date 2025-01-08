@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:21:49 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 10:37:58 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ enum	e_token
 	TOKEN_WILDCARD,
 	TOKEN_FILE,
 	TOKEN_CMD,
-	TOKEN_LIMITER
+	TOKEN_LIMITER,
+	TOKEN_SPACE
 };
 
 typedef struct s_map
@@ -62,10 +63,11 @@ void			free_token(t_token *lst);
 
 // TOKENIZER
 int				check_simple_token(char *str);
-int				check_var(char *str);
+int				check_var_space(char *str);
 int				find_token(t_tokenmap *token_map, char *str);
 int				scan_token(char *str);
 t_token			*parse_string(char *str);
 int				check_multiple_pipe_and(char *str);
+int				identify_space(char *str);
 
 #endif
