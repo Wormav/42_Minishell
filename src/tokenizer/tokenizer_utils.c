@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 16:10:35 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 10:36:16 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	check_multiple_pipe_and(char *str)
 	char	*start;
 
 	start = str;
+	
 	while (*start && (*start == '|' || *start == '&' || *start == '*'))
 		start++;
 	if (start - str >= 3)
@@ -41,11 +42,17 @@ int	check_simple_token(char *str)
 	return (0);
 }
 
-int	check_var(char *str)
+int	check_var_space(char *str)
 {
 	char	*start;
 
 	start = str;
+	if (*start == ' ')
+	{
+		while (start && *start == ' ')
+			start++;
+		return (start - str);
+	}
 	if (*str == '$')
 		while (*str && !ft_strchr(" |<>~()", *str))
 			str++;
@@ -57,6 +64,8 @@ int	find_token(t_tokenmap *token_map, char *str)
 	int	i;
 
 	i = 0;
+	if (identify_space(str))
+		return (TOKEN_SPACE);
 	if (check_multiple_pipe_and(str))
 		return (TOKEN_WORD);
 	if (!ft_strcmp(str, "||"))
