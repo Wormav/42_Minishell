@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 13:52:25 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:14:38 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static const char *token_to_string(int token) {
 		case TOKEN_FILE: return "TOKEN_FILE";
 		case TOKEN_CMD: return "TOKEN_CMD";
 		case TOKEN_LIMITER: return "TOKEN_LIMITER";
+		case TOKEN_SPACE: return "TOKEN_SPACE";
 		default: return "UNKNOWN_TOKEN";
 	}
 }

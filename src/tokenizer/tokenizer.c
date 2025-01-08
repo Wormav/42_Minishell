@@ -6,35 +6,60 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 11:14:02 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/08 11:20:23 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
 
-static int	check_end_of_token(char *str)
-{
-	char	*start;
-	int		size;
 
-	start = str;
-	size = check_var(str);
-	if (!str || !*str)
-		return (0);
-	if (size)
-		return (size);
-	size = check_multiple_pipe_and(str);
-	if (size)
-		return (size);
-	if (*start == '\'' || *start == '"')
-		return (1);
-	if (check_simple_token(start) == 1)
-		return (1);
-	if (check_simple_token(start) == 2)
-		return (2);
-	while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
-		start++;
-	return (start - str);
+int	identify_space(char *str)
+{
+	while (*str && *str == ' ')
+		str++;
+	return !(*str);
+}
+
+static int handle_quotes(char *str)
+{
+    char *start = str;
+    if (*start == '\'' || *start == '"')
+    {
+        char quote = *start;
+        start++;
+        while (*start && *start != quote)
+            start++;
+        if (*start == quote)
+            start++;
+        return (start - str);
+    }
+    return (0);  // Pas de guillemet trouvé
+}
+
+static int check_end_of_token(char *str)
+{
+    char *start;
+    int size;
+
+    start = str;
+    size = check_var_space(str);
+    if (!str || !*str)
+        return (0);
+    if (size)
+        return (size);
+    size = check_multiple_pipe_and(str);
+    if (size)
+        return (size);
+    size = handle_quotes(start);
+    if (size)
+        return (size);
+    if (check_simple_token(start) == 1)
+        return (1);
+    if (check_simple_token(start) == 2)
+        return (2);
+    while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
+        start++;
+    return (start - str);
 }
 
 static void	fill_node(t_token **head, char *str, char **remain)
@@ -71,11 +96,6 @@ t_token	*parse_string(char *str)
 	lst = NULL;
 	while (*str)
 	{
-		if (*str == ' ')
-		{
-			str++;
-			continue ;
-		}
 		prev = str;
 		fill_node(&lst, str, &str);
 		if (str == prev)
