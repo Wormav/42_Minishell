@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 13:13:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:57:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static void	set_next_cmd_with_spaces(t_token *lst)
 		&& lst->next->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_LIMITER && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_HEREDOC && lst->next->type == TOKEN_SPACE
 		&& lst->next->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 }
