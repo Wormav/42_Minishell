@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/09 14:29:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:03:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 typedef struct	__attribute__((packed)) s_ast
 {
-	t_token			*token;
+	char			*content;
+	int				priority;
 	struct s_ast	*parent;
 	struct s_ast	*left;
 	struct s_ast	*right;
@@ -28,5 +29,5 @@ t_token *ast_find_lowest_priority_token(t_token *list);
 t_ast *ast_create(t_token *lst, t_ast *root);
 void ast_split_token_list(t_token *list, t_token *lowest, t_token **left, t_token **right);
 void ast_free(t_ast *ast);
-
+void cleanup_token_list(t_token **token);
 #endif

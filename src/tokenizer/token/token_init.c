@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:43:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 13:19:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:04:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ t_token	*token_init(char *content, int type, int priority)
 	token->type = type;
 	token->next = NULL;
 	token->priority = priority;
+	token->index = 0;
 	return (token);
 }

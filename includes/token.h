@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 13:19:41 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:27:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int				scan_token(char *str);
 t_token			*parse_string(char *str);
 int				check_multiple_pipe_and(char *str);
 int				identify_space(char *str);
+
 
 #endif
