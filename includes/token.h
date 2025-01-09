@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 10:37:58 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 18:27:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct __attribute__((packed)) s_token
 }	t_token;
 
 // TOKEN
-t_token			*token_init(char *content, int type);
+t_token			*token_init(char *content, int type, int priority);
 int				token_listsize(t_token *list);
 void			token_push(t_token **lst, t_token *token);
 void			free_token(t_token *lst);
@@ -69,5 +69,6 @@ int				scan_token(char *str);
 t_token			*parse_string(char *str);
 int				check_multiple_pipe_and(char *str);
 int				identify_space(char *str);
+
 
 #endif

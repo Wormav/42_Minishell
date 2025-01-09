@@ -6,73 +6,68 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/08 16:03:29 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:39:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
 #include <token.h>
 
-t_ast	*ast_node_init(t_token *token)
+void	cleanup_token_list(t_token **token)
 {
-	t_ast	*node;
+	t_token	*current;
+	t_token	*next;
 
-	node = malloc(sizeof(t_ast));
-	if (node)
-	{
-		node->token = token;
-		node->left = NULL;
-		node->right = NULL;
-		node->parent = NULL;
-	}
-	return (node);
-}
-
-void	ast_push(t_ast **ast, t_ast *node)
-{
-	t_ast	*tmp;
-
-	tmp = *ast;
-	if (!*ast)
-	{
-		*ast = node;
+	if (!token || !*token)
 		return ;
-	}
-	if (node->token->type & 1)
+	current = *token;
+	while (current)
 	{
-		while (tmp->left)
-			tmp = tmp->left;
-		tmp->left = node;
+		next = current->next;
+		if (current->content)
+			free(current->content);
+		free(current);
+		current = next;
 	}
-	else
-	{
-		while (tmp->right)
-			tmp = tmp->right;
-		tmp->right = node;
-	}
+	*token = NULL;
 }
 
-t_ast	*ast_create(t_token *lst)
+void	relink(t_token *node)
 {
-	t_ast	*ast = NULL;
-	
-	t_token *tmp = lst;
-	while (tmp)
-	{
-		ast_push(&ast, ast_node_init(tmp));
-		tmp = tmp->next;
-	}
-	return (ast);
+	t_token	*free_node;
+
+	if (!node || !node->next)
+		return ;
+	free_node = node->next;
+	node->next = free_node->next;
+	free(node->content);
+	free(free_node);
 }
 
-void	ast_free(t_ast *ast)
+t_ast	*ast_create(t_token *lst, t_ast *root)
 {
-	if (!ast)
-		return;
-	ast_free(ast->left);
-	ast_free(ast->right);
-	free(ast);
+	t_token	*left;
+	t_token	*right;
+	t_token	*lowest;
+
+	left = NULL;
+	right = NULL;
+	if (!lst)
+		return (NULL);
+	lowest = ast_find_lowest_priority_token(lst);
+	if (!lowest)
+		return (NULL);
+	root = ast_node_init(lowest);
+	if (token_listsize(lst) == 0)
+		return (NULL);
+	ast_split_token_list(lst, lowest, &left, &right);
+	if (root && token_listsize(lst) > 1)
+	{
+		root->left = ast_create(left, root->left);
+		root->right = ast_create(right, root->right);
+		free_token(left);
+		free_token(right);
+	}
+	return (root);
 }

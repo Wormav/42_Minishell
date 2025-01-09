@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 15:33:52 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 09:54:33 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:15:57 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_token(t_token *lst)
 {
 	t_token	*tmp;
 
+	if (!lst)
+		return ;
 	while (lst)
 	{
 		tmp = lst->next;
@@ -23,4 +25,5 @@ void	free_token(t_token *lst)
 		free(lst);
 		lst = tmp;
 	}
+	free(lst);
 }

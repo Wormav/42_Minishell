@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 11:14:38 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:06:09 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ void	print_token_list(t_token *head)
 		printf("index = %d || priority = %d\n", head->index, head->priority);
 		head = head->next;
 	}
+}
+
+static void print_ast_recursive(t_ast *node, int level)
+{
+	if (!node)
+		return;
+	printf("\n");
+	print_ast_recursive(node->right, level + 1);
+	for (int i = 0; i < level; i++)
+	for (int i = 0; i < level; i++)
+		printf("    ");
+
+	printf("%s\n", node->content);
+
+	print_ast_recursive(node->left, level + 1);
+}
+
+void print_tree(t_ast *ast)
+{
+	printf("\n==================== AST Tree ====================\n\n");
+	print_ast_recursive(ast, 0);
+	printf("\n================================================\n\n");
 }

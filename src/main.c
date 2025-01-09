@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 16:03:50 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:15:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 #include <token.h>
 #include <stdio.h>
 
-//* main de test du tokenizer
-
 int	main(int argc, char **argv)
 {
 	char	*str;
-	t_token	*list;
 	int		err = 0;
+	t_token *list;
+	t_ast *ast = NULL;
 
 	if (argc != 2)
 		return (1);
@@ -39,8 +38,10 @@ int	main(int argc, char **argv)
 	list = parser_identify(list);
 	parser_define_priority(&list);
 	parser_join_tokens(list);
-	//t_ast *ast = ast_create(list);
-//	print_tree(ast);
+	ast = ast_create(list, ast);
 	free_token(list);
+	print_tree(ast);
+	ast_free(ast);
+	//print_token_list(list);
 	free(str);
 }
