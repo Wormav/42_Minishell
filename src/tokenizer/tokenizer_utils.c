@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 10:36:16 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:48:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_multiple_pipe_and(char *str)
 	char	*start;
 
 	start = str;
-	
 	while (*start && (*start == '|' || *start == '&' || *start == '*'))
 		start++;
 	if (start - str >= 3)

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 19:08:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:15:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,6 @@
 #include <parser.h>
 #include <token.h>
 #include <stdio.h>
-
-// static void    address_push(t_address **head, t_token **address)
-// {
-//     t_address *new;
-
-//     new = malloc(sizeof(t_address));
-//     if (!new)
-//         return;
-//     new->address = address;
-//     new->next = NULL;
-//     if (!*head)
-//     {
-//         *head = new;
-//         return;
-//     }
-//     t_address *tmp = *head;
-//     while (tmp->next)
-//         tmp = tmp->next;
-//     tmp->next = new;
-// }
-
-// void test_free(t_token **address, int flag)
-// {
-//     static t_address *list = NULL;
-//     if (!flag)
-//         address_push(&list, address);
-//     if (flag)
-//     {
-//         while (list)
-//         {
-//             t_address *tmp = list;
-//             free(list->address);
-//             free(list);
-//             list = tmp->next;
-//         }
-//     }
-// }
 
 int	main(int argc, char **argv)
 {
@@ -80,6 +43,5 @@ int	main(int argc, char **argv)
 	print_tree(ast);
 	ast_free(ast);
 	//print_token_list(list);
-	// test_free(NULL, 1);
 	free(str);
 }

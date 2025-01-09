@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/09 14:30:37 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/09 19:24:19 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS		:=	main.c \
 				debug/debug.c \
 				ast/ast.c \
 				ast/ast_utils.c \
+				ast/ast_token_split.c \
 				parser/parser_identify.c \
 				parser/parser_token_check.c \
 				parser/parser_define_priority.c \
