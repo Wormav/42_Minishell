@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:43:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 10:10:04 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 13:19:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
 
-t_token	*token_init(char *content, int type)
+t_token	*token_init(char *content, int type, int priority)
 {
 	t_token	*token;
 
@@ -20,5 +20,6 @@ t_token	*token_init(char *content, int type)
 	token->content = ft_strdup(content);
 	token->type = type;
 	token->next = NULL;
+	token->priority = priority;
 	return (token);
 }

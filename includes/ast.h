@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/08 17:29:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:29:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,10 @@ typedef struct	__attribute__((packed)) s_ast
 	struct s_ast	*right;
 }	t_ast;
 
-// TODO fonctions (toutes les noms commence par AST)
-
 t_ast	*ast_node_init(t_token *token);
-void ast_push(t_ast **ast, t_ast *node, int side);
-t_ast *ast_create(t_token *lst);
-
-void	ast_free(t_ast *ast);
-t_ast	*ast_join(t_ast *left, t_ast *right, t_token *type);
-// ast_count_levels (compte la profondeur max de l'abre)
-// ast_create(utilise les token et add_node pour cree l abre)
+t_token *ast_find_lowest_priority_token(t_token *list);
+t_ast *ast_create(t_token *lst, t_ast *root);
+void ast_split_token_list(t_token *list, t_token *lowest, t_token **left, t_token **right);
+void ast_free(t_ast *ast);
 
 #endif

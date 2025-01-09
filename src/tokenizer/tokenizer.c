@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 11:20:23 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/09 13:21:26 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	fill_node(t_token **head, char *str, char **remain)
 	}
 	token_type = scan_token(parse_str);
 	if (token_type != -1)
-		token_push(head, token_init(parse_str, token_type));
+		token_push(head, token_init(parse_str, token_type, 0));
 	free(parse_str);
 	*remain = str + size;
 }
