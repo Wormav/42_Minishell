@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 19:15:49 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:02:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	main(int argc, char **argv)
 	parser_define_priority(&list);
 	parser_join_tokens(list);
 	ast = ast_create(list, ast);
-	free_token(list);
 	print_tree(ast);
+	free_token(list);
 	ast_free(ast);
-	//print_token_list(list);
+	print_token_list(list);
 	free(str);
 }
