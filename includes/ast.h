@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/09 19:30:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:28:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ t_token *ast_find_lowest_priority_token(t_token *list);
 t_ast *ast_create(t_token *lst, t_ast *root);
 void ast_split_token_list(t_token *list, t_token *lowest, t_token **left, t_token **right);
 void ast_free(t_ast *ast);
-void cleanup_token_list(t_token **token);
+
 #endif

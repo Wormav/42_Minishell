@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:17:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/09 19:48:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:33:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,37 @@ void	ast_free(t_ast *ast)
 
 t_token	*ast_find_lowest_priority_token(t_token *list)
 {
-	t_token	*lowest;
+    t_token	*lowest;
+    t_token	*current;
 
-	if (!list)
-		return (NULL);
-	lowest = list;
-	while (list)
-	{
-		if (list->priority > 1)
-		{
-			if (list->priority < lowest->priority
-				|| (list->priority == lowest->priority
-					&& list->index < lowest->index))
-				lowest = list;
-			list = list->next;
-		}
-		else
-		{
-			if (list->priority < lowest->priority
-				|| (list->priority == lowest->priority
-					&& list->index > lowest->index))
-				lowest = list;
-			list = list->next;
-		}
-	}
-	return (lowest);
+    if (!list)
+        return (NULL);
+    current = list;
+    while (current && current->priority <= 0)
+        current = current->next;
+    if (!current)
+        return (NULL);
+    lowest = current;
+    while (current)
+    {
+        if (current->priority > 0)
+        {
+            if (current->priority > 1)
+            {
+                if (current->priority < lowest->priority
+                    || (current->priority == lowest->priority
+                        && current->index < lowest->index))
+                    lowest = current;
+            }
+            else
+            {
+                if (current->priority < lowest->priority
+                    || (current->priority == lowest->priority
+                        && current->index > lowest->index))
+                    lowest = current;
+            }
+        }
+        current = current->next;
+    }
+    return (lowest);
 }

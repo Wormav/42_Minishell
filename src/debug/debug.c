@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 19:06:09 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:10:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,51 @@ void	print_token_list(t_token *head)
 	}
 }
 
-static void print_ast_recursive(t_ast *node, int level)
+static void print_content(const char *content)
 {
-	if (!node)
-		return;
-	printf("\n");
-	print_ast_recursive(node->right, level + 1);
-	for (int i = 0; i < level; i++)
-	for (int i = 0; i < level; i++)
-		printf("    ");
+    int i;
+    int prev_space;
 
-	printf("%s\n", node->content);
-
-	print_ast_recursive(node->left, level + 1);
+    i = 0;
+    prev_space = 0;
+    while (content && content[i])
+    {
+        if (content[i] == ' ')
+        {
+            if (!prev_space)
+                printf(" ");
+            prev_space = 1;
+        }
+        else
+        {
+            printf("%c", content[i]);
+            prev_space = 0;
+        }
+        i++;
+    }
 }
+
+void print_ast_recursive(t_ast *node, int level) {
+    if (node == NULL)
+        return;
+
+    // Afficher d'abord la branche droite
+    print_ast_recursive(node->right, level + 1);
+
+    // Ajouter les espaces pour l'indentation
+    for (int i = 0; i < level; i++) {
+        printf("    ");
+    }
+
+    // Afficher le nœud actuel
+    printf("[");
+    print_content(ft_strtrim(node->content, " "));
+    printf("]\n");
+
+    // Afficher la branche gauche
+    print_ast_recursive(node->left, level + 1);
+}
+
 
 void print_tree(t_ast *ast)
 {
