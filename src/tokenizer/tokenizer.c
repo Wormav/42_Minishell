@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 15:31:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:45:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	fill_node(t_token **head, char *str, char **remain)
 	*remain = str + size;
 }
 
-t_token	*parse_string(char *str)
+t_token	*token_parse_string(char *str)
 {
 	t_token	*lst;
 	char	*prev;
