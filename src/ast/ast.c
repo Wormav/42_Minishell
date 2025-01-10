@@ -6,45 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/10 12:59:58 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:28:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <stdlib.h>
 #include <token.h>
-
-t_token *ast_filter_token_lst(t_token *lst)
-{
-    t_token *current;
-    t_token *next;
-    t_token *new_head;
-
-    if (!lst)
-        return (NULL);
-
-    // On cherche le premier noeud valide pour la nouvelle tête
-    while (lst && lst->priority == -1)
-    {
-        next = lst->next;
-        lst = next;
-    }
-    new_head = lst;
-    current = lst;
-
-    // On parcourt le reste de la liste
-    while (current && current->next)
-    {
-        if (current->next->priority == -1)
-        {
-            next = current->next->next;
-			current->next = next;
-        }
-        else
-            current = current->next;
-    }
-    return (new_head);
-}
 
 t_ast	*ast_create(t_token *lst, t_ast *root)
 {
@@ -56,7 +24,6 @@ t_ast	*ast_create(t_token *lst, t_ast *root)
 	right = NULL;
 	if (!lst)
 		return (NULL);
-	lst = ast_filter_token_lst(lst);
 	lowest = ast_find_lowest_priority_token(lst);
 	if (!lowest)
 		return (NULL);

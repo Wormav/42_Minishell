@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/10 12:59:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:38:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <token.h>
 
-typedef struct	__attribute__((packed)) s_ast
+typedef	struct	s_ast
 {
 	char			*content;
 	int				priority;
@@ -25,9 +25,10 @@ typedef struct	__attribute__((packed)) s_ast
 }	t_ast;
 
 t_ast	*ast_node_init(t_token *token);
-t_token *ast_find_lowest_priority_token(t_token *list);
-t_ast *ast_create(t_token *lst, t_ast *root);
-void ast_split_token_list(t_token *list, t_token *lowest, t_token **left, t_token **right);
-void ast_free(t_ast *ast);
+t_token	*ast_find_lowest_priority_token(t_token *list);
+t_ast	*ast_create(t_token *lst, t_ast *root);
+void	ast_split_token_list(t_token *list, t_token *lowest,
+	t_token **left, t_token **right);
+void	ast_free(t_ast *ast);
 
 #endif
