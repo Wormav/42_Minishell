@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:27:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:49:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	str = ft_strdup(argv[1]);
 	str_trim = ft_strtrim(str, " ");
 	list = NULL;
-	list = parse_string(str_trim);
+	list = token_parse_string(str_trim);
 	check_unsupported_char(list, &err);
 	if (err)//free
 		return (1);
