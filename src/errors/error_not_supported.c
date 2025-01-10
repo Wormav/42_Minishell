@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_errors.c                                     :+:      :+:    :+:   */
+/*   error_not_supported.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:17:11 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/10 17:18:34 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/10 17:28:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
-#include <parser.h>
 
-void	token_identify_error(int error)
+void	check_unsupported_char(t_token *lst, int *flag)
 {
-	if (error == ERR_ODD_QUOTE)
-		write (2, "Not an odd number of quote\n", 27);
-	else if (error == ERR_ODD_DQUOTE)
-		write (2, "Not an odd number of dquote\n", 28);
+	while (lst)
+	{
+		if (lst->type == TOKEN_D_AND || lst->type == TOKEN_L_PARENTHESIS || lst->type == TOKEN_R_PARENTHESIS || lst->type == TOKEN_DPIPE)
+		{
+			*flag = 1;
+			return;
+		}
+		lst = lst->next;
+	}
 }

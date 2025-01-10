@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 16:49:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:27:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <parser.h>
 #include <token.h>
 #include <stdio.h>
+#include <error.h>
 
 int	main(int argc, char **argv)
 {
@@ -30,6 +31,9 @@ int	main(int argc, char **argv)
 	str_trim = ft_strtrim(str, " ");
 	list = NULL;
 	list = parse_string(str_trim);
+	check_unsupported_char(list, &err);
+	if (err)//free
+		return (1);
 	err = parser_check(list);
 	//print_token_list(list);
 	if (err)
