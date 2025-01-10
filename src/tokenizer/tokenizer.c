@@ -6,60 +6,62 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 13:21:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:31:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <token.h>
 
-
 int	identify_space(char *str)
 {
 	while (*str && *str == ' ')
 		str++;
-	return !(*str);
+	return (!(*str));
 }
 
-static int handle_quotes(char *str)
+static int	handle_quotes(char *str)
 {
-    char *start = str;
-    if (*start == '\'' || *start == '"')
-    {
-        char quote = *start;
-        start++;
-        while (*start && *start != quote)
-            start++;
-        if (*start == quote)
-            start++;
-        return (start - str);
-    }
-    return (0);  // Pas de guillemet trouvé
+	char	*start;
+	char	quote;
+
+	start = str;
+	if (*start == '\'' || *start == '"')
+	{
+		quote = *start;
+		start++;
+		while (*start && *start != quote)
+			start++;
+		if (*start == quote)
+			start++;
+		return (start - str);
+	}
+	return (0);
 }
 
-static int check_end_of_token(char *str)
+static int	check_end_of_token(char *str)
 {
-    char *start;
-    int size;
+	char	*start;
+	int		size;
 
-    start = str;
-    size = check_var_space(str);
-    if (!str || !*str)
-        return (0);
-    if (size)
-        return (size);
-    size = check_multiple_pipe_and(str);
-    if (size)
-        return (size);
-    size = handle_quotes(start);
-    if (size)
-        return (size);
-    if (check_simple_token(start) == 1)
-        return (1);
-    if (check_simple_token(start) == 2)
-        return (2);
-    while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
-        start++;
-    return (start - str);
+	start = str;
+	size = check_var_space(str);
+	if (!str || !*str)
+		return (0);
+	if (size)
+		return (size);
+	size = check_multiple_pipe_and(str);
+	if (size)
+		return (size);
+	size = handle_quotes(start);
+	if (size)
+		return (size);
+	if (check_simple_token(start) == 1)
+		return (1);
+	if (check_simple_token(start) == 2)
+		return (2);
+	while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
+		start++;
+	return (start - str);
 }
 
 static void	fill_node(t_token **head, char *str, char **remain)

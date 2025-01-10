@@ -6,11 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 14:57:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:39:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include <token.h>
 #include <parser.h>
 
 static void	set_next_cmd_with_spaces(t_token *lst)
@@ -22,6 +22,9 @@ static void	set_next_cmd_with_spaces(t_token *lst)
 		&& lst->next->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_SPACE
+		&& lst->next->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_R_PARENTHESIS && lst->next->type == TOKEN_SPACE
 		&& lst->next->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_SPACE
@@ -48,6 +51,8 @@ static void	set_next_cmd(t_token *lst)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_L_PARENTHESIS && lst->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
+	if (lst->type == TOKEN_R_PARENTHESIS && lst->next->type == TOKEN_WORD)
+		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_D_AND && lst->next->type == TOKEN_WORD)
 		lst->next->type = TOKEN_CMD;
 	if (lst->type == TOKEN_DPIPE && lst->next->type == TOKEN_WORD)
@@ -70,7 +75,8 @@ static t_token	*parser_identify_cmd(t_token *lst)
 			first_flag = 1;
 			lst->type = TOKEN_CMD;
 		}
-		set_next_cmd(lst);
+		if (lst->type != TOKEN_SPACE && lst->next)
+			set_next_cmd(lst);
 		lst = lst->next;
 	}
 	return (tmp);

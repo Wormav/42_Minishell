@@ -6,44 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/09 19:39:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:28:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <stdlib.h>
 #include <token.h>
-
-void	cleanup_token_list(t_token **token)
-{
-	t_token	*current;
-	t_token	*next;
-
-	if (!token || !*token)
-		return ;
-	current = *token;
-	while (current)
-	{
-		next = current->next;
-		if (current->content)
-			free(current->content);
-		free(current);
-		current = next;
-	}
-	*token = NULL;
-}
-
-void	relink(t_token *node)
-{
-	t_token	*free_node;
-
-	if (!node || !node->next)
-		return ;
-	free_node = node->next;
-	node->next = free_node->next;
-	free(node->content);
-	free(free_node);
-}
 
 t_ast	*ast_create(t_token *lst, t_ast *root)
 {

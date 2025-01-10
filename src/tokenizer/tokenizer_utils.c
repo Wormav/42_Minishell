@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 19:48:45 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:32:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	check_simple_token(char *str)
 		return (check_multiple_pipe_and(str));
 	if (ft_strchr(simple_tokens, *str))
 	{
-		if (*(str + 1) && ft_strchr("|<>&", *(str + 1)))
+		if (*(str + 1) && ft_strchr("|<>&", *(str + 1))
+			&& !ft_strchr("()", *str))
 			return (2);
 		return (1);
 	}
