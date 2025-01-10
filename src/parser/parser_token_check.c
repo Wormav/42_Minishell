@@ -1,35 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_check.c                                      :+:      :+:    :+:   */
+/*   parser_token_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:11:30 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/07 21:33:36 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/10 17:17:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 #include <token.h>
-
-static int	token_check_parenthesis(t_token *lst)
-{
-	int	left;
-	int	right;
-
-	left = 0;
-	right = 0;
-	while (lst->next)
-	{
-		left += (lst->type == TOKEN_L_PARENTHESIS);
-		right += (lst->type == TOKEN_R_PARENTHESIS);
-		lst = lst->next;
-	}
-	left += (lst->type == TOKEN_L_PARENTHESIS);
-	right += (lst->type == TOKEN_R_PARENTHESIS);
-	return (left == right);
-}
 
 static int	token_check_quote(t_token *lst)
 {
@@ -65,7 +47,5 @@ int	parser_check(t_token *lst)
 		return (ERR_ODD_QUOTE);
 	if (token_check_dquote(lst))
 		return (ERR_ODD_DQUOTE);
-	if (!token_check_parenthesis(lst))
-		return (ERR_ODD_PARENTHESIS);
 	return (0);
 }

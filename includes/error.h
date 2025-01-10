@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_errors.c                                     :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:17:11 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/10 17:23:44 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/10 17:25:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
-#include <parser.h>
+#ifndef ERROR_H
+# define ERROR_H
 
-void	token_identify_error(int error)
-{
-	if (error == ERR_ODD_QUOTE)
-		write (2, "Not an odd number of quote\n", 27);
-	else if (error == ERR_ODD_DQUOTE)
-		write (2, "Not an odd number of dquote\n", 28);
-}
+# include <token.h>
+
+void	check_unsupported_char(t_token *lst, int *flag);
+
+#endif
