@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 18:27:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:52:19 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../libft/include/libft.h"
 # include <stdint.h>
 
-enum	e_token
+enum			e_token
 {
 	TOKEN_PIPE = 0,
 	TOKEN_QUOTE,
@@ -44,7 +44,7 @@ typedef struct s_map
 {
 	char		*symbol;
 	int			token;
-}	t_tokenmap;
+}				t_tokenmap;
 
 typedef struct __attribute__((packed)) s_token
 {
@@ -69,6 +69,5 @@ int				scan_token(char *str);
 t_token			*parse_string(char *str);
 int				check_multiple_pipe_and(char *str);
 int				identify_space(char *str);
-
 
 #endif
