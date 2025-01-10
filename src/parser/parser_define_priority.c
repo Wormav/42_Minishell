@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:09:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 15:28:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:31:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ void	parser_define_priority(t_token **list)
 		tmp = tmp->next;
 	}
 	tmp->index = index;
-	index++;
 	tmp->priority = define_priority(tmp);
 }

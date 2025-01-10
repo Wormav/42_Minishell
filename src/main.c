@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 15:52:57 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/10 16:49:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv)
 	int err = 0;
 	t_token *list;
 	t_ast *ast = NULL;
-
 	if (argc != 2)
 		return (1);
 	str = ft_strdup(argv[1]);
@@ -41,7 +40,6 @@ int	main(int argc, char **argv)
 	list = parser_identify(list);
 	parser_define_priority(&list);
 	parser_join_tokens(list);
-
 	ast = ast_create(list, ast);
 	print_tree(ast);
 	//print_token_list(list);
