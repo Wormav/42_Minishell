@@ -6,14 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:17:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/10 16:19:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 05:47:32 by swenntetrel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast.h>
-#include <stdlib.h>
-#include <token.h>
-#include <debug.h>
+#include <minishell.h>
 
 t_ast	*ast_node_init(t_token *token)
 {
