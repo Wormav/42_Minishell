@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:45:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 05:28:12 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ static int	check_end_of_token(char *str)
 	size = handle_quotes(start);
 	if (size)
 		return (size);
-	if (check_simple_token(start) == 1)
-		return (1);
-	if (check_simple_token(start) == 2)
-		return (2);
+	if (check_simple_token(start) > 0)
+		return (check_simple_token(start));
 	while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
 		start++;
 	return (start - str);

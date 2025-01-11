@@ -6,41 +6,31 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:49:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 05:58:19 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/include/libft.h"
-#include "ast.h"
-#include <debug.h>
-#include <parser.h>
-#include <token.h>
-#include <stdio.h>
-#include <error.h>
+#include <minishell.h>
 
 int	main(int argc, char **argv)
 {
-	char	*str;
-	char 	*str_trim;
-	int err = 0;
-	t_token *list;
-	t_ast *ast = NULL;
+	char		*str;
+	static int	err = 0;
+	t_token		*list;
+	t_ast		*ast;
+
 	if (argc != 2)
 		return (1);
-	str = ft_strdup(argv[1]);
-	str_trim = ft_strtrim(str, " ");
-	list = NULL;
-	list = token_parse_string(str_trim);
+	str = ft_strtrim(argv[1], " ");
+	ast = NULL;
+	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
-	if (err)//free
-		return (1);
-	err = parser_check(list);
-	//print_token_list(list);
 	if (err)
-	{
-		token_identify_error(err);
-		return (err);
-	}
+		parser_identify_error(err, list, str);
+	err = parser_check(list);
+	if (err)
+		token_identify_error(err, list, str);
+	//print_token_list(list);
 	list = parser_identify(list);
 	parser_define_priority(&list);
 	parser_join_tokens(list);
@@ -50,5 +40,4 @@ int	main(int argc, char **argv)
 	ast_free(ast);
 	free_token(list);
 	free(str);
-	free(str_trim);
 }

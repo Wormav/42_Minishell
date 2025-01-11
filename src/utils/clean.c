@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: swenntetrel <swenntetrel@42angouleme.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 05:54:32 by swenntetrel      ###   ########.fr       */
+/*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
+/*   Updated: 2025/01/11 05:47:54 by swenntetrel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <minishell.h>
 
-# include "../libft/include/libft.h"
-# include <ast.h>
-# include <debug.h>
-# include <parser.h>
-# include <token.h>
-# include <stdio.h>
-# include <error.h>
-
-#endif
+void	clean(t_ast *ast, t_token *token, char *str)
+{
+	ast_free(ast);
+	free_token(token);
+	free(str);
+	exit(1);//code erreur a modifier en fonction de la sortie
+}

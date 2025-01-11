@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 15:32:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 07:19:16 by swenntetrel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	check_multiple_pipe_and(char *str)
 
 int	check_simple_token(char *str)
 {
-	static const char	*simple_tokens = "|<>()'\"~*";
+	static const char	*simple_tokens = "|<>&()'\"~*";
+	int					i;
 
 	if (!str || !*str)
 		return (0);
@@ -34,6 +35,11 @@ int	check_simple_token(char *str)
 		return (check_multiple_pipe_and(str));
 	if (ft_strchr(simple_tokens, *str))
 	{
+		i = 0;
+		while (str[i] && ft_strchr(simple_tokens, str[i]))
+			i++;
+		if (i > 2)
+			return (i);
 		if (*(str + 1) && ft_strchr("|<>&", *(str + 1))
 			&& !ft_strchr("()", *str))
 			return (2);
