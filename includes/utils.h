@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 14:33:19 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/11 14:29:24 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/11 14:38:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "../libft/include/libft.h"
-# include <ast.h>
-# include <debug.h>
-# include <parser.h>
-# include <token.h>
-# include <stdio.h>
-# include <error.h>
-# include <utils.h>
+#include <token.h>
+#include <ast.h>
 
-#endif
+void	clean_memory(t_ast *ast, t_token *token, char *str);
+
+# endif

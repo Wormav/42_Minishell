@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 11:44:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:17:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ static void print_content(const char *content)
 }
 
 void print_ast_recursive(t_ast *node, int level) {
-    if (node == NULL)
-        return;
+	char *trim;
+
+	trim = NULL;
+	if (node == NULL)
+		return;
 
     // Afficher d'abord la branche droite
     print_ast_recursive(node->right, level + 1);
@@ -88,16 +91,15 @@ void print_ast_recursive(t_ast *node, int level) {
     }
 
     // Afficher le nœud actuel
-    printf("[");
-	if (!ft_strcmp(node->content, ")"))
-		print_content(ft_strtrim("(", " "));
-    print_content(ft_strtrim(node->content, " "));
+	trim = ft_strtrim(node->content, " ");
+	printf("[");
+	print_content(trim);
     printf("]\n");
+	free(trim);
 
-    // Afficher la branche gauche
+	// Afficher la branche gauche
     print_ast_recursive(node->left, level + 1);
 }
-
 
 void print_tree(t_ast *ast)
 {
