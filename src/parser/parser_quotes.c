@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:19:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/08 13:30:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
-#include <parser.h>
+#include <minishell.h>
 
 int	join_tokens_quotes(t_token *current)
 {

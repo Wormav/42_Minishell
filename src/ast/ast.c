@@ -6,13 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/10 17:04:52 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:05:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast.h>
-#include <stdlib.h>
-#include <token.h>
+#include <minishell.h>
 
 t_ast	*ast_create(t_token *lst, t_ast *root)
 {

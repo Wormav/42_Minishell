@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swenntetrel <swenntetrel@42angouleme.fr>   +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
-/*   Updated: 2025/01/11 05:47:54 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/01/11 13:07:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

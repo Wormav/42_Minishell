@@ -6,11 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:43:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/09 16:04:28 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
+#include <minishell.h>
 
 t_token	*token_init(char *content, int type, int priority)
 {

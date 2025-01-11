@@ -6,14 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 19:23:22 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/10 16:48:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:05:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast.h>
-#include <stdlib.h>
-#include <token.h>
-#include <debug.h>
+#include <minishell.h>
 
 static void	ast_split_left(t_token *list, t_token *lowest, t_token **left)
 {
