@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 05:43:38 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
-#include <parser.h>
+#include <minishell.h>
 
 void	token_identify_error(int error, t_token *lst, char *str)
 {

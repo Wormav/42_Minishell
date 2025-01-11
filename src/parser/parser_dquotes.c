@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:45 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/08 13:32:01 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
-#include <parser.h>
+#include <minishell.h>
 
 static t_token	*process_dquotes(t_token *start)
 {

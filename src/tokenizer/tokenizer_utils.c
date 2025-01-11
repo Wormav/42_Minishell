@@ -6,11 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 07:19:16 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
+#include <minishell.h>
 
 int	check_multiple_pipe_and(char *str)
 {

@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:09:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:12:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:13 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
-#include <token.h>
+#include <minishell.h>
 
 static int	cmd_content_only_space(t_token *node)
 {

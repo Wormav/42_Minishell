@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:11:30 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 05:40:48 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
-#include <token.h>
+#include <minishell.h>
 
 static int	token_check_quote(t_token *lst)
 {

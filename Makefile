@@ -6,12 +6,11 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/11 05:37:10 by swenntetrel      ###   ########.fr        #
+#    Updated: 2025/01/11 13:05:15 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
-
 
 SRCS_DIR	:= src
 
@@ -35,9 +34,11 @@ SRCS		:=	main.c \
 				ast/ast_utils.c \
 				ast/ast_token_split.c \
 				parser/parser_identify.c \
+				parser/parser_identify_space.c \
 				parser/parser_token_check.c \
 				parser/parser_define_priority.c \
 				parser/parser_join.c \
+				parser/parser_join_utils.c \
 				parser/parser_quotes.c\
 				parser/parser_dquotes.c \
 				errors/token_errors.c \

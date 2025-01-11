@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_listsize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:48:01 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/06 09:54:52 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
+#include <minishell.h>
 
 int	token_listsize(t_token *list)
 {

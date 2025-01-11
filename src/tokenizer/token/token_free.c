@@ -6,11 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 15:33:52 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 13:35:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:06:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
+#include <minishell.h>
 
 void	free_token(t_token *lst)
 {
