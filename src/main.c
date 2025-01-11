@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 05:58:19 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/11 09:35:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	parser_join_tokens(list);
 	ast = ast_create(list, ast);
 	print_tree(ast);
-	//print_token_list(list);
+	print_token_list(list);
 	ast_free(ast);
 	free_token(list);
 	free(str);

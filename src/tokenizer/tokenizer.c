@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 05:28:12 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/11 10:09:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	check_end_of_token(char *str)
 	char	*start;
 	int		size;
 
+	if (!*str)
+		return (0);
 	start = str;
 	size = check_var_space(str);
 	if (!str || !*str)
