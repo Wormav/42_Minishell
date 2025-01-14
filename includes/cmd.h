@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/14 13:49:05 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:39:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ typedef struct s_cmd
 	char	**env;
 }	t_cmd;
 
-# endif
+char	*execute_pwd(t_cmd *command);
+
+#endif
