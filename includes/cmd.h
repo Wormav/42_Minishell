@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/14 13:31:45 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/14 13:49:05 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef CMD_H
+# define CMD_H
 
-# include "../libft/include/libft.h"
-# include <ast.h>
-# include <debug.h>
-# include <parser.h>
-# include <token.h>
-# include <stdio.h>
-# include <error.h>
-# include <utils.h>
-# include <cmd.h>
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**options;
+	char	*params;
+	char	**env;
+}	t_cmd;
 
-#endif
+# endif
