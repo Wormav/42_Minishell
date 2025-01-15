@@ -6,34 +6,40 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/14 13:50:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:23:41 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// static void	process_parsing(char *argv1)
-// {
-// 	static int	err = 0;
-// 	t_token		*list;
-// 	t_ast		*ast;
+ static void	process_parsing(char *argv1)
+ {
+ 	static int	err = 0;
+ 	t_token		*list;
+ 	t_ast		*ast;
 
-// 	ast = NULL;
-// 	list = token_parse_string(argv1);
-// 	check_unsupported_char(list, &err);
-// 	if (err)
-// 		parser_identify_error(err, list, argv1);
-// 	err = parser_check(list);
-// 	if (err)
-// 		token_identify_error(err, list, argv1);
-// 	list = parser_identify(list);
-// 	parser_define_priority(&list);
-// 	parser_join_tokens(list);
-// 	ast = ast_create(list, ast);
-// 	print_tree(ast);
-// 	clean_memory(ast, list, argv1);
-// }
+ 	ast = NULL;
+ 	list = token_parse_string(argv1);
+ 	check_unsupported_char(list, &err);
+ 	if (err)
+ 		parser_identify_error(err, list, argv1);
+ 	err = parser_check(list);
+ 	if (err)
+ 		token_identify_error(err, list, argv1);
+ 	list = parser_identify(list);
+ 	parser_define_priority(&list);
+ 	parser_join_tokens(list);
+ 	ast = ast_create(list, ast);
+ 	print_tree(ast);
+ 	clean_memory(ast, list, argv1);
+}
 
+int main(int argc, char **argv)
+{
+	(void)argc;
+	process_parsing(ft_strdup(argv[1]));
+}
+/*
 static void process_dev_cmd(char **argv, t_cmd *cmd, char **env)
 {
 	cmd->cmd = ft_strdup(argv[1]);
@@ -66,4 +72,4 @@ int	main(int argc, char **argv, char **env)
 		free(cmd.options[i]);
 	free(cmd.options);
 	free(cmd.params);
-}
+}*/
