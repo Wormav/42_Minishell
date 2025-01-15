@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/11 13:05:15 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/15 10:14:10 by stetrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS		:=	main.c \
 				parser/parser_dquotes.c \
 				errors/token_errors.c \
 				errors/error_not_supported.c \
+				cmd/echo/echo.c \
 				utils/clean.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
