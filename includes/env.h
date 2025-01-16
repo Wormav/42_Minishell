@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 07:08:10 by stetrel          ###   ########.fr       */
+/*   Created: 2025/01/16 07:05:43 by stetrel           #+#    #+#             */
+/*   Updated: 2025/01/16 10:46:06 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "../libft/include/libft.h"
-# include <ast.h>
-# include <debug.h>
-# include <parser.h>
-# include <token.h>
-# include <stdio.h>
-# include <error.h>
-# include <utils.h>
-# include <cmd.h>
-#include <env.h>
+# include <minishell.h>
+
+t_list	*env_fill_list(char **envp);
+void	env_list_insert(t_list **lst, t_list *node);
+void	env_list_remove(t_list **lst, char *to_remove);
+void	env_list_free(t_list **lst);
 
 #endif
