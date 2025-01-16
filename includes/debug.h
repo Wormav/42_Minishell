@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:56:51 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:46:45 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:44:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <ast.h>
 # include <token.h>
+# include <exec.h>
 
 typedef struct s_adress
 {
@@ -24,5 +25,6 @@ typedef struct s_adress
 
 void	print_token_list(t_token *head);
 void	print_tree(t_ast *ast);
+void	print_cmd(t_cmd *cmd);
 
 #endif

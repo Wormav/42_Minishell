@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
-/*   Updated: 2025/01/16 14:50:13 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/16 15:08:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef EXEC_H
+# define EXEC_H
 
-void	clean_memory(t_ast *ast, t_token *token, char *str)
+# include <ast.h>
+
+typedef struct s_cmd
 {
-	ast_free(ast);
-	free_token(token);
-	free(str);
-}
+	char	*cmd;
+	char	**options;
+	char	*params;
+}	t_cmd;
+
+t_cmd	*exec_create_cmd(char *str);
+
+//utils
+
+int		skip_space(char *str);
+int		find_next_size(char *str);
+int		check_opts(char *str);
+int		count_args(char *str);
+
+#endif
