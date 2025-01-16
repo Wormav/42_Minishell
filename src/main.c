@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:54:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:01:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	process_parsing(char *argv1)
 	static int	err = 0;
 	t_token		*list;
 	t_ast		*ast;
-	t_cmd		*cmd;
+	 t_cmd		*cmd;
 	char		*str;
 
 	str = ft_strdup(argv1);
@@ -53,8 +53,8 @@ static void	process_parsing(char *argv1)
 	parser_join_tokens(list);
 	ast = ast_create(list, ast);
 	print_tree(ast);
-	cmd = exec_create_cmd(ast);
-	print_cmd(cmd);
+	 cmd = exec_create_cmd(ast);
+	 print_cmd(cmd);
 	cleanup_cmd(cmd);
 	clean_memory(ast, list, str);
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:50:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:58:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,15 @@ void print_ast_recursive(t_ast *node, int level) {
 	trim = NULL;
 	if (node == NULL)
 		return;
-
-    // Afficher d'abord la branche droite
     print_ast_recursive(node->right, level + 1);
-
-    // Ajouter les espaces pour l'indentation
     for (int i = 0; i < level; i++) {
         printf("    ");
     }
-
-    // Afficher le nœud actuel
 	trim = ft_strtrim(node->content, " ");
 	printf("[");
 	print_content(trim, node);
     printf("]\n");
 	free(trim);
-
-	// Afficher la branche gauche
     print_ast_recursive(node->left, level + 1);
 }
 
@@ -118,8 +110,8 @@ void print_cmd(t_cmd *cmd)
 	if (cmd->options)
 	{
 		for (int i = 0; cmd->options[i]; i++)
-			printf("[%s] " RESET, cmd->options[i]);
-		printf("\n");
+			printf("[%s] ", cmd->options[i]);
+		printf("\n"RESET);
 	}
 	else
 		printf("NULL\n");
