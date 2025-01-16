@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 12:42:55 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/16 14:53:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 
 static void cleanup_cmd(t_cmd *cmd)
 {
-    if (cmd->cmd)
-        free(cmd->cmd);
+	int i;
+
+	i = 0;
+	if (cmd->cmd)
+		free(cmd->cmd);
     if (cmd->options) {
-        for (int i = 0; cmd->options[i]; i++)
-            free(cmd->options[i]);
+        while (cmd->options[i])
+            free(cmd->options[i++]);
         free(cmd->options);
     }
     if (cmd->params)
@@ -55,6 +58,7 @@ static void	process_parsing(char *argv1)
 	print_tree(ast);
 	 cmd = exec_create_cmd(ast);
 	 print_cmd(cmd);
+	print_tree(ast);
 	cleanup_cmd(cmd);
 	clean_memory(ast, list, str);
 }
