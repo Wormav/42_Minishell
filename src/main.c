@@ -6,10 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 09:51:48 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/16 10:38:51 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include <minishell.h>
 
 __attribute__((unused))
@@ -46,6 +47,8 @@ static void process_dev_cmd(int argc, char **argv, t_cmd *cmd, char **env)
         cmd->env = env;
 }
 
+
+/*main fonction env
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -61,21 +64,16 @@ int main(int argc, char **argv, char **envp)
 	printf("\n\n");
 	tmp = lst;
 	env_list_insert(&lst, ft_lstnew("A=oui"));
-	env_list_insert(&lst, ft_lstnew("A=oui"));
-	env_list_insert(&lst, ft_lstnew("A=oui"));
-	env_list_insert(&lst, ft_lstnew("var=oui"));
-	env_list_insert(&lst, ft_lstnew("B=oui"));
-	env_list_insert(&lst, ft_lstnew("B=non"));
-	env_list_insert(&lst, ft_lstnew("PWD=non"));
-
+	env_list_remove(&lst, "ALACRITTY_LO=");
+	tmp = lst;
 	while (tmp)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
+	env_list_free(&lst);
 }
 
-/*
 int    main(int argc, char **argv, char **env)
 {
     t_cmd    cmd = {0};
