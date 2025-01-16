@@ -6,19 +6,20 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 16:48:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:02:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*fill_opts(char ***to_fill, char *str)
+static char	*fill_opts(char ***to_fill, char *str)
 {
 	int	i;
 	int	size;
 
 	i = 0;
-	while (*str && (check_opts(str) || *str == '\'' || *str == '"'))
+	while (*str && (check_opts(str) || ((*str == '\'' || *str == '"')
+				&& *(str + 1) == '-')))
 	{
 		str += skip_space(str);
 		size = find_next_size(str);
