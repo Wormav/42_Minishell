@@ -6,13 +6,16 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 15:17:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 08:50:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <token.h>
-#include <ast.h>
-#include <stdio.h>
+#include <minishell.h>
+
+# define RED "\033[31m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define RESET "\033[0m"
 
 static const char *token_to_string(int token) {
 	switch (token) {
@@ -51,27 +54,18 @@ void	print_token_list(t_token *head)
 	}
 }
 
-static void print_content(const char *content)
-{
-    int i;
-    int prev_space;
+void print_content(char *content, t_ast *node ) {
+    if (content == NULL) {
+        printf(RESET);
+        return;
+    }
 
-    i = 0;
-    prev_space = 0;
-    while (content && content[i])
-    {
-        if (content[i] == ' ')
-        {
-            if (!prev_space)
-                printf(" ");
-            prev_space = 1;
-        }
-        else
-        {
-            printf("%c", content[i]);
-            prev_space = 0;
-        }
-        i++;
+    if (node->token == TOKEN_CMD) {
+        printf(RED "%s" RESET, content);
+    } else if (node->token == TOKEN_PIPE) {
+        printf(YELLOW "%s" RESET, content);
+    } else {
+        printf(BLUE "%s" RESET, content);
     }
 }
 
@@ -93,7 +87,7 @@ void print_ast_recursive(t_ast *node, int level) {
     // Afficher le nœud actuel
 	trim = ft_strtrim(node->content, " ");
 	printf("[");
-	print_content(trim);
+	print_content(trim, node);
     printf("]\n");
 	free(trim);
 
@@ -105,5 +99,35 @@ void print_tree(t_ast *ast)
 {
 	printf("\n==================== AST Tree ====================\n\n");
 	print_ast_recursive(ast, 0);
+	printf("\nLegend: ");
+	printf(RED "cmd " RESET);
+	printf(YELLOW "pipe " RESET);
+	printf(BLUE "other" RESET);
 	printf("\n================================================\n\n");
+}
+
+void print_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return;
+
+	printf("\n================= Command Info =================\n");
+	printf(RED "Command: [%s]\n" RESET, cmd->cmd ? cmd->cmd : "NULL");
+
+	printf(YELLOW "Options: ");
+	if (cmd->options)
+	{
+		for (int i = 0; cmd->options[i]; i++)
+			printf("[%s] " RESET, cmd->options[i]);
+		printf("\n");
+	}
+	else
+		printf("NULL\n");
+
+	printf(BLUE "Parameters: [%s]\n" RESET, cmd->params ? cmd->params : "NULL");
+	printf("\nLegend: ");
+	printf(RED "cmd " RESET);
+	printf(YELLOW "options " RESET);
+	printf(BLUE "parameters \n" RESET);
+	printf("=============================================\n\n");
 }

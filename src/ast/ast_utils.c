@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:17:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/11 05:47:32 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/01/16 07:48:09 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_ast	*ast_node_init(t_token *token)
 		node->left = NULL;
 		node->right = NULL;
 		node->parent = NULL;
+		node->token = token->type;
 	}
 	return (node);
 }

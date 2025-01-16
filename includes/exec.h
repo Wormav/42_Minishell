@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:56:51 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:44:08 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/16 08:09:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+
+#ifndef EXEC_H
+# define EXEC_H
 
 # include <ast.h>
-# include <token.h>
-# include <exec.h>
 
-typedef struct s_adress
+typedef struct s_cmd
 {
-	t_token				**address;
-	struct s_address	*next;
-}						t_address;
+	char	*cmd;
+	char	**options;
+	char	*params;
+}	t_cmd;
 
-void	print_token_list(t_token *head);
-void	print_tree(t_ast *ast);
-void	print_cmd(t_cmd *cmd);
+t_cmd *exec_create_cmd(t_ast *ast);
 
 #endif

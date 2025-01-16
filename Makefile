@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/14 18:38:46 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/16 08:09:55 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS		:=	main.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
 				cmd/pwd/pwd.c \
+				exec/exec.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
