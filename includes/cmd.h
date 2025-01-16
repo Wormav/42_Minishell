@@ -15,6 +15,7 @@
 
 # include <exec.h>
 
+char	*ft_echo(t_cmd cmd, int *error);
 char	*execute_pwd(t_cmd *command);
 
 #endif

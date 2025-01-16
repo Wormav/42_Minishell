@@ -23,5 +23,6 @@
 # include <utils.h>
 # include <cmd.h>
 # include <exec.h>
+#include <env.h>
 
 #endif

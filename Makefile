@@ -44,6 +44,7 @@ SRCS		:=	main.c \
 				errors/token_errors.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
+				env/env_parsing.c \
 				cmd/pwd/pwd.c \
 				exec/exec.c \
 				exec/exec_utils.c \
