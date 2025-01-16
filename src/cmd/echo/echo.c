@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/15 10:19:45 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/16 06:41:25 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ static size_t	__size_var(char *str, int index)
 
 char	*ft_echo(t_cmd cmd, int *error)
 {
-	
+	int		quote;
+	char	*str;
+
+
 }
