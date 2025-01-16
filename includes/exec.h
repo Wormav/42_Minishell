@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 14:05:11 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:08:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_cmd
 	char	*params;
 }	t_cmd;
 
-t_cmd	*exec_create_cmd(t_ast *ast);
+t_cmd	*exec_create_cmd(char *str);
 
 //utils
 

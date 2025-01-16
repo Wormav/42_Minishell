@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 07:47:27 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:49:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_ast
 	struct s_ast	*parent;
 	struct s_ast	*left;
 	struct s_ast	*right;
-	int 			token;
+	int				token;
 
 }					t_ast;
 

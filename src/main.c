@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 14:53:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:27:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,33 @@
 
 static void cleanup_cmd(t_cmd *cmd)
 {
-	int i;
+    int i;
 
-	i = 0;
-	if (cmd->cmd)
-		free(cmd->cmd);
-    if (cmd->options) {
+    free(cmd->cmd);
+    if (cmd->options)
+    {
+        i = 0;
         while (cmd->options[i])
-            free(cmd->options[i++]);
+        {
+            free(cmd->options[i]);
+            i++;
+        }
         free(cmd->options);
     }
-    if (cmd->params)
-	{
-        free(cmd->params);
-	}
-	free(cmd);
+    free(cmd->params);
+    free(cmd);
 }
+
 
 static void	process_parsing(char *argv1)
 {
 	static int	err = 0;
 	t_token		*list;
 	t_ast		*ast;
-	 t_cmd		*cmd;
+	t_cmd 		*cmd;
 	char		*str;
 
+	cmd = NULL;
 	str = ft_strdup(argv1);
 	ast = NULL;
 	list = token_parse_string(str);
@@ -52,13 +54,12 @@ static void	process_parsing(char *argv1)
 		token_identify_error(err, list, str);
 	list = parser_identify(list);
 	parser_define_priority(&list);
-	print_token_list(list);
+	//print_token_list(list);
 	parser_join_tokens(list);
 	ast = ast_create(list, ast);
-	print_tree(ast);
-	 cmd = exec_create_cmd(ast);
-	 print_cmd(cmd);
-	print_tree(ast);
+	//print_tree(ast);
+	cmd = exec_create_cmd(ast->content);
+	print_cmd(cmd);
 	cleanup_cmd(cmd);
 	clean_memory(ast, list, str);
 }

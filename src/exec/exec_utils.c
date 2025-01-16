@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:00:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 14:01:03 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:47:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,26 @@ int	check_opts(char *str)
 
 int	count_args(char *str)
 {
-	int		count;
-	char	*prev;
+	int	count;
+	int	in_quotes;
 
 	count = 0;
-	prev = str;
+	in_quotes = 0;
 	while (*str)
 	{
 		str += skip_space(str);
-		if (ft_strncmp(str, "-", 1))
+		if (!*str)
 			break ;
-		if ((*str == '\'' || *str == '"' || *str == '-') && *(str - 1) == ' ')
+		if (*str == '\'' || *str == '"')
+			in_quotes = 1;
+		if (*str == '-' || in_quotes)
 		{
-			prev = str;
 			count++;
 			str += find_next_size(str);
+			in_quotes = 0;
+			continue ;
 		}
-		if (prev == str)
-			str++;
+		break ;
 	}
 	return (count);
 }
