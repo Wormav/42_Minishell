@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 17:17:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:44:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,13 @@ int    main(int argc, char **argv, char **env)
 }*/
 // * main de base
 
-static void cleanup_cmd(t_cmd *cmd)
-{
-    int i;
-
-    free(cmd->cmd);
-    if (cmd->options)
-    {
-        i = 0;
-        while (cmd->options[i])
-        {
-            free(cmd->options[i]);
-            i++;
-        }
-        free(cmd->options);
-    }
-    free(cmd->params);
-    free(cmd);
-}
-
-
 static void	process_parsing(char *argv1)
 {
 	static int	err = 0;
 	t_token		*list;
 	t_ast		*ast;
-	t_cmd 		*cmd;
-	char		*str;
+	char 		*str;
 
-	cmd = NULL;
 	str = ft_strdup(argv1);
 	ast = NULL;
 	list = token_parse_string(str);
@@ -106,13 +84,12 @@ static void	process_parsing(char *argv1)
 		token_identify_error(err, list, str);
 	list = parser_identify(list);
 	parser_define_priority(&list);
-	//print_token_list(list);
+	print_token_list(list);
 	parser_join_tokens(list);
+	print_token_list(list);
 	ast = ast_create(list, ast);
-	//print_tree(ast);
-	cmd = exec_create_cmd(ast->content);
-	print_cmd(cmd);
-	cleanup_cmd(cmd);
+	print_tree(ast);
+	exec(ast);
 	clean_memory(ast, list, str);
 }
 
