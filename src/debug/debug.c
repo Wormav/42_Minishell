@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:58:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:30:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,23 @@ void print_cmd(t_cmd *cmd)
 	printf(YELLOW "options " RESET);
 	printf(BLUE "parameters \n" RESET);
 	printf("=============================================\n\n");
+}
+
+
+void print_fds(t_fds *fds)
+{
+	printf("\n================= FD Info =================\n");
+	if (!fds)
+	{
+		printf("No file descriptors\n");
+		printf("==========================================\n\n");
+		return;
+	}
+
+	while (fds)
+	{
+		printf("FD: [%s]\n", fds->fd_name ? fds->fd_name : "NULL");
+		fds = fds->next;
+	}
+	printf("==========================================\n\n");
 }

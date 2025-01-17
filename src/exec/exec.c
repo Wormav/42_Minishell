@@ -5,56 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 18:02:20 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/17 16:33:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*fill_opts(char ***to_fill, char *str)
-{
-	int	i;
-	int	size;
+// !retirer les print
 
-	i = 0;
-	while (*str && (check_opts(str) || ((*str == '\'' || *str == '"')
-				&& *(str + 1) == '-')))
-	{
-		str += skip_space(str);
-		size = find_next_size(str);
-		if (size <= 0)
-			break ;
-		(*to_fill)[i] = ft_substr(str, 0, size);
-		i++;
-		str += size;
-		str += skip_space(str);
-	}
-	(*to_fill)[i] = NULL;
-	return (str);
-}
-
-t_cmd	*exec_create_cmd(char *str)
+void	exec(t_ast *ast)
 {
 	t_cmd	*cmd;
-	int		next_size;
+	t_fds	*fds;
+	char	*fd;
 
-	next_size = 0;
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	while (str)
-	{
-		next_size = find_next_size(str);
-		cmd->cmd = ft_substr(str, 0, next_size);
-		str += next_size;
-		if (check_opts(str))
-		{
-			cmd->options = ft_calloc(sizeof(char *), (count_args(str) + 1));
-			str = fill_opts(&cmd->options, str);
-		}
-		cmd->params = ft_strdup(str);
-		return (cmd);
-	}
-	return (NULL);
+	cmd = NULL;
+	fds = NULL;
+	fd = exec_identify_fd(ast);
+	exec_store_other_fds(ast, &fds, fd);
+	print_fds(fds);
+	printf("FD =======> [%s]\n", fd);
+	cmd = exec_create_cmd(ast->content);
+	print_cmd(cmd);
+	cleanup_cmd(cmd);
+	exec_free_fds(fds);
 }

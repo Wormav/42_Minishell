@@ -6,6 +6,67 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 17:20:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:37:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
+
+void	exec_free_fds(t_fds *fds)
+{
+	t_fds	*tmp;
+
+	while (fds)
+	{
+		tmp = fds->next;
+		if (fds->fd_name)
+			free(fds->fd_name);
+		free(fds);
+		fds = tmp;
+	}
+}
+
+char	*exec_identify_fd(t_ast *ast)
+{
+	char	*left;
+	char	*right;
+
+	if (!ast)
+		return (NULL);
+	if (ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_REDIR_IN
+		|| ast->token == TOKEN_APPEND || ast->token == TOKEN_HEREDOC)
+		return (ast->content);
+	left = exec_identify_fd(ast->left);
+	right = exec_identify_fd(ast->right);
+	if (left)
+		return (left);
+	if (right)
+		return (right);
+	return (NULL);
+}
+
+void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd)
+{
+	t_fds	*new;
+
+	if (!ast || !list || !main_fd)
+		return ;
+	if ((ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_REDIR_IN
+			|| ast->token == TOKEN_APPEND || ast->token == TOKEN_HEREDOC)
+		&& ft_strcmp(ast->content, main_fd) != 0)
+	{
+		new = ft_calloc(1, sizeof(t_fds));
+		if (!new)
+			return ;
+		new->fd_name = ft_strdup(ast->content);
+		if (!new->fd_name)
+		{
+			free(new);
+			return ;
+		}
+		new->next = *list;
+		*list = new;
+	}
+	exec_store_other_fds(ast->left, list, main_fd);
+	exec_store_other_fds(ast->right, list, main_fd);
+}
