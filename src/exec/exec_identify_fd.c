@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/17 16:37:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:45:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*exec_identify_fd(t_ast *ast)
 
 	if (!ast)
 		return (NULL);
-	if (ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_REDIR_IN
+	if (ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_FILE
 		|| ast->token == TOKEN_APPEND || ast->token == TOKEN_HEREDOC)
 		return (ast->content);
 	left = exec_identify_fd(ast->left);
@@ -51,7 +51,7 @@ void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd)
 
 	if (!ast || !list || !main_fd)
 		return ;
-	if ((ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_REDIR_IN
+	if ((ast->token == TOKEN_REDIR_OUT || ast->token == TOKEN_FILE
 			|| ast->token == TOKEN_APPEND || ast->token == TOKEN_HEREDOC)
 		&& ft_strcmp(ast->content, main_fd) != 0)
 	{

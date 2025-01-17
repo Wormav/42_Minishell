@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/17 16:32:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:44:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	process_parsing(char *argv1)
 	parser_define_priority(&list);
 	print_token_list(list);
 	parser_join_tokens(list);
+	print_token_list(list);
 	ast = ast_create(list, ast);
 	print_tree(ast);
 	exec(ast);
