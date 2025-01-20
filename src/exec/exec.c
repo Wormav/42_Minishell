@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 09:31:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:33:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,19 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static char	*exec_cmd(t_cmd *cmd, int *error)
+static char	*exec_cmd(t_cmd *cmd, int *error, t_list *env_lst)
 {
 	char	*result;
 
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
+	else if (!ft_strcmp(cmd->cmd, "unset"))
+		result = execute_unset(cmd, error, env_lst);
 	return (result);
 }
 
-void	exec(t_ast *ast)
+void	exec(t_ast *ast, t_list *env_lst)
 {
 	t_cmd	*cmd;
 	t_fds	*fds;
@@ -68,7 +70,7 @@ void	exec(t_ast *ast)
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
 	print_cmd(cmd);
-	result = exec_cmd(cmd, &error);
+	result = exec_cmd(cmd, &error, env_lst);
 	if (error)
 	{
 		ft_putendl_fd("Error !!!!", 2);
