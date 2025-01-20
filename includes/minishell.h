@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:09:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:34:46 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include <utils.h>
 # include <cmd.h>
 # include <exec.h>
-#include <env.h>
+# include <env.h>
 
 #endif
