@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 08:50:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:24:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static void trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static char	*exec_cmd(t_cmd *cmd)
+static char	*exec_cmd(t_cmd *cmd, int *error)
 {
 	char *result;
 
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
-		result = execute_pwd(cmd);
+		result = execute_pwd(cmd, error);
 	return (result);
 }
 
@@ -56,7 +56,9 @@ void	exec(t_ast *ast)
 	t_fds	*fds;
 	char	*fd;
 	char	*result;
+	int		error;
 
+	error = 0;
 	cmd = NULL;
 	fds = NULL;
 	fd = exec_identify_fd(ast);
@@ -66,8 +68,14 @@ void	exec(t_ast *ast)
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
 	print_cmd(cmd);
-	result = exec_cmd(cmd);
-	printf("%s", result);
+	result = exec_cmd(cmd, &error);
+	if (error)
+	{
+		ft_putendl_fd("Error !!!!", 2);
+		ft_putendl_fd(result, 2);
+	}
+	else
+		printf("%s", result);
 	free(result);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);

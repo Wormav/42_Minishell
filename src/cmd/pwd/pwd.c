@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/14 20:40:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:22:24 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*handle_bad_option(char *option)
 	return (error_message);
 }
 
-char	*execute_pwd(t_cmd *cmd)
+char	*execute_pwd(t_cmd *cmd, int *error)
 {
 	char	*pwd;
 	char	*result;
@@ -48,7 +48,10 @@ char	*execute_pwd(t_cmd *cmd)
 		while (cmd->options[i])
 		{
 			if (cmd->options[i][1])
+			{
+				*error = 1;
 				return (handle_bad_option(cmd->options[i]));
+			}
 			i++;
 		}
 	}
