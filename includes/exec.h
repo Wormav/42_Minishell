@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 17:20:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:45:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int		find_first_size(char *str);
 // clean_quotes
 void	clean_quotes_in_cmd(t_cmd *cmd);
 void	clean_quotes_in_params(t_cmd *cmd);
+char	*remove_quotes(const char *str);
 
 #endif

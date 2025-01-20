@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/20 14:37:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:23:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ static void	process_parsing(char *argv1, char **env)
 	t_token		*list;
 	t_ast		*ast;
 	char 		*str;
-	t_list	*env_lst = env_fill_list(env);
 
 	str = ft_strdup(argv1);
 	ast = NULL;
+	check_odd_quotes(str, &err);
+	if (err)
+		return (free(str));
 	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
 	if (err)
@@ -30,6 +32,7 @@ static void	process_parsing(char *argv1, char **env)
 	err = parser_check(list);
 	if (err)
 		token_identify_error(err, list, str);
+	t_list	*env_lst = env_fill_list(env);
 	list = parser_identify(list);
 	parser_define_priority(&list);
 	print_token_list(list);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
-/*   Updated: 2025/01/20 13:35:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:34:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	clean_memory(t_ast *ast, t_token *token, char *str)
 
 void	free_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i])

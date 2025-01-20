@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 17:18:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:30:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_cmd	*exec_create_cmd(char *str)
 	while (str)
 	{
 		next_size = find_first_size(str);
-		printf("%s", str);
 		cmd->cmd = ft_substr(str, 0, next_size);
 		clean_quotes_in_cmd(cmd);
 		str += next_size;
