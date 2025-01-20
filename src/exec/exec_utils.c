@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:00:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 16:47:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:17:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ int	skip_space(char *str)
 
 	start = str;
 	while (*str && *str == ' ')
+		str++;
+	return (str - start);
+}
+
+int	find_first_size(char *str)
+{
+	char	*start;
+
+	start = str;
+	while (*str && *str != ' ')
 		str++;
 	return (str - start);
 }

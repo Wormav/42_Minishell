@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 12:06:22 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:20:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,10 @@ int		skip_space(char *str);
 int		find_next_size(char *str);
 int		check_opts(char *str);
 int		count_args(char *str);
+int		find_first_size(char *str);
+
+// clean_quotes
+void	clean_quotes_in_cmd(t_cmd *cmd);
+void	clean_quotes_in_params(t_cmd *cmd);
 
 #endif
