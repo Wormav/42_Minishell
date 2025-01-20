@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 18:02:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:50:22 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_cmd	*exec_create_cmd(char *str)
 			cmd->options = ft_calloc(sizeof(char *), (count_args(str) + 1));
 			str = fill_opts(&cmd->options, str);
 		}
-		cmd->params = ft_strdup(str);
+		cmd->params = ft_strtrim(str, " ");
 		return (cmd);
 	}
 	return (NULL);
