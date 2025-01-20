@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/17 16:18:41 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/20 14:41:03 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,10 @@ SRCS		:=	main.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
 				env/env_parsing.c \
+				env/env_print.c \
 				cmd/pwd/pwd.c \
+				cmd/unset/unset.c \
+				cmd/cd/cd.c \
 				exec/exec.c \
 				exec/exec_create_cmd.c \
 				exec/exec_utils.c \
