@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:52:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 15:29:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:38:36 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ static int	join_tokens(t_token *current, int type)
 	char	*temp_str;
 	t_token	*to_free;
 
-	if (current->content[ft_strlen(current->content) - 1] == '~'
-		|| type == TOKEN_SPACE)
-		temp_str = ft_strjoin(current->content, "");
-	else
+	temp_str = NULL;
+	if (current->content[ft_strlen(current->content) - 1] == '~' || type == TOKEN_SPACE)
 		temp_str = ft_strjoin(current->content, "");
 	if (!temp_str)
 		return (0);
