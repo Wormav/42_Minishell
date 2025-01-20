@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/17 16:41:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:06:22 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*exec_identify_fd(t_ast *ast);
 void	exec_free_fds(t_fds *fds);
 
 // exec
-void	exec(t_ast *ast);
+void	exec(t_ast *ast, t_list *env_lst);
 
 //utils
 

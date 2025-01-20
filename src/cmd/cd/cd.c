@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
-/*   Updated: 2025/01/20 13:35:33 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/20 14:48:26 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	clean_memory(t_ast *ast, t_token *token, char *str)
+void    ft_cd(t_list *env, t_cmd *cmd, int *error)
 {
-	ast_free(ast);
-	free_token(token);
-	free(str);
-}
-
-void	free_split(char **split)
-{
-	int i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+    if (access(cmd->params, 0) == F_OK)
+    {
+        env_list_insert(&env, ft_lstnew(ft_strsjoin(2, "OLDPDW", execute_pwd(cmd, error))));
+        chdir(cmd->params);
+        env_list_insert(&env, ft_lstnew(ft_strsjoin(2, "PWD=", cmd->params)));
+        env_print(env);
+        printf("%s", execute_pwd(cmd, error));
+    }
+    else
+        printf("Error CD\n");
 }

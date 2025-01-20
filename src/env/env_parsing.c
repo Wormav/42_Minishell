@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 10:44:48 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/20 14:51:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_dup(char *node1, char *node2)
 	i = 0;
 	while (node1[i] && node1[i] != '=')
 		i++;
-	return (!ft_strncmp(node1, node2, i + 1));
+	return (!ft_strncmp(node1, node2, i));
 }
 
 t_list	*env_fill_list(char **envp)

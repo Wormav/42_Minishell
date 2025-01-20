@@ -6,13 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/20 11:49:33 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/20 14:37:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include <minishell.h>
 
-sstatic void	process_parsing(char *argv1, char **env)
+static void	process_parsing(char *argv1, char **env)
 {
 	static int	err = 0;
 	t_token		*list;

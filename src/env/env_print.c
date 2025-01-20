@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 14:29:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 13:35:46 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/20 14:41:18 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/20 14:46:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <minishell.h>
 
-# include <token.h>
-# include <ast.h>
-
-void	clean_memory(t_ast *ast, t_token *token, char *str);
-void	free_split(char **split);
-
-#endif
+void    env_print(t_list *lst)
+{
+    while (lst)
+    {
+        printf("%s\n", (char *)lst->content);
+        lst = lst->next;
+    }
+}

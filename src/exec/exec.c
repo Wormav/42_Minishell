@@ -4,9 +4,9 @@
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+         
-/*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 11:50:22 by stetrel          ###   ########.fr       */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/20 14:49:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static char	*exec_cmd(t_cmd *cmd, int *error)
+static char	*exec_cmd(t_cmd *cmd, int *error, t_list *env_lst)
 {
 	char	*result;
 
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
+	else if (!ft_strcmp(cmd->cmd, "unset"))
+		result = execute_unset(cmd, error, env_lst);
+	else if (!ft_strcmp(cmd->cmd, "cd"))
+		ft_cd(env_lst, cmd, error);
 	return (result);
 }
 

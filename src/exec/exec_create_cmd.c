@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 09:27:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:43:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,13 @@ static char	*fill_opts(char ***to_fill, char *str)
 t_cmd	*exec_create_cmd(char *str)
 {
 	t_cmd	*cmd;
+	char	*trim;
 	int		next_size;
 
 	next_size = 0;
-	cmd = malloc(sizeof(t_cmd));
+	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd = NULL;
-	cmd->options = NULL;
-	cmd->params = NULL;
 	while (str)
 	{
 		next_size = find_next_size(str);
@@ -79,7 +77,8 @@ t_cmd	*exec_create_cmd(char *str)
 			cmd->options = ft_calloc(sizeof(char *), (count_args(str) + 1));
 			str = fill_opts(&cmd->options, str);
 		}
-		cmd->params = ft_strdup(str);
+		trim = ft_strtrim(str, " ");
+		cmd->params = trim;
 		return (cmd);
 	}
 	return (NULL);
