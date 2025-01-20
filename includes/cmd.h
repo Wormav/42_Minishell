@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 08:09:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:21:31 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include <exec.h>
 
 char	*ft_echo(t_cmd cmd, int *error);
-char	*execute_pwd(t_cmd *command);
+char	*execute_pwd(t_cmd *cmd, int *error);
 
 #endif

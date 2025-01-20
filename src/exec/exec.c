@@ -4,7 +4,7 @@
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                +#+#+#+#+#+   +#+         
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
 /*   Updated: 2025/01/20 11:50:22 by stetrel          ###   ########.fr       */
 /*                                                                            */
@@ -12,49 +12,71 @@
 
 #include <minishell.h>
 
-static char	*fill_opts(char ***to_fill, char *str)
-{
-	int	i;
-	int	size;
+// !retirer les prints
 
-	i = 0;
-	while (*str && (check_opts(str) || ((*str == '\'' || *str == '"')
-				&& *(str + 1) == '-')))
+static void	trim_cmd_and_options(t_cmd *cmd)
+{
+	char	*tmp;
+	int		i;
+
+	if (!cmd)
+		return ;
+	if (cmd->cmd)
 	{
-		str += skip_space(str);
-		size = find_next_size(str);
-		if (size <= 0)
-			break ;
-		(*to_fill)[i] = ft_substr(str, 0, size);
-		i++;
-		str += size;
-		str += skip_space(str);
+		tmp = ft_strtrim(cmd->cmd, " '\"\t");
+		free(cmd->cmd);
+		cmd->cmd = tmp;
 	}
-	(*to_fill)[i] = NULL;
-	return (str);
+	if (cmd->options)
+	{
+		i = 0;
+		while (cmd->options[i])
+		{
+			tmp = ft_strtrim(cmd->options[i], " '\"\t");
+			free(cmd->options[i]);
+			cmd->options[i] = tmp;
+			i++;
+		}
+	}
 }
 
-t_cmd	*exec_create_cmd(char *str)
+static char	*exec_cmd(t_cmd *cmd, int *error)
+{
+	char	*result;
+
+	result = NULL;
+	if (!ft_strcmp(cmd->cmd, "pwd"))
+		result = execute_pwd(cmd, error);
+	return (result);
+}
+
+void	exec(t_ast *ast, t_list *env_lst)
 {
 	t_cmd	*cmd;
-	int		next_size;
+	t_fds	*fds;
+	char	*fd;
+	char	*result;
+	int		error;
 
-	next_size = 0;
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	while (str)
+	error = 0;
+	cmd = NULL;
+	fds = NULL;
+	fd = exec_identify_fd(ast);
+	exec_store_other_fds(ast, &fds, fd);
+	print_fds(fds);
+	printf("FD =======> [%s]\n", fd);
+	cmd = exec_create_cmd(ast->content);
+	trim_cmd_and_options(cmd);
+	print_cmd(cmd);
+	result = exec_cmd(cmd, &error, env_lst);
+	if (error)
 	{
-		next_size = find_next_size(str);
-		cmd->cmd = ft_substr(str, 0, next_size);
-		str += next_size;
-		if (check_opts(str))
-		{
-			cmd->options = ft_calloc(sizeof(char *), (count_args(str) + 1));
-			str = fill_opts(&cmd->options, str);
-		}
-		cmd->params = ft_strtrim(str, " ");
-		return (cmd);
+		ft_putendl_fd("Error !!!!", 2);
+		ft_putendl_fd(result, 2);
 	}
-	return (NULL);
+	else
+		printf("%s", result);
+	free(result);
+	cleanup_cmd(cmd);
+	exec_free_fds(fds);
 }

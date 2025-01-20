@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:56:51 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 08:44:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:30:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ typedef struct s_adress
 void	print_token_list(t_token *head);
 void	print_tree(t_ast *ast);
 void	print_cmd(t_cmd *cmd);
+void	print_fds(t_fds *fds);
 
 #endif
