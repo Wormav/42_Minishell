@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 09:04:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:27:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*fill_opts(char ***to_fill, char *str)
 t_cmd	*exec_create_cmd(char *str)
 {
 	t_cmd	*cmd;
-	int next_size;
+	int		next_size;
 
 	next_size = 0;
 	cmd = malloc(sizeof(t_cmd));

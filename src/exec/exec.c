@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 09:24:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:31:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 // !retirer les prints
 
-static void trim_cmd_and_options(t_cmd *cmd)
+static void	trim_cmd_and_options(t_cmd *cmd)
 {
-	char *tmp;
-	int i;
+	char	*tmp;
+	int		i;
 
 	if (!cmd)
-		return;
+		return ;
 	if (cmd->cmd)
 	{
 		tmp = ft_strtrim(cmd->cmd, " '\"\t");
@@ -32,7 +32,7 @@ static void trim_cmd_and_options(t_cmd *cmd)
 		i = 0;
 		while (cmd->options[i])
 		{
-			tmp = ft_strtrim(cmd->options[i],  " '\"\t");
+			tmp = ft_strtrim(cmd->options[i], " '\"\t");
 			free(cmd->options[i]);
 			cmd->options[i] = tmp;
 			i++;
@@ -42,7 +42,7 @@ static void trim_cmd_and_options(t_cmd *cmd)
 
 static char	*exec_cmd(t_cmd *cmd, int *error)
 {
-	char *result;
+	char	*result;
 
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
