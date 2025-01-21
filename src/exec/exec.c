@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 18:31:00 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:04:59 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_list *env_lst)
 		result = execute_unset(cmd, error, env_lst);
 	else if (!ft_strcmp(cmd->cmd, "cd"))
 		ft_cd(env_lst, cmd, error);
+	else if (!ft_strcmp(cmd->cmd, "export"))
+		ft_export(&env_lst, cmd, error);
 	return (result);
 }
 

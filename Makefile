@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/20 18:21:32 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/21 13:08:28 by stetrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS		:=	main.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
+				cmd/export/export.c \
 				exec/exec.c \
 				exec/exec_clean_quotes.c \
 				exec/exec_create_cmd.c \
@@ -74,7 +75,7 @@ all: $(NAME)
 
 
 $(NAME):	$(LIBFT_PATH)/libft.a $(OBJS)
-		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@
+		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@ -lreadline
 
 $(OBJS_DIR)/%.o: %.c
 	@$(DIR_UP)

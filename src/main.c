@@ -6,12 +6,15 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/20 19:03:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:32:53 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <minishell.h>
+#define PROMPT "minishell>"
 
 static void	process_parsing(char *argv1, char **env)
 {
@@ -44,10 +47,26 @@ static void	process_parsing(char *argv1, char **env)
 	clean_memory(ast, list, str);
 	env_list_free(&env_lst);
 }
-
+/*
 int	main(int argc, char **argv, char **env)
 {
 	if (argc > 2)
 		return (1);
 	process_parsing(argv[1], env);
+}
+*/
+int	main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	char	*str;
+
+	str = readline(PROMPT);
+	while (str)
+	{
+		add_history(str);
+		process_parsing(str, envp);
+		free(str);
+		str = readline(PROMPT);
+	}
 }

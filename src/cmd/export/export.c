@@ -6,7 +6,7 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/20 11:32:01 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/21 13:08:55 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int	check_bad_params(char *str)
 {
 	if (*str == '-')
-		return (ERR_OPTIONS);
+		return (1);
 	return (!ft_isalpha(*str));
 }
 
@@ -71,7 +71,7 @@ void	ft_export(t_list **env, t_cmd *cmd, int *error)
 {
 	if (!*(cmd->params) && !cmd->options)
 	{
-		print_env(*env);
+		env_print(*env);
 		return ;
 	}
 	process_params(env, cmd, error);
