@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   env_get_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 07:05:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/21 12:58:02 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/21 12:51:26 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/21 14:43:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include <minishell.h>
 
-# include <minishell.h>
+char	*env_get_value(t_list *env, char *key)
+{
+	t_list	*tmp;
+	int		keylen;
 
-t_list	*env_fill_list(char **envp);
-void	env_list_insert(t_list **lst, t_list *node);
-void	env_list_remove(t_list **lst, char *to_remove);
-void	env_list_free(t_list **lst);
-void	env_print(t_list *lst);
-char	*env_get_value(t_list *env, char *key);
-
-#endif
+	if (!key || !env || key[0] != '$')
+		return (NULL);
+	key++;
+	keylen = ft_strlen(key);
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->content, key, keylen)
+			&& ((char *)tmp->content)[keylen] == '=')
+			return (((char *)tmp->content) + keylen + 1);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
