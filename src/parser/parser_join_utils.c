@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:52:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 19:06:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 07:30:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_token	*parser_join_word_and_cmd(t_token *list)
 		if (current->type == TOKEN_CMD && (current->next->type == TOKEN_WORD
 				|| current->next->type == TOKEN_ARGS
 				|| current->next->type == TOKEN_WAVE
-				|| current->next->type == TOKEN_SPACE))
+				|| current->next->type == TOKEN_SPACE
+				|| current->next->type == TOKEN_VAR))
 		{
 			if (!join_tokens(current))
 				return (head);

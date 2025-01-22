@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_clean_quotes.c                                :+:      :+:    :+:   */
+/*   parser_clean_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:18:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/20 18:33:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:21:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	process_quotes(const char *str, char *new, int *i, int *j)
 	new[*j] = '\0';
 }
 
-char	*remove_quotes(const char *str)
+static char	*remove_quotes(const char *str)
 {
 	char	*new;
 	int		i;
@@ -61,30 +61,17 @@ char	*remove_quotes(const char *str)
 	return (new);
 }
 
-void	clean_quotes_in_cmd(t_cmd *cmd)
-{
-	char	*cleaned_cmd;
-
-	if (!cmd || !cmd->cmd)
-		return ;
-	cleaned_cmd = remove_quotes(cmd->cmd);
-	if (cleaned_cmd)
-	{
-		free(cmd->cmd);
-		cmd->cmd = cleaned_cmd;
-	}
-}
-
-void	clean_quotes_in_params(t_cmd *cmd)
+char	*parser_filter_quote(char *str)
 {
 	char	*cleaned_params;
 
-	if (!cmd || !cmd->params)
-		return ;
-	cleaned_params = remove_quotes(cmd->params);
+	if (!str)
+		return (NULL);
+	cleaned_params = remove_quotes(str);
 	if (cleaned_params)
 	{
-		free(cmd->params);
-		cmd->params = cleaned_params;
+		free(str);
+		str = cleaned_params;
 	}
+	return (str);
 }

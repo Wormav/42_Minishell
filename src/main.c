@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/21 14:44:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:14:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include <minishell.h>
 
 static void	process_parsing(char *argv1, char **env)
@@ -25,6 +24,7 @@ static void	process_parsing(char *argv1, char **env)
 	check_odd_quotes(str, &err);
 	if (err)
 		return (free(str));
+	str = parser_filter_quote(str);
 	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
 	if (err)
