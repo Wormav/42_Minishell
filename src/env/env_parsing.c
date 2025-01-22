@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/21 14:33:52 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 09:45:51 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_dup(char *node1, char *node2)
 
 t_list	*env_fill_list(char **envp)
 {
-	static t_list	*lst;
+	t_list	*lst;
 
 	lst = NULL;
 	if (!*envp || !envp)
