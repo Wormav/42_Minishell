@@ -49,9 +49,11 @@ SRCS		:=	main.c \
 				env/env_parsing.c \
 				env/env_print.c \
 				env/env_get_env.c \
+				env/env_join.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
+				cmd/export/export.c \
 				exec/exec.c \
 				exec/exec_create_cmd.c \
 				exec/exec_utils.c \
@@ -75,7 +77,7 @@ all: $(NAME)
 
 
 $(NAME):	$(LIBFT_PATH)/libft.a $(OBJS)
-		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@
+		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@ -lreadline
 
 $(OBJS_DIR)/%.o: %.c
 	@$(DIR_UP)
