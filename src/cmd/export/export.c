@@ -6,14 +6,11 @@
 /*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/21 16:01:34 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 09:23:10 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmd.h"
 #include "env.h"
-#include "exec.h"
-#include "utils.h"
 #include <minishell.h>
 
 int	check_bad_params(char *str)
@@ -39,6 +36,7 @@ void	process_args(char *split, int *error, t_list **env)
 	char	*tmp = NULL;
 	char	**split_equal;
 
+
 	if (!ft_isalpha(*split))
 	{
 		*error = 1;
@@ -49,8 +47,10 @@ void	process_args(char *split, int *error, t_list **env)
 		split_equal = ft_split(split, '=');
 		tmp = ft_strsjoin(5, split_equal[0], "=", "\"", split_equal[1], "\"");
 		free_split(split_equal);
+		env_list_insert(env, ft_lstnew(tmp));
 	}
-	env_list_insert(env, ft_lstnew(tmp));
+	else
+		env_list_insert(env, ft_lstnew(split));
 }
 
 void	process_params(t_list **env, t_cmd *cmd, int *error)

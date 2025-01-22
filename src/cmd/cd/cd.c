@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/21 13:51:07 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 09:29:08 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_cd(t_list *env, t_cmd *cmd, int *error)
 			ft_lstnew(ft_strsjoin(2, "OLDPDW", execute_pwd(cmd, error))));
 		chdir(cmd->params);
 		env_list_insert(&env, ft_lstnew(ft_strsjoin(2, "PWD=", cmd->params)));
-		env_print(env);
-		printf("%s", execute_pwd(cmd, error));
 	}
 	else
 		printf("Minishell: %s not a directory\n", cmd->params);
