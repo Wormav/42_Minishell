@@ -22,5 +22,6 @@ void	env_list_free(t_list **lst);
 void	env_print(t_list *lst);
 char    *env_get_value(t_list *env, char *key);
 void	env_join(char *to_join, t_list **env);
+char	*env_get_value(t_list *env, char *key);
 
 #endif

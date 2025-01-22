@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include <signal.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <minishell.h>
-#include <signal.h>
 
 #define PROMPT "minishell>"
 
@@ -40,6 +38,7 @@ static void	process_parsing(char *argv1, t_list *env_lst)
 	check_odd_quotes(str, &err);
 	if (err)
 		return (free(str));
+	str = parser_filter_quote(str);
 	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
 	if (err)
