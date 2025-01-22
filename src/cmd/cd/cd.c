@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 18:34:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_cd(t_envp *env, t_cmd *cmd, int *error)
+void	ft_cd(t_env *env, t_cmd *cmd, int *error)
 {
 	if (access(cmd->params, 0) == F_OK)
 	{

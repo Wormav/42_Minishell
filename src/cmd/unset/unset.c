@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 18:34:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*handle_bad_option(char *option)
 	return (error_message);
 }
 
-static void	process_unset_params(char **params, t_envp *env_lst)
+static void	process_unset_params(char **params, t_env *env_lst)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ static char	*check_unset_params(char **params, int *error)
 	return (NULL);
 }
 
-char	*execute_unset(t_cmd *cmd, int *error, t_envp *env_lst)
+char	*execute_unset(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
 	char	**params;

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:52:31 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	*handle_bad_option(char *option)
 	invalid_option = ft_substr(option, 0, 2);
 	if (!invalid_option)
 		return (NULL);
-	error_message = lp_alloc(ft_strlen("bash: pwd: ") + ft_strlen(invalid_option)
+	error_message = lp_alloc(ft_strlen("bash: pwd: ")
+			+ ft_strlen(invalid_option)
 			+ ft_strlen(": invalid option\n") + 1);
 	if (!error_message)
 	{

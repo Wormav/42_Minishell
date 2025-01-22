@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:33:30 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	check_dup(char *node1, char *node2)
 	return (!ft_strncmp(node1, node2, i));
 }
 
-t_envp	*env_fill_list(char **envp)
+t_env	*env_fill_list(char **envp)
 {
-	t_envp	*lst;
+	t_env	*lst;
 
 	lst = NULL;
 	if (!*envp || !envp)
@@ -37,9 +37,9 @@ t_envp	*env_fill_list(char **envp)
 	return (lst);
 }
 
-void	env_list_insert(t_envp **lst, t_envp *node)
+void	env_list_insert(t_env **lst, t_env *node)
 {
-	t_envp	*tmp;
+	t_env	*tmp;
 
 	tmp = *lst;
 	while (tmp)
@@ -55,10 +55,10 @@ void	env_list_insert(t_envp **lst, t_envp *node)
 	env_lstadd_back(lst, node);
 }
 
-void	env_list_remove(t_envp **lst, char *to_remove)
+void	env_list_remove(t_env **lst, char *to_remove)
 {
-	t_envp	*tmp;
-	t_envp	*prev;
+	t_env	*tmp;
+	t_env	*prev;
 
 	tmp = *lst;
 	prev = NULL;
@@ -78,9 +78,9 @@ void	env_list_remove(t_envp **lst, char *to_remove)
 	}
 }
 
-void	env_list_free(t_envp **lst)
+void	env_list_free(t_env **lst)
 {
-	t_envp	*tmp;
+	t_env	*tmp;
 
 	tmp = *lst;
 	while (tmp)

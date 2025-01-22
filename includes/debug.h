@@ -6,15 +6,15 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:56:51 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/17 15:30:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:48:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEBUG_H
 # define DEBUG_H
 
-# include <ast.h>
 # include <token.h>
+# include <ast.h>
 # include <exec.h>
 
 typedef struct s_adress

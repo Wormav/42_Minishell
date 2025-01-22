@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:34:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:52:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	find_next_sign(char sign, char *str)
 	return (str - start);
 }
 
-void	process_args(char *split, int *error, t_envp **env)
+void	process_args(char *split, int *error, t_env **env)
 {
 	char	*tmp = NULL;
 	char	**split_equal;
@@ -53,7 +53,7 @@ void	process_args(char *split, int *error, t_envp **env)
 		env_list_insert(env, env_lstnew(split));
 }
 
-void	process_params(t_envp **env, t_cmd *cmd, int *error)
+void	process_params(t_env **env, t_cmd *cmd, int *error)
 {
 	char	**split;
 	int		i;
@@ -72,7 +72,7 @@ void	process_params(t_envp **env, t_cmd *cmd, int *error)
 	}
 }
 
-void	ft_export(t_envp **env, t_cmd *cmd, int *error)
+void	ft_export(t_env **env, t_cmd *cmd, int *error)
 {
 	if (!*(cmd->params) && !cmd->options)
 	{
