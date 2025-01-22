@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_free.c                                       :+:      :+:    :+:   */
+/*   token_lp_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,9 +21,9 @@ void	free_token(t_token *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		free((char *)lst->content);
-		free(lst);
+		lp_free((char *)lst->content);
+		lp_free(lst);
 		lst = tmp;
 	}
-	free(lst);
+	lp_free(lst);
 }

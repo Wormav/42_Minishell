@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_join.c                                         :+:      :+:    :+:   */
+/*   env_list_create.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 07:55:05 by stetrel           #+#    #+#             */
+/*   Created: 2025/01/22 17:53:28 by jlorette          #+#    #+#             */
 /*   Updated: 2025/01/22 18:33:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "utils.h"
 #include <minishell.h>
 
-void	env_join(char *to_join, t_envp **env)
+void    env_lstadd_back(t_envp **lst, t_envp *new)
 {
-	char	*str;
-	char	**split;
-	char	*join;
+        t_envp  *tmp;
 
-	split = ft_split(to_join, '=');
-	str = env_get_value(*env, split[0]);
-	if (!str)
-		return ;
-	join = ft_strsjoin(6, split[0], "=", "\"", str, split[1] + 1, "\"");
-	lp_free(str);
-	env_list_insert(env, env_lstnew(join));
-	free_split(split);
+        if (!lst || !new)
+                return ;
+        tmp = *lst;
+        if (!*lst)
+        {
+                *lst = new;
+                return ;
+        }
+        while (tmp->next)
+                tmp = tmp->next;
+        tmp->next = new;
+}
+
+t_envp  *env_lstnew(void *content)
+{
+        t_envp  *node;
+
+        node = lp_alloc(sizeof(t_envp));
+        if (node)
+        {
+                node->content = content;
+                node->next = NULL;
+        }
+        return (node);
 }

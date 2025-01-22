@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:18:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 09:21:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*init_quote_removal(const char *str, char **new, int *i, int *j)
 {
 	if (!str)
 		return (NULL);
-	*new = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	*new = lp_alloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!*new)
 		return (NULL);
 	*i = 0;
@@ -70,7 +70,7 @@ char	*parser_filter_quote(char *str)
 	cleaned_params = remove_quotes(str);
 	if (cleaned_params)
 	{
-		free(str);
+		lp_free(str);
 		str = cleaned_params;
 	}
 	return (str);

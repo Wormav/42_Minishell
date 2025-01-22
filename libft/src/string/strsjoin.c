@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strsjoin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:20:31 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/19 14:50:18 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 17:30:00 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strsjoin(int size, char *start, ...)
 		str = ft_strjoin(str, next);
 		if (!*str)
 		{
-			free(tmp);
+			lp_free(tmp);
 			break ;
 		}
 	}

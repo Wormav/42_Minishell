@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+         #
+#    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/08 21:59:22 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/22 16:55:12 by stetrel          ###   ########.fr        #
+#    Updated: 2025/01/22 17:08:51 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,6 @@ SRCS	:=		ctype/ft_isalpha.c \
 			  	lists/ft_lstmap.c \
 				float/ft_atof.c \
 				float/ft_strtof.c \
-				gnl/get_next_line.c \
 
 SRCS	:=	$(addprefix $(SRCS_DIR)/, $(SRCS))
 
@@ -93,8 +92,8 @@ RM				:= rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar rc $(NAME) $^	
-$(OBJS_DIR)/%.o: %.c	
+	@ar rc $(NAME) $^
+$(OBJS_DIR)/%.o: %.c
 	@$(DIR_UP)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 

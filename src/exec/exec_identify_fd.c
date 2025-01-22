@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/17 16:45:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:23:41 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	exec_free_fds(t_fds *fds)
 	{
 		tmp = fds->next;
 		if (fds->fd_name)
-			free(fds->fd_name);
-		free(fds);
+			lp_free(fds->fd_name);
+		lp_free(fds);
 		fds = tmp;
 	}
 }
@@ -55,13 +55,13 @@ void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd)
 			|| ast->token == TOKEN_APPEND || ast->token == TOKEN_HEREDOC)
 		&& ft_strcmp(ast->content, main_fd) != 0)
 	{
-		new = ft_calloc(1, sizeof(t_fds));
+		new = lp_alloc(sizeof(t_fds));
 		if (!new)
 			return ;
 		new->fd_name = ft_strdup(ast->content);
 		if (!new->fd_name)
 		{
-			free(new);
+			lp_free(new);
 			return ;
 		}
 		new->next = *list;

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 09:16:11 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	cleanup_cmd(t_cmd *cmd)
 	if (!cmd)
 		return ;
 	if (cmd->cmd)
-		free(cmd->cmd);
+		lp_free(cmd->cmd);
 	if (cmd->options)
 	{
 		i = 0;
 		while (cmd->options[i])
 		{
-			free(cmd->options[i]);
+			lp_free(cmd->options[i]);
 			i++;
 		}
-		free(cmd->options);
+		lp_free(cmd->options);
 	}
 	if (cmd->params)
-		free(cmd->params);
-	free(cmd);
+		lp_free(cmd->params);
+	lp_free(cmd);
 }
 
 static char	*fill_opts(char ***to_fill, char *str)
@@ -64,7 +64,7 @@ t_cmd	*exec_create_cmd(char *str)
 	int		next_size;
 
 	next_size = 0;
-	cmd = ft_calloc(1, sizeof(t_cmd));
+	cmd = lp_alloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	while (str)
@@ -74,7 +74,7 @@ t_cmd	*exec_create_cmd(char *str)
 		str += next_size;
 		if (check_opts(str))
 		{
-			cmd->options = ft_calloc(sizeof(char *), (count_args(str) + 1));
+			cmd->options = lp_alloc(sizeof(char *) * (count_args(str) + 1));
 			str = fill_opts(&cmd->options, str);
 		}
 		trim = ft_strtrim(str, " ");

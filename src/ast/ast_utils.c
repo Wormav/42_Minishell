@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:17:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 14:51:37 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:21:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ast	*ast_node_init(t_token *token)
 {
 	t_ast	*node;
 
-	node = malloc(sizeof(t_ast));
+	node = lp_alloc(sizeof(t_ast));
 	if (node)
 	{
 		node->content = ft_strdup(token->content);
@@ -35,8 +35,8 @@ void	ast_free(t_ast *ast)
 		return ;
 	ast_free(ast->left);
 	ast_free(ast->right);
-	free(ast->content);
-	free(ast);
+	lp_free(ast->content);
+	lp_free(ast);
 }
 
 static t_token	*find_lowest_priority(t_token *current, t_token *lowest)

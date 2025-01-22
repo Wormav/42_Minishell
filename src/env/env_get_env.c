@@ -1,9 +1,9 @@
 
 #include <minishell.h>
 
-char	*env_get_value(t_list *env, char *key)
+char	*env_get_value(t_envp *env, char *key)
 {
-	t_list	*tmp;
+	t_envp	*tmp;
 	int		keylen;
 
 	if (!key || !env || key[0] != '$')

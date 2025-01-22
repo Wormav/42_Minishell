@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/21 13:04:59 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:34:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	if (cmd->cmd)
 	{
 		tmp = ft_strtrim(cmd->cmd, " '\"\t");
-		free(cmd->cmd);
+		lp_free(cmd->cmd);
 		cmd->cmd = tmp;
 	}
 	if (cmd->options)
@@ -33,14 +33,14 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 		while (cmd->options[i])
 		{
 			tmp = ft_strtrim(cmd->options[i], " '\"\t");
-			free(cmd->options[i]);
+			lp_free(cmd->options[i]);
 			cmd->options[i] = tmp;
 			i++;
 		}
 	}
 }
 
-static char	*exec_cmd(t_cmd *cmd, int *error, t_list *env_lst)
+static char	*exec_cmd(t_cmd *cmd, int *error, t_envp *env_lst)
 {
 	char	*result;
 
@@ -56,7 +56,7 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_list *env_lst)
 	return (result);
 }
 
-void	exec(t_ast *ast, t_list *env_lst)
+void	exec(t_ast *ast, t_envp *env_lst)
 {
 	t_cmd	*cmd;
 	t_fds	*fds;
@@ -82,7 +82,7 @@ void	exec(t_ast *ast, t_list *env_lst)
 	}
 	else
 		printf("%s", result);
-	free(result);
+	lp_free(result);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);
 }

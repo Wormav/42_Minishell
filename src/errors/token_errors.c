@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/14 20:41:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:17:09 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	token_identify_error(int error, t_token *lst, char *str)
 {
-	free(str);
+	lp_free(str);
 	free_token(lst);
 	if (error == ERR_ODD_QUOTE)
 		write (2, "Not an odd number of quote\n", 27);
