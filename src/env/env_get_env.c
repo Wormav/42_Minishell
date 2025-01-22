@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_get_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 18:54:43 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/22 18:54:45 by jlorette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*env_get_value(t_list *env, char *key)
+char	*env_get_value(t_env *env, char *key)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 	int		keylen;
 
 	if (!key || !env || key[0] != '$')

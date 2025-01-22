@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 09:45:51 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,43 @@ static int	check_dup(char *node1, char *node2)
 	return (!ft_strncmp(node1, node2, i));
 }
 
-t_list	*env_fill_list(char **envp)
+t_env	*env_fill_list(char **envp)
 {
-	t_list	*lst;
+	t_env	*lst;
 
 	lst = NULL;
 	if (!*envp || !envp)
 		return (NULL);
 	while (*envp)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(*envp));
+		env_lstadd_back(&lst, env_lstnew(*envp));
 		envp++;
 	}
 	return (lst);
 }
 
-void	env_list_insert(t_list **lst, t_list *node)
+void	env_list_insert(t_env **lst, t_env *node)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 
 	tmp = *lst;
 	while (tmp)
 	{
 		if (check_dup(tmp->content, node->content) == 1)
 		{
-			tmp->content = ft_strdup(node->content);
-			free(node);
+			tmp->content = node->content;
+			lp_free(node);
 			return ;
 		}
 		tmp = tmp->next;
 	}
-	ft_lstadd_back(lst, node);
+	env_lstadd_back(lst, node);
 }
 
-void	env_list_remove(t_list **lst, char *to_remove)
+void	env_list_remove(t_env **lst, char *to_remove)
 {
-	t_list	*tmp;
-	t_list	*prev;
+	t_env	*tmp;
+	t_env	*prev;
 
 	tmp = *lst;
 	prev = NULL;
@@ -70,7 +70,7 @@ void	env_list_remove(t_list **lst, char *to_remove)
 				prev->next = tmp->next;
 			else
 				*lst = tmp->next;
-			free(tmp);
+			lp_free(tmp);
 			return ;
 		}
 		prev = tmp;
@@ -78,9 +78,9 @@ void	env_list_remove(t_list **lst, char *to_remove)
 	}
 }
 
-void	env_list_free(t_list **lst)
+void	env_list_free(t_env **lst)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 
 	tmp = *lst;
 	while (tmp)

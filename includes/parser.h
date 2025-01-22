@@ -6,14 +6,14 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 09:14:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:49:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include <minishell.h>
+# include <token.h>
 
 enum				e_token_error
 {

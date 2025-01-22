@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/17 15:30:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void print_ast_recursive(t_ast *node, int level) {
 	printf("[");
 	print_content(trim, node);
     printf("]\n");
-	free(trim);
+	lp_free(trim);
     print_ast_recursive(node->left, level + 1);
 }
 

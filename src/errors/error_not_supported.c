@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:18:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/11 13:09:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:17:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_unsupported_char(t_token *lst, int *err)
 
 void	parser_identify_error(int err, t_token *lst, char *str)
 {
-	free(str);
+	lp_free(str);
 	free_token(lst);
 	if (err == TOKEN_L_PARENTHESIS || err == TOKEN_R_PARENTHESIS)
 		write (2, "We not support subshell...\n", 25);

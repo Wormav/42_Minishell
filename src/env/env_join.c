@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_join.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 07:55:05 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 08:05:10 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "utils.h"
 #include <minishell.h>
 
-void	env_join(char *to_join, t_list **env)
+void	env_join(char *to_join, t_env **env)
 {
 	char	*str;
 	char	**split;
@@ -25,7 +25,7 @@ void	env_join(char *to_join, t_list **env)
 	if (!str)
 		return ;
 	join = ft_strsjoin(6, split[0], "=", "\"", str, split[1] + 1, "\"");
-	free(str);
-	env_list_insert(env, ft_lstnew(join));
+	lp_free(str);
+	env_list_insert(env, env_lstnew(join));
 	free_split(split);
 }

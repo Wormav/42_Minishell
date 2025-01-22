@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 09:23:10 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/22 18:52:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	find_next_sign(char sign, char *str)
 	return (str - start);
 }
 
-void	process_args(char *split, int *error, t_list **env)
+void	process_args(char *split, int *error, t_env **env)
 {
 	char	*tmp = NULL;
 	char	**split_equal;
@@ -47,13 +47,13 @@ void	process_args(char *split, int *error, t_list **env)
 		split_equal = ft_split(split, '=');
 		tmp = ft_strsjoin(5, split_equal[0], "=", "\"", split_equal[1], "\"");
 		free_split(split_equal);
-		env_list_insert(env, ft_lstnew(tmp));
+		env_list_insert(env, env_lstnew(tmp));
 	}
 	else
-		env_list_insert(env, ft_lstnew(split));
+		env_list_insert(env, env_lstnew(split));
 }
 
-void	process_params(t_list **env, t_cmd *cmd, int *error)
+void	process_params(t_env **env, t_cmd *cmd, int *error)
 {
 	char	**split;
 	int		i;
@@ -72,7 +72,7 @@ void	process_params(t_list **env, t_cmd *cmd, int *error)
 	}
 }
 
-void	ft_export(t_list **env, t_cmd *cmd, int *error)
+void	ft_export(t_env **env, t_cmd *cmd, int *error)
 {
 	if (!*(cmd->params) && !cmd->options)
 	{

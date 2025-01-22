@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:54:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/16 16:49:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:47:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define AST_H
 
 # include <token.h>
+# include <ast.h>
 
 typedef struct s_ast
 {

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/21 14:43:00 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static char	*handle_bang_error(char *param)
 		if (!after_bang)
 			return (NULL);
 		error_message = ft_strjoin("bash: ", after_bang);
-		free(after_bang);
+		lp_free(after_bang);
 		if (!error_message)
 			return (NULL);
 		after_bang = ft_strjoin(error_message, ": event not found\n");
-		free(error_message);
+		lp_free(error_message);
 		return (after_bang);
 	}
 	return (NULL);
@@ -45,12 +45,12 @@ static char	*handle_bad_option(char *option)
 	invalid_option = ft_substr(option, 0, 2);
 	if (!invalid_option)
 		return (NULL);
-	error_message = malloc(ft_strlen("bash: unset: ")
+	error_message = lp_alloc(ft_strlen("bash: unset: ")
 			+ ft_strlen(invalid_option)
 			+ ft_strlen(": invalid option\n") + 1);
 	if (!error_message)
 	{
-		free(invalid_option);
+		lp_free(invalid_option);
 		return (NULL);
 	}
 	ft_strlcpy(error_message, "bash: unset: ", ft_strlen("bash: unset: ") + 1);
@@ -58,11 +58,11 @@ static char	*handle_bad_option(char *option)
 		+ ft_strlen(invalid_option) + 1);
 	ft_strlcat(error_message, ": invalid option\n", ft_strlen(error_message)
 		+ ft_strlen(": invalid option\n") + 1);
-	free(invalid_option);
+	lp_free(invalid_option);
 	return (error_message);
 }
 
-static void	process_unset_params(char **params, t_list *env_lst)
+static void	process_unset_params(char **params, t_env *env_lst)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ static char	*check_unset_params(char **params, int *error)
 	return (NULL);
 }
 
-char	*execute_unset(t_cmd *cmd, int *error, t_list *env_lst)
+char	*execute_unset(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
 	char	**params;

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 15:33:52 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 13:06:40 by jlorette         ###   ########.fr       */
+/*   Created: 2025/01/22 18:55:31 by jlorette          #+#    #+#             */
+/*   Updated: 2025/01/22 18:55:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	free_token(t_token *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		free((char *)lst->content);
-		free(lst);
+		lp_free((char *)lst->content);
+		lp_free(lst);
 		lst = tmp;
 	}
-	free(lst);
+	lp_free(lst);
 }

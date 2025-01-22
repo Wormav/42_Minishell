@@ -6,15 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/10 17:47:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:49:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
-
-# include "../libft/include/libft.h"
-# include <stdint.h>
 
 enum			e_token
 {

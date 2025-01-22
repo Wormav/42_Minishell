@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/22 09:15:27 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/22 18:13:12 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS		:=	main.c \
 				env/env_print.c \
 				env/env_get_env.c \
 				env/env_join.c \
+				env/env_list_create.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
