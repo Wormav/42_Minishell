@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 13:08:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:14:19 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ t_token				*parser_join_heredoc_and_file(t_token *list);
 t_token				*parser_join_file_and_redir_in(t_token *list);
 void				set_next_file_with_spaces(t_token *lst);
 void				set_next_cmd_with_spaces(t_token *lst);
+char				*parser_filter_quote(char *str);
 
 #endif
