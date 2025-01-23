@@ -6,13 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:58:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:05:10 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <minishell.h>
 
 #define PROMPT "minishell>"
