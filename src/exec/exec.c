@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/23 16:09:14 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/23 12:09:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 		ft_cd(env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "export"))
 		ft_export(&env_lst, cmd, error);
+	else if (!ft_strcmp(cmd->cmd, "exit"))
+		result = execute_exit(cmd, error);
 	else
 	{
 		pid = fork();
@@ -93,7 +95,7 @@ void	exec(t_ast *ast, t_env *env_lst)
 		ft_putendl_fd(result, 2);
 	}
 	else
-		printf("%s", result);
+		printf("%s\n\n", result);
 	lp_free(result);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);
