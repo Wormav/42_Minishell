@@ -6,14 +6,12 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:58:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:13:42 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <minishell.h>
+#include <readline/readline.h>
 
 #define PROMPT "minishell>"
 
@@ -84,4 +82,5 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		str = readline(PROMPT);
 	}
+	rl_clear_history();
 }

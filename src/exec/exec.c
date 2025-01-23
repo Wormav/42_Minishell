@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:09:14 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
-
+	int		pid;
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
@@ -53,6 +53,18 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 		ft_cd(env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "export"))
 		ft_export(&env_lst, cmd, error);
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			exit(1);
+		if (pid == 0)
+		{
+			if (execve(find_cmd(cmd, env_lst, error), cmd->options, NULL) == -1)
+				exit(1);
+		}
+		waitpid(pid, NULL, 0);
+	}
 	return (result);
 }
 
