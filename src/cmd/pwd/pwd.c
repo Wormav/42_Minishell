@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 18:52:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:52:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ char	*execute_pwd(t_cmd *cmd, int *error)
 	if (!pwd)
 		return (NULL);
 	result = ft_strjoin(pwd, "\n");
-	lp_free(pwd);
+	free(pwd);
 	return (result);
 }

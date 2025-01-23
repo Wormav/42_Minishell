@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/22 18:13:12 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/23 12:05:43 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		:=	main.c \
 				errors/error_odd_quotes.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
+				utils/ft_atol.c \
 				env/env_parsing.c \
 				env/env_print.c \
 				env/env_get_env.c \
@@ -54,6 +55,7 @@ SRCS		:=	main.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
+				cmd/exit/exit.c \
 				cmd/export/export.c \
 				exec/exec.c \
 				exec/exec_create_cmd.c \
