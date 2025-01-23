@@ -43,7 +43,7 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
-
+	int		pid;
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
@@ -55,6 +55,18 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 		ft_export(&env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
 		result = execute_exit(cmd, error);
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			exit(1);
+		if (pid == 0)
+		{
+			if (execve(find_cmd(cmd, env_lst, error), cmd->options, NULL) == -1)
+				exit(1);
+		}
+		waitpid(pid, NULL, 0);
+	}
 	return (result);
 }
 

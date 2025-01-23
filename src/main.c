@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <minishell.h>
+#include <readline/readline.h>
 
 #define PROMPT "minishell > "
 

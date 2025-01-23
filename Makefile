@@ -61,6 +61,7 @@ SRCS		:=	main.c \
 				exec/exec_create_cmd.c \
 				exec/exec_utils.c \
 				exec/exec_identify_fd.c \
+				exec/exec_parsing.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
