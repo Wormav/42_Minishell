@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/24 16:41:33 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/24 18:48:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	process_parsing(char *argv1, t_env *env_lst)
 	check_odd_quotes(str, &err);
 	if (err)
 		return (lp_free(str));
-	str = parser_filter_quote(str);
 	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
 	if (err)
@@ -46,6 +45,7 @@ static void	process_parsing(char *argv1, t_env *env_lst)
 		token_identify_error(err, list, str);
 	list = parser_identify(list);
 	parser_define_priority(&list);
+	printf("\n\n");
 	print_token_list(list);
 	parser_join_tokens(list);
 	print_token_list(list);
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!*str)
 		{
 			str = readline(PROMPT);
-			continue ;	
+			continue ;
 		}
 		add_history(str);
 		process_parsing(str, env_lst);

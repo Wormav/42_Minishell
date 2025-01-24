@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/24 16:15:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:47:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, int *error)
 	char	*test;
 	char	**argv_cmd;
 	pid_t	pid;
-	
+
 	test_env = env_tab(env_lst);
 	test = find_cmd(cmd, env_lst, error);
 	argv_cmd = join_params(cmd);
@@ -115,8 +115,11 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, int *error)
 static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
+	// char *tmp; // * pour passer le cmd avec les quotes a echo !
 
 	result = NULL;
+	// tmp = cmd->params;
+	cmd->params = parser_filter_quote(cmd->params);
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "unset"))
