@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/24 09:48:14 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:15:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 		ft_export(&env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
 		result = execute_exit(cmd);
+	else if (!ft_strcmp(cmd->cmd, "env"))
+		result = execute_env(env_lst, cmd, error);
 	else
 	{
 		pid = fork();
