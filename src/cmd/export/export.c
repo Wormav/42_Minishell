@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:52:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:45:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	process_args(char *split, int *error, t_env **env)
 	if (find_next_sign('=', split) != (int)ft_strlen(split))
 	{
 		split_equal = ft_split(split, '=');
-		tmp = ft_strsjoin(5, split_equal[0], "=", "\"", split_equal[1], "\"");
+		tmp = ft_strsjoin(6, "declare -x ", split_equal[0], "=", "\"", split_equal[1], "\"");
 		free_split(split_equal);
 		env_list_insert(env, env_lstnew(tmp));
 	}
