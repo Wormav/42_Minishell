@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/23 17:54:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:33:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	handle_option_errors(t_cmd *cmd)
 {
 	if (cmd->options)
 	{
-		if (cmd->options[1])
+		if (cmd->options[1] || (cmd->options[0] && cmd->params[0] != 0))
 		{
 			printf("bash: exit: too many arguments\n");
 			return (1);
@@ -85,31 +85,29 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 		return (result);
 	if (cmd->params && cmd->params[0] != 0)
 		params = ft_split(cmd->params, ' ');
-	if ((params && params[0] && !ft_atol(params[0], overflow_error)
-			&& *overflow_error) || !content_valid_code(params[0]))
+	if (params && params[0])
 	{
-		printf("%s", handle_bad_params(params[0]));
-		free_split(params);
-		return (2);
+		if ((!ft_atol(params[0], overflow_error) && *overflow_error)
+			|| !content_valid_code(params[0]))
+		{
+			printf("%s", handle_bad_params(params[0]));
+			return (2);
+		}
 	}
 	if ((cmd->options && params && params[0]) || (params && params[1]))
 	{
 		printf("bash: exit: too many arguments\n");
-		free_split(params);
 		return (1);
 	}
-	if (params)
-		free_split(params);
 	return (0);
 }
 
-char	*execute_exit(t_cmd *cmd, int *error)
+char	*execute_exit(t_cmd *cmd)
 {
 	int		error_exit;
 	int		overflow_error;
 	long	exit_code;
 
-	(void)error;
 	overflow_error = 0;
 	printf("%s\n", "exit");
 	error_exit = handle_exit_errors(cmd, &overflow_error);
