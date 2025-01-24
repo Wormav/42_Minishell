@@ -52,6 +52,7 @@ SRCS		:=	main.c \
 				env/env_get_env.c \
 				env/env_join.c \
 				env/env_list_create.c \
+				env/env_utils.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \

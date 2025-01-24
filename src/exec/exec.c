@@ -14,6 +14,54 @@
 
 // !retirer les prints
 
+static size_t	cmd_size(t_cmd *cmd)
+{
+	size_t	size;
+	int		i;
+
+	i = 0;
+	size = 0;
+	if (cmd->params)
+		size++;
+	if (!cmd->options)
+		return (size + 1);
+	while (cmd->options[i])
+	{
+		size++;
+		i++;
+	}
+	return (size + 1);
+}
+
+static char	**join_params(t_cmd *cmd)
+{
+	char	**str;
+	int		i;
+	int		j;
+
+	str = lp_alloc(sizeof(char *) * cmd_size(cmd) + 1);
+	i = 0;
+	j = -1;
+	str[i] = lp_alloc(ft_strlen(cmd->cmd) + 1);
+	ft_strlcpy(str[i], cmd->cmd, ft_strlen(cmd->cmd) + 1);
+	i++;
+	if (cmd->options)
+	{
+		while (cmd->options[++j])
+		{
+			str[i] = lp_alloc(ft_strlen(cmd->options[j]) + 1);
+			ft_strlcpy(str[i], cmd->options[j], ft_strlen(cmd->options[j]) + 1);
+			i++;
+		}
+	}
+	if (*(cmd->params))
+	{
+		str[i] = lp_alloc(ft_strlen(cmd->params) + 1);
+		ft_strlcpy(str[i], cmd->params, ft_strlen(cmd->params) + 1);
+	}
+	return (str);
+}
+
 static void	trim_cmd_and_options(t_cmd *cmd)
 {
 	char	*tmp;
@@ -40,10 +88,34 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
+static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, int *error)
+{
+	char	**test_env;
+	char	*test;
+	char	**argv_cmd;
+	pid_t	pid;
+	
+	test_env = env_tab(env_lst);
+	test = find_cmd(cmd, env_lst, error);
+	argv_cmd = join_params(cmd);
+	pid = fork();
+	if (pid == -1)
+		exit(1);
+	if (pid == 0)
+	{
+		if (!test)
+			if (execve(cmd->cmd, argv_cmd, test_env) == -1)
+				exit(1);
+		if (execve(test, argv_cmd, test_env) == -1)
+			exit(1);
+	}
+	waitpid(pid, NULL, 0);
+}
+
 static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 {
 	char	*result;
-	int		pid;
+
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		result = execute_pwd(cmd, error);
@@ -58,17 +130,7 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		result = execute_env(env_lst, cmd, error);
 	else
-	{
-		pid = fork();
-		if (pid == -1)
-			exit(1);
-		if (pid == 0)
-		{
-			if (execve(find_cmd(cmd, env_lst, error), cmd->options, NULL) == -1)
-				exit(1);
-		}
-		waitpid(pid, NULL, 0);
-	}
+		process_others_cmd(cmd, env_lst, error);
 	return (result);
 }
 

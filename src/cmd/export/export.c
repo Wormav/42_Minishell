@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/24 13:45:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:23:55 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include <minishell.h>
 
 int	check_bad_params(char *str)
