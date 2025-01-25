@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:47:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/23 15:41:20 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:46:00 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static char	**exec_path_parsing(t_env *env, int *error)
 	if (!env)
 	{
 		*error = 1;
-		//error_message(*error);
 		return (NULL);
 	}
 	split = ft_split(env->content, ':');

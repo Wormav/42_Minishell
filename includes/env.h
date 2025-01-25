@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:30:57 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/24 17:21:54 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/25 18:11:14 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ void	env_lstadd_back(t_env **lst, t_env *new);
 t_env	*env_lstnew(void *content);
 size_t	env_list_size(t_env *env);
 char	**env_tab(t_env *env);
+int		env_has_env_vars(char *str);
+char	*env_replace_env_vars(t_env *env, char *str);
 
 #endif

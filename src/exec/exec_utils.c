@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:17:03 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/24 17:54:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:47:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,32 @@ int	skip_space(char *str)
 	return (str - start);
 }
 
-int    find_first_size(char *str)
+int	find_first_size(char *str)
 {
-    char    *start;
-    int        flag;
+	char	*start;
+	int		flag;
 
-    start = str;
-    flag = 1;
-    if (*str == '\'')
-    {
-        str++;
-        while (*str && *str != '\'')
-            str++;
-    }
-    else if (*str == '"')
-    {
-        str++;
-        while (*str && *str != '"')
-            str++;
-    }
-    else
-    {
-        flag = 0;
-        while (*str && *str != ' ')
-            str++;
-    }
-    return ((str - start) + flag);
+	start = str;
+	flag = 1;
+	if (*str == '\'')
+	{
+		str++;
+		while (*str && *str != '\'')
+			str++;
+	}
+	else if (*str == '"')
+	{
+		str++;
+		while (*str && *str != '"')
+			str++;
+	}
+	else
+	{
+		flag = 0;
+		while (*str && *str != ' ')
+			str++;
+	}
+	return ((str - start) + flag);
 }
 
 int	find_next_size(char *str)
