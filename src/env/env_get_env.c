@@ -6,18 +6,36 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:54:43 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/25 19:45:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:37:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static char	*process_env_value(char *content, int keylen)
+{
+	char	*value;
+	int		len;
+
+	value = content + keylen + 1;
+	if (*value == '"')
+	{
+		value++;
+		len = ft_strlen(value);
+		if (len > 0 && value[len - 1] == '"')
+			value[len - 1] = '\0';
+	}
+	len = ft_strlen(value);
+	if (len > 0 && value[len - 1] == '\n')
+		value[len - 1] = '\0';
+	return (value);
+}
+
 char	*env_get_value(t_env *env, char *key)
 {
 	t_env	*tmp;
 	int		keylen;
-	char	*value;
-	int		len;
+	char	*content;
 
 	if (!key || !env || key[0] != '$')
 		return (NULL);
@@ -26,15 +44,12 @@ char	*env_get_value(t_env *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->content, key, keylen)
-			&& ((char *)tmp->content)[keylen] == '=')
-		{
-			value = ((char *)tmp->content) + keylen + 1;
-			len = ft_strlen(value);
-			if (len > 0 && value[len - 1] == '\n')
-				value[len - 1] = '\0';
-			return (value);
-		}
+		content = tmp->content;
+		if (ft_strncmp(content, "declare -x ", 11) == 0)
+			content += 11;
+		if (!ft_strncmp(content, key, keylen)
+			&& ((char *)content)[keylen] == '=')
+			return (process_env_value(content, keylen));
 		tmp = tmp->next;
 	}
 	return (NULL);
