@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/25 19:42:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/27 07:33:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_cd(t_env *env, t_cmd *cmd, int *error)
 	options = 0;
 	if (cmd->options)
 		options = check_options(cmd, env);
-	if (!cmd->params[0] == 0)
+	if (cmd->params[0] != 0)
 	{
 		params = ft_split(cmd->params, ' ');
 		if (params[1])
