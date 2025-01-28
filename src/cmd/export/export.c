@@ -6,62 +6,47 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/24 13:23:55 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:01:00 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_bad_params(char *str)
+static int	validate_params(char **split, int *error)
 {
-	if (*str == '-')
-		return (1);
-	return (!ft_isalpha(*str));
-}
+	int	i;
 
-int	find_next_sign(char sign, char *str)
-{
-	char	*start;
-
-	start = str;
-	str++;
-	while (*str && *str != sign)
-		str++;
-	return (str - start);
-}
-
-void	process_args(char *split, int *error, t_env **env)
-{
-	char	*tmp = NULL;
-	char	**split_equal;
-
-
-	if (!ft_isalpha(*split))
+	i = 0;
+	while (split[i])
 	{
-		*error = 1;
-		return ;
+		if (split[i][0] == '=')
+		{
+			*error = 1;
+			printf("bash: export: ʻ%s': not a valid identifier\n", split[i]);
+			return (0);
+		}
+		i++;
 	}
-	if (find_next_sign('=', split) != (int)ft_strlen(split))
-	{
-		split_equal = ft_split(split, '=');
-		tmp = ft_strsjoin(6, "declare -x ", split_equal[0], "=", "\"", split_equal[1], "\"");
-		free_split(split_equal);
-		env_list_insert(env, env_lstnew(tmp));
-	}
-	else
-		env_list_insert(env, env_lstnew(split));
+	return (1);
 }
 
-void	process_params(t_env **env, t_cmd *cmd, int *error)
+static void	process_params(t_env *env, t_cmd *cmd, int *error)
 {
 	char	**split;
 	int		i;
 
 	i = 0;
-	split = ft_split(cmd->params, ' ');
+	split = ft_split(env_replace_env_vars(env, cmd->params), ' ');
+	if (!validate_params(split, error))
+		return ;
 	while (split[i])
 	{
-		process_args(split[i], error, env);
+		if (!has_equal_sign(split[i]))
+		{
+			free_split(split);
+			return ;
+		}
+		export_process_args(split[i], error, &env);
 		if (*error)
 		{
 			free_split(split);
@@ -69,14 +54,21 @@ void	process_params(t_env **env, t_cmd *cmd, int *error)
 		}
 		i++;
 	}
+	free_split(split);
 }
 
 void	ft_export(t_env **env, t_cmd *cmd, int *error)
 {
+	if (cmd->options)
+	{
+		*error = 1;
+		printf("%s", handle_bad_option(cmd->options[0], "export"));
+		return ;
+	}
 	if (!*(cmd->params) && !cmd->options)
 	{
 		env_print(*env);
 		return ;
 	}
-	process_params(env, cmd, error);
+	process_params(*env, cmd, error);
 }
