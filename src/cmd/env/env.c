@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/28 13:03:41 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:10:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static int	check_env_param(char *str)
 		if (str[i] == '\'' || str[i] == '\"')
 		{
 			quote = str[i++];
-			if (strncmp(str + i, "env", 3) != 0)
+			if (ft_strncmp(str + i, "env", 3) != 0)
 				return (0);
 			i += 3;
 			if (str[i++] != quote)
 				return (0);
 		}
-		else if (strncmp(str + i, "env", 3) == 0)
+		else if (ft_strncmp(str + i, "env", 3) == 0)
 			i += 3;
 		else if (str[i] != ' ')
 			return (0);
