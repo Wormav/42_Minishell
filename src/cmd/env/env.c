@@ -6,22 +6,23 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/27 07:54:47 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:03:41 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int check_env_param(char *str)
+static int	check_env_param(char *str)
 {
-	int i;
+	int		i;
+	char	quote;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
-			char quote = str[i++];
+			quote = str[i++];
 			if (strncmp(str + i, "env", 3) != 0)
 				return (0);
 			i += 3;
@@ -41,7 +42,7 @@ static int check_env_param(char *str)
 void	print_without_prefix(char *str)
 {
 	if (!str || ft_strlen(str) <= 11)
-		return;
+		return ;
 	printf("%s\n", str + 11);
 }
 
