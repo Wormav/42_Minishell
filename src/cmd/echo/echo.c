@@ -3,45 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/16 10:39:42 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/28 15:32:52 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*env_parsing(t_cmd cmd, char *to_find)
+int check_option_n(char *str)
 {
-	int	i;
-	char	*ptr;
+	int i;
 
-	i = 0;
-	while (cmd.env[i])
+	if (!str || str[0] != '-' || !str[1])
+		return (0);
+	i = 1;
+	while (str[i])
 	{
-		if (!ft_strncmp(to_find, cmd.env[i], ft_strlen(to_find))
-			&& cmd.env[i][ft_strlen(to_find + 1)] == '=')
-		{
-			ptr = &cmd.env[i][ft_strlen(to_find + 1)];
-			return (ptr);
-		}
+		if (str[i] != 'n')
+			return (0);
 		i++;
 	}
-	return (NULL);
+	return (1);
 }
 
-static size_t	__size_var(char *str, int index)
+int count_option_n(char **options)
 {
-	while (str[index] && str[index] != ' ')
-		index++;
-	return (index);
+	int count;
+	int i;
+
+	if (!options)
+		return (0);
+	count = 0;
+	i = 0;
+	while (options[i] && check_option_n(options[i]))
+	{
+		count++;
+		i++;
+	}
+	return (count);
 }
 
-char	*ft_echo(t_cmd cmd, int *error)
+void ft_echo(t_cmd *cmd, int *error)
 {
-	int		quote;
-	char	*str;
+	(void)error;
+	int i;
+	int save;
 
-
+	i = count_option_n(cmd->options);
+	save = i;
+	if (cmd->options)
+	{
+		while (cmd->options[i])
+		{
+			if (ft_strcmp(cmd->options[i],"-n") || i != 0)
+				printf("%s ", cmd->options[i]);
+			i++;
+		}
+	}
+	printf("%s", parser_filter_quote(cmd->params));
+	if (save)
+		return ;
+	printf("\n");
 }
