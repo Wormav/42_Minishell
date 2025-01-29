@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 07:34:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:28:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,34 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, int *error)
+static void execute_child_process(char *test, char **argv_cmd, char **test_env, t_cmd *cmd, long *error)
 {
-	char	**test_env;
-	char	*test;
-	char	**argv_cmd;
-	pid_t	pid;
+	if (!test)
+	{
+		if (execve(cmd->cmd, argv_cmd, test_env) == -1)
+		{
+			ft_putendl_fd(ft_strsjoin(3, "bash: ", cmd->cmd,
+				": command not found"), 2);
+			*error = 127;
+			exit(127);
+		}
+	}
+	if (execve(test, argv_cmd, test_env) == -1)
+	{
+		ft_putendl_fd(ft_strsjoin(3, "bash: ", test,
+			": command not found"), 2);
+		*error = 127;
+		exit(127);
+	}
+}
+
+static void process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
+{
+	char    **test_env;
+	char    *test;
+	char    **argv_cmd;
+	pid_t   pid;
+	int     status;
 
 	test_env = env_tab(env_lst);
 	test = find_cmd(cmd, env_lst, error);
@@ -102,23 +124,22 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, int *error)
 	if (pid == -1)
 		exit(1);
 	if (pid == 0)
-	{
-		if (!test)
-			if (execve(cmd->cmd, argv_cmd, test_env) == -1)
-				exit(1);
-		if (execve(test, argv_cmd, test_env) == -1)
-			exit(1);
-	}
-	waitpid(pid, NULL, 0);
+		execute_child_process(test, argv_cmd, test_env, cmd, error);
+	waitpid(pid, &status, 0);
+	*error = WEXITSTATUS(status);
 }
 
-static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
+static char	*exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 {
 	char	*result;
+	char	*save_return;
 
+	save_return = ft_strsjoin(3, "return_save=\"", ft_ltoa(*error), "\"");
+	env_list_insert(&env_lst, env_lstnew(save_return));
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "echo"))
-		ft_echo(cmd, error, env_lst);
+		ft_echo(cmd, env_lst);
+	*error = 0;
 	if (cmd->params)
 		cmd->params = parser_filter_quote(cmd->params);
 	if (!ft_strcmp(cmd->cmd, "pwd"))
@@ -130,23 +151,25 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 	else if (!ft_strcmp(cmd->cmd, "export"))
 		ft_export(&env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
-		result = execute_exit(cmd);
+		result = execute_exit(cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		result = execute_env(env_lst, cmd, error);
 	else if (ft_strcmp(cmd->cmd, "echo"))
 		process_others_cmd(cmd, env_lst, error);
+	printf("ICI=================> %ld\n", *error);
+
 	return (result);
 }
 
 void	exec(t_ast *ast, t_env *env_lst)
 {
-	t_cmd	*cmd;
-	t_fds	*fds;
-	char	*fd;
-	char	*result;
-	int		error;
+	t_cmd		*cmd;
+	t_fds		*fds;
+	char		*fd;
+	char		*result;
+	static long	error = 0;
 
-	error = 0;
+
 	cmd = NULL;
 	fds = NULL;
 	fd = exec_identify_fd(ast);
@@ -157,13 +180,7 @@ void	exec(t_ast *ast, t_env *env_lst)
 	trim_cmd_and_options(cmd);
 	print_cmd(cmd);
 	result = exec_cmd(cmd, &error, env_lst);
-	if (error)
-	{
-		ft_putendl_fd("Error !!!!", 2);
-		ft_putendl_fd(result, 2);
-	}
-	else
-		printf("%s\n\n", result);
+	printf("%s\n\n", result);
 	lp_free(result);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);

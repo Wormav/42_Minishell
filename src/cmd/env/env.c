@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 09:18:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ void	print_without_prefix(char *str)
 	printf("%s\n", str + 11);
 }
 
-char	*execute_env(t_env *env, t_cmd *cmd, int *error)
+char	*execute_env(t_env *env, t_cmd *cmd, long *error)
 {
 	if (cmd->options)
+	{
+		*error = 2;
 		return (handle_bad_option(cmd->options[0], "env"));
+	}
 	if ((!*(cmd->params) && !cmd->options) || check_env_param(cmd->params))
 	{
 		while (env)

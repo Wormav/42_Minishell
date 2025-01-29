@@ -58,3 +58,4 @@ minishell
 *.json
 .vscode
 .objs
+*.nfs

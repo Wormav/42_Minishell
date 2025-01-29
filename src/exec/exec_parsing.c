@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:47:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/25 19:46:00 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	**exec_path_parsing(t_env *env, int *error)
+static char	**exec_path_parsing(t_env *env, long *error)
 {
 	char	**split;
 
@@ -27,7 +27,7 @@ static char	**exec_path_parsing(t_env *env, int *error)
 	return (split);
 }
 
-char	*find_cmd(t_cmd *cmd, t_env *env, int *error)
+char	*find_cmd(t_cmd *cmd, t_env *env, long *error)
 {
 	char	**paths;
 	char	*tmp_path;
