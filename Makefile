@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/28 11:48:27 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/29 18:38:52 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		:=	main.c \
 				errors/error_odd_quotes.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
+				utils/ft_ltoa.c \
 				utils/ft_atol.c \
 				utils/handle_bad_option.c \
 				utils/has_equal_sign.c \
@@ -55,6 +56,8 @@ SRCS		:=	main.c \
 				env/env_join.c \
 				env/env_list_create.c \
 				env/env_utils.c \
+				cmd/echo/echo.c \
+				cmd/echo/echo_utils.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \

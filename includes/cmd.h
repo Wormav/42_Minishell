@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/28 11:50:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:28:34 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 # include <exec.h>
 # include <env.h>
 
-char	*ft_echo(t_cmd cmd, int *error);
-char	*execute_pwd(t_cmd *cmd, int *error);
-char	*execute_unset(t_cmd *cmd, int *error, t_env *env_lst);
-void	ft_cd(t_env *env, t_cmd *cmd, int *error);
-void	ft_export(t_env **env, t_cmd *cmd, int *error);
-char	*execute_exit(t_cmd *cmd);
-char	*execute_env(t_env *env, t_cmd *cmd, int *error);
+void	ft_echo(t_cmd *cmd, t_env *env);
+char	*execute_pwd(t_cmd *cmd, long *error);
+char	*execute_unset(t_cmd *cmd, long *error, t_env *env_lst);
+void	ft_cd(t_env *env, t_cmd *cmd, long *error);
+void	ft_export(t_env **env, t_cmd *cmd, long *error);
+char	*execute_exit(t_cmd *cmd, long *exit_code);
+char	*execute_env(t_env *env, t_cmd *cmd, long *error);
 int		export_is_valid_key(char *str);
 int		export_check_params(char *str);
 int		export_find_next_sign(char sign, char *str);
 char	*export_remove_plus_before_equal(char *str);
 void	export_process_args_with_equal(char *split, int valid_key, t_env **env);
-void	export_process_args(char *split, int *error, t_env **env);
+void	export_process_args(char *split, long *error, t_env **env);
+int		echo_count_option_n(char **options);
+int		echo_check_dollar_sign(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:46:00 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/28 11:56:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	export_process_args_with_equal(char *split, int valid_key, t_env **env)
 	free_split(split_equal);
 }
 
-void	export_process_args(char *split, int *error, t_env **env)
+void	export_process_args(char *split, long *error, t_env **env)
 {
 	int	valid_key;
 

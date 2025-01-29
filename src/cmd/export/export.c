@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/28 13:01:00 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	validate_params(char **split, int *error)
+static int	validate_params(char **split, long *error)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static int	validate_params(char **split, int *error)
 	return (1);
 }
 
-static void	process_params(t_env *env, t_cmd *cmd, int *error)
+static void	process_params(t_env *env, t_cmd *cmd, long *error)
 {
 	char	**split;
 	int		i;
@@ -57,11 +57,11 @@ static void	process_params(t_env *env, t_cmd *cmd, int *error)
 	free_split(split);
 }
 
-void	ft_export(t_env **env, t_cmd *cmd, int *error)
+void	ft_export(t_env **env, t_cmd *cmd, long *error)
 {
 	if (cmd->options)
 	{
-		*error = 1;
+		*error = 2;
 		printf("%s", handle_bad_option(cmd->options[0], "export"));
 		return ;
 	}

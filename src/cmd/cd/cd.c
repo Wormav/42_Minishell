@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/27 07:33:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,18 @@ static int	case_one(t_env *env)
 	return (1);
 }
 
-static int	check_options(t_cmd *cmd, t_env *env)
+static int	check_options(t_cmd *cmd, t_env *env, long *error)
 {
 	if (!ft_strcmp(cmd->options[0], "--"))
 		return (case_twoo(env));
 	if (!ft_strcmp(cmd->options[0], "-"))
 		return (case_one(env));
 	printf("%s", handle_bad_option(cmd->options[0], "cd"));
+	*error = 2;
 	return (1);
 }
 
-static void	handle_cd_execution(t_env *env, t_cmd *cmd, int *error)
+static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 {
 	int	chdir_return;
 
@@ -97,19 +98,20 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, int *error)
 		printf("Minishell: %s not a directory\n", cmd->params);
 }
 
-void	ft_cd(t_env *env, t_cmd *cmd, int *error)
+void	ft_cd(t_env *env, t_cmd *cmd, long *error)
 {
 	int		options;
 	char	**params;
 
 	options = 0;
 	if (cmd->options)
-		options = check_options(cmd, env);
+		options = check_options(cmd, env, error);
 	if (cmd->params[0] != 0)
 	{
 		params = ft_split(cmd->params, ' ');
 		if (params[1])
 		{
+			*error = 1;
 			printf("bash: cd: too many arguments\n");
 			return ;
 		}

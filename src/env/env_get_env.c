@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:54:43 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/26 11:37:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:34:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*env_get_value(t_env *env, char *key)
 	return (NULL);
 }
 
-static char	*process_env_var(t_env *env, char *result, char *var_start)
+char	*process_env_var(t_env *env, char *result, char *var_start)
 {
 	char	*var_end;
 	char	*var_value;
@@ -64,7 +64,8 @@ static char	*process_env_var(t_env *env, char *result, char *var_start)
 	int		i;
 
 	var_end = var_start + 1;
-	while (*var_end && (ft_isalnum(*var_end) || *var_end == '_'))
+	while (*var_end && (ft_isalnum(*var_end) || *var_end == '_'
+			|| *var_end == '?'))
 		var_end++;
 	i = var_end - var_start;
 	tmp = ft_substr(var_start, 0, i);

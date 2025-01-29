@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:18:56 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/28 14:21:52 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ char	*parser_filter_quote(char *str)
 		return (NULL);
 	cleaned_params = remove_quotes(str);
 	if (cleaned_params)
-	{
-		lp_free(str);
 		str = cleaned_params;
-	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:30:57 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/25 18:11:14 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:08:31 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ size_t	env_list_size(t_env *env);
 char	**env_tab(t_env *env);
 int		env_has_env_vars(char *str);
 char	*env_replace_env_vars(t_env *env, char *str);
+char	*process_env_var(t_env *env, char *result, char *var_start);
 
 #endif

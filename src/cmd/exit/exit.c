@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/24 11:33:45 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:40:39 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,10 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 	return (0);
 }
 
-char	*execute_exit(t_cmd *cmd)
+char	*execute_exit(t_cmd *cmd, long *exit_code)
 {
 	int		error_exit;
 	int		overflow_error;
-	long	exit_code;
 
 	overflow_error = 0;
 	printf("%s\n", "exit");
@@ -114,10 +113,10 @@ char	*execute_exit(t_cmd *cmd)
 	if (error_exit != 1 && error_exit != 0)
 		exit(error_exit);
 	if (cmd->options)
-		exit_code = ft_atol(cmd->options[0], &overflow_error);
+		*exit_code = ft_atol(cmd->options[0], &overflow_error);
 	else
-		exit_code = ft_atol(cmd->params, &overflow_error);
+		*exit_code = ft_atol(cmd->params, &overflow_error);
 	if (error_exit != 1)
-		exit(exit_code);
+		exit(*exit_code);
 	return (NULL);
 }
