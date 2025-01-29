@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:54:43 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 18:16:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:34:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ char	*env_get_value(t_env *env, char *key)
 	if (!key || !env || key[0] != '$')
 		return (NULL);
 	key++;
-	if (key[0] == '?' && !key[1])
-		key = "return_save";
 	keylen = ft_strlen(key);
 	tmp = env;
 	while (tmp)

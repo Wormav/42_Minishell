@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 18:28:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:33:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ static char	*exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 	char	*result;
 	char	*save_return;
 
-	save_return = ft_strsjoin(3, "return_save=\"", ft_ltoa(*error), "\"");
+	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(*error), "\"");
 	env_list_insert(&env_lst, env_lstnew(save_return));
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "echo"))
@@ -156,7 +156,6 @@ static char	*exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 		result = execute_env(env_lst, cmd, error);
 	else if (ft_strcmp(cmd->cmd, "echo"))
 		process_others_cmd(cmd, env_lst, error);
-	printf("ICI=================> %ld\n", *error);
 
 	return (result);
 }
