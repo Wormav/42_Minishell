@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/28 14:19:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 07:34:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static char	*exec_cmd(t_cmd *cmd, int *error, t_env *env_lst)
 
 	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "echo"))
-		ft_echo(cmd, error);
+		ft_echo(cmd, error, env_lst);
 	if (cmd->params)
 		cmd->params = parser_filter_quote(cmd->params);
 	if (!ft_strcmp(cmd->cmd, "pwd"))

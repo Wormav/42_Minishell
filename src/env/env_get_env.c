@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:54:43 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/26 11:37:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:37:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*env_get_value(t_env *env, char *key)
 	return (NULL);
 }
 
-static char	*process_env_var(t_env *env, char *result, char *var_start)
+char	*process_env_var(t_env *env, char *result, char *var_start)
 {
 	char	*var_end;
 	char	*var_value;

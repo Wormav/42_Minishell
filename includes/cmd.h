@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/28 14:00:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/29 07:34:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <exec.h>
 # include <env.h>
 
-void 	ft_echo(t_cmd *cmd, int *error);
+void 	ft_echo(t_cmd *cmd, int *error,t_env *env);
 char 	*execute_pwd(t_cmd *cmd, int *error);
 char	*execute_unset(t_cmd *cmd, int *error, t_env *env_lst);
 void	ft_cd(t_env *env, t_cmd *cmd, int *error);

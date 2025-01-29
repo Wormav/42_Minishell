@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/28 13:30:53 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/29 08:19:28 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS		:=	main.c \
 				parser/parser_join_utils.c \
 				parser/parser_quotes.c\
 				parser/parser_clean_quotes.c \
+				parser/parser_clean_only_dquotes.c \
 				parser/parser_dquotes.c \
 				errors/token_errors.c \
 				errors/error_odd_quotes.c \
