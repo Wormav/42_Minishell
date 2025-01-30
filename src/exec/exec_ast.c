@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 16:43:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:32:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,49 +28,62 @@ static void	exec_handle_output(char *fd_trim, char *fd)
 	}
 }
 
-static void exec_handle_input(t_ast *ast)
+static void	exec_handle_input(t_ast *ast)
 {
-    char *input_file;
-    int input_fd;
+	char	*input_file;
+	int		input_fd;
 
-    input_file = exec_identify_se(ast);
-    if (input_file)
-    {
-        input_file = exec_trim_fd(input_file);
-        if (input_file)
-        {
-            input_fd = open(input_file, O_RDONLY);
-            if (input_fd != -1)
-            {
-                dup2(input_fd, STDIN_FILENO);
-                close(input_fd);
-            }
-            lp_free(input_file);
-        }
-    }
+	input_file = exec_identify_se(ast);
+	if (input_file)
+	{
+		input_file = exec_trim_fd(input_file);
+		if (input_file)
+		{
+			input_fd = open(input_file, O_RDONLY);
+			if (input_fd != -1)
+			{
+				dup2(input_fd, STDIN_FILENO);
+				close(input_fd);
+			}
+			lp_free(input_file);
+		}
+	}
 }
 
-void exec_ast(t_ast *ast, t_env *env_lst)
+void	trunc_orders_fds(t_fds *fds)
 {
-    int     stdin_backup;
-    int     stdout_backup;
-    t_fds   *fds;
-    char    *fd_trim;
-    char    *fd;
+	if (!fds)
+		return ;
+	while (fds)
+	{
+		if (!ft_strncmp(fds->fd_name, "> ", 2))
+			open(ft_strtrim(fds->fd_name, "> "), O_TRUNC | O_CREAT);
+		fds = fds->next;
+	}
+}
 
-    fds = NULL;
-    fd_trim = NULL;
-    exec_setup_fds(ast, &fds, &fd, &fd_trim);
-    if (!ast || !env_lst)
-        return ;
-    stdin_backup = dup(STDIN_FILENO);
-    stdout_backup = dup(STDOUT_FILENO);
-    exec_handle_input(ast);
-    exec_handle_output(fd_trim, fd);
-    exec_ast_right(ast, env_lst);
-    dup2(stdin_backup, STDIN_FILENO);
-    dup2(stdout_backup, STDOUT_FILENO);
-    close(stdin_backup);
-    close(stdout_backup);
-    exec_free_fds(fds);
+void	exec_ast(t_ast *ast, t_env *env_lst)
+{
+	int		stdin_backup;
+	int		stdout_backup;
+	t_fds	*fds;
+	char	*fd_trim;
+	char	*fd;
+
+	fds = NULL;
+	fd_trim = NULL;
+	exec_setup_fds(ast, &fds, &fd, &fd_trim);
+	if (!ast || !env_lst)
+		return ;
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	exec_handle_input(ast);
+	exec_handle_output(fd_trim, fd);
+	exec_ast_right(ast, env_lst);
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+	trunc_orders_fds(fds);
+	exec_free_fds(fds);
 }

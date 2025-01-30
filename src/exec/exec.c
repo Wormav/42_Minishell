@@ -6,67 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 12:54:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:29:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static size_t	cmd_size(t_cmd *cmd)
-{
-	size_t	size;
-	int		i;
-
-	i = 0;
-	size = 0;
-	if (cmd->params)
-		size++;
-	if (!cmd->options)
-		return (size + 1);
-	while (cmd->options[i])
-	{
-		size++;
-		i++;
-	}
-	return (size + 1);
-}
-
-static void fill_params_array(char **str, t_cmd *cmd, int *i)
-{
-	int j;
-
-	j = -1;
-	if (cmd->options)
-	{
-		while (cmd->options[++j])
-		{
-			str[*i] = lp_alloc(ft_strlen(cmd->options[j]) + 1);
-			ft_strlcpy(str[*i], cmd->options[j], ft_strlen(cmd->options[j]) + 1);
-			(*i)++;
-		}
-	}
-	if (cmd->params && *(cmd->params))
-	{
-		str[*i] = lp_alloc(ft_strlen(cmd->params) + 1);
-		ft_strlcpy(str[*i], cmd->params, ft_strlen(cmd->params) + 1);
-		(*i)++;
-	}
-	str[*i] = NULL;
-}
-
-static char **join_params(t_cmd *cmd)
-{
-	char    **str;
-	int     i;
-
-	str = lp_alloc(sizeof(char *) * (cmd_size(cmd) + 1));
-	i = 0;
-	str[i] = lp_alloc(ft_strlen(cmd->cmd) + 1);
-	ft_strlcpy(str[i], cmd->cmd, ft_strlen(cmd->cmd) + 1);
-	i++;
-	fill_params_array(str, cmd, &i);
-	return (str);
-}
 
 static void	trim_cmd_and_options(t_cmd *cmd)
 {
@@ -94,43 +38,47 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static void execute_child_process(char *test, char **argv_cmd, char **test_env, t_cmd *cmd, long *error)
+static long	execute_child_process(char *cmd_name, char **argv_cmd,
+char **env_lst, t_cmd *cmd)
 {
-	if (!test)
+	if (!cmd_name)
 	{
-		if (execve(cmd->cmd, argv_cmd, test_env) == -1)
+		if (execve(cmd->cmd, argv_cmd, env_lst) == -1)
 		{
 			ft_putendl_fd(ft_strsjoin(3, "bash: ", cmd->cmd,
-				": command not found"), 2);
-			*error = 127;
-			exit(127);
+					": command not found"), 2);
+			return (127);
 		}
 	}
-	if (execve(test, argv_cmd, test_env) == -1)
+	if (execve(cmd_name, argv_cmd, env_lst) == -1)
 	{
-		ft_putendl_fd(ft_strsjoin(3, "bash: ", test,
-			": command not found"), 2);
-		*error = 127;
-		exit(127);
+		ft_putendl_fd(ft_strsjoin(3, "bash: ", cmd_name,
+				": command not found"), 2);
+		return (127);
 	}
+	return (0);
 }
 
-static void process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
+static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
 {
-	char    **test_env;
-	char    *test;
-	char    **argv_cmd;
-	pid_t   pid;
-	int     status;
+	char	**test_env;
+	char	*cmd_name;
+	char	**argv_cmd;
+	pid_t	pid;
+	int		status;
 
 	test_env = env_tab(env_lst);
-	test = find_cmd(cmd, env_lst, error);
+	cmd_name = find_cmd(cmd, env_lst, error);
 	argv_cmd = join_params(cmd);
 	pid = fork();
 	if (pid == -1)
 		exit(1);
 	if (pid == 0)
-		execute_child_process(test, argv_cmd, test_env, cmd, error);
+	{
+		*error = execute_child_process(cmd_name, argv_cmd, test_env, cmd);
+		if (*error == 127)
+			exit(127);
+	}
 	waitpid(pid, &status, 0);
 	*error = WEXITSTATUS(status);
 }

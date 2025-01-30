@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/30 15:02:37 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/30 17:30:33 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS		:=	main.c \
 				cmd/export/export_process_args.c \
 				cmd/env/env.c \
 				exec/exec.c \
+				exec/exec_execve.c \
 				exec/exec_ast.c \
 				exec/exec_ast_utils.c \
 				exec/exec_create_cmd.c \
