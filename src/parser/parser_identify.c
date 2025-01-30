@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/11 13:01:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:05:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static t_token	*parser_identify_files(t_token *lst)
 	{
 		if (lst->next && lst->next->type == TOKEN_SPACE)
 			set_next_file_with_spaces(lst);
-		else if (lst->type == TOKEN_WORD && lst->next->type == TOKEN_REDIR_IN)
-			lst->type = TOKEN_FILE;
+		else if (lst->type == TOKEN_REDIR_IN && lst->next->type == TOKEN_WORD)
+			lst->next->type = TOKEN_FILE;
 		else if (lst->type == TOKEN_REDIR_OUT && lst->next->type == TOKEN_WORD)
 			lst->next->type = TOKEN_FILE;
 		else if (lst->type == TOKEN_APPEND && lst->next->type == TOKEN_WORD)

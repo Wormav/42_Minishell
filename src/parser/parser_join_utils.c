@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:52:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:12:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,12 @@ t_token	*parser_join_file_and_redir_in(t_token *list)
 	current = list;
 	while (current && current->next)
 	{
-		if (current->type == TOKEN_FILE
-			&& ((current->next->type == TOKEN_REDIR_IN)
-				|| (current->next->type == TOKEN_SPACE
-					&& current->next->next
-					&& current->next->next->type == TOKEN_REDIR_IN)))
+		if ((current->type == TOKEN_REDIR_IN)
+			&& (current->next->type == TOKEN_FILE
+				|| current->next->type == TOKEN_SPACE))
 		{
 			if (!join_tokens(current))
 				return (head);
-			if (current->next && current->next->type == TOKEN_REDIR_IN)
-				if (!join_tokens(current))
-					return (head);
 		}
 		else
 			current = current->next;
