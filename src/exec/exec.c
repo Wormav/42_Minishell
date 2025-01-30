@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 10:59:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:37:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	exec(t_ast *ast, t_env *env_lst)
 	char		*fd;
 	static long	error = 0;
 
-
+	ast->content = ft_strtrim(ast->content, " ");
 	cmd = NULL;
 	fds = NULL;
 	fd = exec_identify_fd(ast);
