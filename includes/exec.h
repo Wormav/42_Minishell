@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:20:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ int		find_next_size(char *str);
 int		check_opts(char *str);
 int		count_args(char *str);
 int		find_first_size(char *str);
+
+// exec ast
+void	exec_ast(t_ast *ast, t_env *env_lst);
+void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
+void	exec_ast_right(t_ast *ast, t_env *env_lst);
 
 #endif
