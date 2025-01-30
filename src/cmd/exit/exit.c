@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 15:40:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:53:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 	return (0);
 }
 
-char	*execute_exit(t_cmd *cmd, long *exit_code)
+void	execute_exit(t_cmd *cmd, long *exit_code)
 {
 	int		error_exit;
 	int		overflow_error;
@@ -118,5 +118,5 @@ char	*execute_exit(t_cmd *cmd, long *exit_code)
 		*exit_code = ft_atol(cmd->params, &overflow_error);
 	if (error_exit != 1)
 		exit(*exit_code);
-	return (NULL);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/29 18:28:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:36:34 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	process_with_dollar(char *str, t_env *env)
 	printf("%s", trim);
 }
 
-void	ft_echo(t_cmd *cmd, t_env *env)
+void	execute_echo(t_cmd *cmd, t_env *env)
 {
 	int	count_n;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:37:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	process_params(t_env *env, t_cmd *cmd, long *error)
 	free_split(split);
 }
 
-void	ft_export(t_env **env, t_cmd *cmd, long *error)
+void	execute_export(t_env **env, t_cmd *cmd, long *error)
 {
 	if (cmd->options)
 	{
