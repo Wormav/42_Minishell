@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:37:11 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:53:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	exec(t_ast *ast, t_env *env_lst)
 	printf("FD =======> [%s]\n", fd);
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
-	print_cmd(cmd);
 	exec_cmd(cmd, &error, env_lst);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);

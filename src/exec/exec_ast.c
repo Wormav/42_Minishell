@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:26:49 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:53:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void exec_ast_left(t_ast *ast, t_env *env_lst)
+static void exec_ast_right(t_ast *ast, t_env *env_lst)
 {
 	if (!ast)
 		return;
@@ -27,13 +27,13 @@ static void exec_ast_left(t_ast *ast, t_env *env_lst)
 			close(pipefd[0]);
 			dup2(pipefd[1], STDOUT_FILENO);
 			close(pipefd[1]);
-			exec(ast->left, env_lst);
+			exec_ast_right(ast->left, env_lst);
 			exit(0);
 		}
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
-		exec_ast_left(ast->right, env_lst);
+		exec(ast->right, env_lst);
 		wait(NULL);
 	}
 	else
@@ -46,7 +46,7 @@ void exec_ast(t_ast *ast, t_env *env_lst)
 		return;
 	int stdin_backup = dup(STDIN_FILENO);
 	int stdout_backup = dup(STDOUT_FILENO);
-	exec_ast_left(ast, env_lst);
+	exec_ast_right(ast, env_lst);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
