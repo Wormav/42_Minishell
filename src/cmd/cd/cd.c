@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 10:37:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:23:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,22 @@ static int	check_options(t_cmd *cmd, t_env *env, long *error)
 
 static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 {
-	int	chdir_return;
+	int		chdir_return;
+	char	*pwd;
 
+	*error = 2;
 	if (access(cmd->params, 0) == F_OK)
 	{
 		chdir_return = chdir(cmd->params);
 		if (chdir_return == 0)
 		{
+			pwd = getcwd(NULL, 0);
 			env_list_insert(&env,
-				env_lstnew(ft_strsjoin(2, "OLDPDW", execute_pwd(cmd, error))));
+				env_lstnew(ft_strsjoin(2, "OLDPDW", pwd)));
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
 						cmd->params)));
+			free(pwd);
+			*error = 0;
 		}
 		else
 			printf("bash: cd: %s: No such file or directory\n", cmd->params);
