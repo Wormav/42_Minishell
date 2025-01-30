@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 15:59:14 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:21:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ char	*exec_identify_fd(t_ast *ast)
 		return (ast->content);
 	left = exec_identify_fd(ast->left);
 	right = exec_identify_fd(ast->right);
+	if (left)
+		return (left);
+	if (right)
+		return (right);
+	return (NULL);
+}
+
+char	*exec_identify_se(t_ast *ast)
+{
+	char	*left;
+	char	*right;
+
+	if (!ast)
+		return (NULL);
+	if (ast->token == TOKEN_REDIR_IN)
+		return (ast->content);
+	left = exec_identify_se(ast->left);
+	right = exec_identify_se(ast->right);
 	if (left)
 		return (left);
 	if (right)

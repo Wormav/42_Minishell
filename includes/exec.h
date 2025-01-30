@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 15:35:30 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:21:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	cleanup_cmd(t_cmd *cmd);
 // identify fd
 void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd);
 char	*exec_identify_fd(t_ast *ast);
+char	*exec_identify_se(t_ast *ast);
 void	exec_free_fds(t_fds *fds);
 
 // exec

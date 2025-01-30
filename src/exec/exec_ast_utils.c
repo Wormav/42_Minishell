@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 15:35:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:43:24 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*exec_trim_fd(char *fd)
 	if (!fd)
 		return (NULL);
 	start = 0;
-	while (fd[start] && (fd[start] == '>' || fd[start] == '<'))
+	while (fd[start] && (fd[start] == '>' || fd[start] == '<'
+			|| fd[start] == '<'))
 		start++;
 	trimmed = ft_strdup(fd + start);
 	trimmed = ft_strtrim(trimmed, " ");
