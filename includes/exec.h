@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 12:20:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:28:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ void	cleanup_cmd(t_cmd *cmd);
 // identify fd
 void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd);
 char	*exec_identify_fd(t_ast *ast);
+char	*exec_identify_se(t_ast *ast);
 void	exec_free_fds(t_fds *fds);
 
 // exec
 void	exec(t_ast *ast, t_env *env_lst);
 char	*find_cmd(t_cmd *cmd, t_env *env, long *error);
+
+// execve
+size_t	cmd_size(t_cmd *cmd);
+void	fill_params_array(char **str, t_cmd *cmd, int *i);
+char	**join_params(t_cmd *cmd);
 
 //utils
 
@@ -54,5 +60,12 @@ int		find_first_size(char *str);
 void	exec_ast(t_ast *ast, t_env *env_lst);
 void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
 void	exec_ast_right(t_ast *ast, t_env *env_lst);
+
+// exec ast utils
+char	*exec_trim_fd(char *fd);
+int		define_macro(char *fd);
+void	exec_ast_right(t_ast *ast, t_env *env_lst);
+void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
+void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
 
 #endif

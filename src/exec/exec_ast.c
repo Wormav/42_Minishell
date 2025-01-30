@@ -6,58 +6,84 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 12:18:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:32:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exec_ast_right(t_ast *ast, t_env *env_lst)
+static void	exec_handle_output(char *fd_trim, char *fd)
 {
-	int		pipefd[2];
-	pid_t	pid;
+	int	output_fd;
 
-	pid = 0;
-	if (!ast)
-		return ;
-	if (ast->token == TOKEN_PIPE)
-		handle_pipe(ast, env_lst, pipefd, pid);
-	else
-		exec(ast, env_lst);
+	if (fd_trim)
+	{
+		output_fd = open(fd_trim, O_WRONLY | O_CREAT | define_macro(fd),
+				0644);
+		if (output_fd != -1)
+		{
+			dup2(output_fd, STDOUT_FILENO);
+			close(output_fd);
+		}
+	}
 }
 
-void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid)
+static void	exec_handle_input(t_ast *ast)
 {
-	if (pipe(pipefd) == -1)
-		return ;
-	pid = fork();
-	if (pid == 0)
+	char	*input_file;
+	int		input_fd;
+
+	input_file = exec_identify_se(ast);
+	if (input_file)
 	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		exec_ast_right(ast->left, env_lst);
-		exit(0);
+		input_file = exec_trim_fd(input_file);
+		if (input_file)
+		{
+			input_fd = open(input_file, O_RDONLY);
+			if (input_fd != -1)
+			{
+				dup2(input_fd, STDIN_FILENO);
+				close(input_fd);
+			}
+			lp_free(input_file);
+		}
 	}
-	close(pipefd[1]);
-	dup2(pipefd[0], STDIN_FILENO);
-	close(pipefd[0]);
-	exec(ast->right, env_lst);
-	wait(NULL);
+}
+
+void	trunc_orders_fds(t_fds *fds)
+{
+	if (!fds)
+		return ;
+	while (fds)
+	{
+		if (!ft_strncmp(fds->fd_name, "> ", 2))
+			open(ft_strtrim(fds->fd_name, "> "), O_TRUNC | O_CREAT);
+		fds = fds->next;
+	}
 }
 
 void	exec_ast(t_ast *ast, t_env *env_lst)
 {
-	int	stdin_backup;
-	int	stdout_backup;
+	int		stdin_backup;
+	int		stdout_backup;
+	t_fds	*fds;
+	char	*fd_trim;
+	char	*fd;
 
+	fds = NULL;
+	fd_trim = NULL;
+	exec_setup_fds(ast, &fds, &fd, &fd_trim);
 	if (!ast || !env_lst)
 		return ;
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
+	exec_handle_input(ast);
+	exec_handle_output(fd_trim, fd);
 	exec_ast_right(ast, env_lst);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
 	close(stdout_backup);
+	trunc_orders_fds(fds);
+	exec_free_fds(fds);
 }
