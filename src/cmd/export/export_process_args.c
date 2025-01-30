@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:46:00 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:50:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env **env)
 	tmp = NULL;
 	if (valid_key == 1)
 	{
-		tmp = ft_strsjoin(6, "declare -x ", split_equal[0], "=",
+		tmp = ft_strsjoin(5, split_equal[0], "=",
 				"\"", split_equal[1], "\"");
 	}
 	else if (valid_key == 2)
@@ -30,7 +30,7 @@ t_env **env)
 					export_remove_plus_before_equal(split_equal[0])));
 		if (!env_value)
 			env_value = "";
-		tmp = ft_strsjoin(7, "declare -x ",
+		tmp = ft_strsjoin(6,
 				export_remove_plus_before_equal(split_equal[0]), "=",
 				"\"", env_value, split_equal[1], "\"");
 	}
@@ -48,7 +48,7 @@ void	export_process_args_with_equal(char *split, int valid_key, t_env **env)
 		process_args_with_value(split_equal, valid_key, env);
 	else if (split_equal[0])
 	{
-		tmp = ft_strsjoin(5, "declare -x ", split_equal[0], "=",
+		tmp = ft_strsjoin(4, split_equal[0], "=",
 				"\"", "\"");
 		env_list_insert(env, env_lstnew(tmp));
 	}

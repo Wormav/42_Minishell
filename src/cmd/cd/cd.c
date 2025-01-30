@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:37:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 		printf("Minishell: %s not a directory\n", cmd->params);
 }
 
-void	ft_cd(t_env *env, t_cmd *cmd, long *error)
+void	execute_cd(t_env *env, t_cmd *cmd, long *error)
 {
 	int		options;
 	char	**params;

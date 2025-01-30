@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 18:33:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:59:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,35 +129,31 @@ static void process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
 	*error = WEXITSTATUS(status);
 }
 
-static char	*exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
+static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 {
-	char	*result;
 	char	*save_return;
 
 	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(*error), "\"");
 	env_list_insert(&env_lst, env_lstnew(save_return));
-	result = NULL;
 	if (!ft_strcmp(cmd->cmd, "echo"))
-		ft_echo(cmd, env_lst);
+		execute_echo(cmd, env_lst);
 	*error = 0;
 	if (cmd->params)
 		cmd->params = parser_filter_quote(cmd->params);
 	if (!ft_strcmp(cmd->cmd, "pwd"))
-		result = execute_pwd(cmd, error);
+		execute_pwd(cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "unset"))
-		result = execute_unset(cmd, error, env_lst);
+		execute_unset(cmd, error, env_lst);
 	else if (!ft_strcmp(cmd->cmd, "cd"))
-		ft_cd(env_lst, cmd, error);
+		execute_cd(env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "export"))
-		ft_export(&env_lst, cmd, error);
+		execute_export(&env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
-		result = execute_exit(cmd, error);
+		execute_exit(cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "env"))
-		result = execute_env(env_lst, cmd, error);
+		execute_env(env_lst, cmd, error);
 	else if (ft_strcmp(cmd->cmd, "echo"))
 		process_others_cmd(cmd, env_lst, error);
-
-	return (result);
 }
 
 void	exec(t_ast *ast, t_env *env_lst)
@@ -165,7 +161,6 @@ void	exec(t_ast *ast, t_env *env_lst)
 	t_cmd		*cmd;
 	t_fds		*fds;
 	char		*fd;
-	char		*result;
 	static long	error = 0;
 
 
@@ -178,9 +173,7 @@ void	exec(t_ast *ast, t_env *env_lst)
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
 	print_cmd(cmd);
-	result = exec_cmd(cmd, &error, env_lst);
-	printf("%s\n\n", result);
-	lp_free(result);
+	exec_cmd(cmd, &error, env_lst);
 	cleanup_cmd(cmd);
 	exec_free_fds(fds);
 }

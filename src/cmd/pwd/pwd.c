@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 15:31:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:41:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*execute_pwd(t_cmd *cmd, long *error)
+void	execute_pwd(t_cmd *cmd, long *error)
 {
 	char	*pwd;
 	char	*result;
@@ -26,15 +26,16 @@ char	*execute_pwd(t_cmd *cmd, long *error)
 			if (cmd->options[i][1])
 			{
 				*error = 2;
-				return (handle_bad_option(cmd->options[i], "pwd"));
+				printf("%s\n", handle_bad_option(cmd->options[i], "pwd"));
+				return ;
 			}
 			i++;
 		}
 	}
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return (NULL);
+		return ;
 	result = ft_strjoin(pwd, "\n");
 	free(pwd);
-	return (result);
+	printf("%s\n", result);
 }
