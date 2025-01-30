@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 15:12:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:35:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid)
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[0]);
-	while (ast->right && ast->right->token != TOKEN_CMD && ast->right->token != TOKEN_PIPE)
+	while (ast->right && ast->right->token != TOKEN_CMD
+		&& ast->right->token != TOKEN_PIPE)
 		ast->right = ast->right->right;
 	if (ast->right)
 	{

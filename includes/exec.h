@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 15:12:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:35:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	exec_ast_right(t_ast *ast, t_env *env_lst);
 // exec ast utils
 char	*exec_trim_fd(char *fd);
 int		define_macro(char *fd);
-void exec_ast_right(t_ast *ast, t_env *env_lst);
-void handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
-void exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
+void	exec_ast_right(t_ast *ast, t_env *env_lst);
+void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
+void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
 
 #endif
