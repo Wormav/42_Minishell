@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:53:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:59:37 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void exec_ast_right(t_ast *ast, t_env *env_lst)
 void exec_ast(t_ast *ast, t_env *env_lst)
 {
 	if (!ast || !env_lst)
-		return;
+		return ;
 	int stdin_backup = dup(STDIN_FILENO);
 	int stdout_backup = dup(STDOUT_FILENO);
 	exec_ast_right(ast, env_lst);

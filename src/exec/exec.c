@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:53:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:05:36 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	**join_params(t_cmd *cmd)
 	int		i;
 	int		j;
 
-	str = lp_alloc(sizeof(char *) * cmd_size(cmd) + 1);
+	str = lp_alloc(sizeof(char *) * (cmd_size(cmd) + 1));
 	i = 0;
 	j = -1;
 	str[i] = lp_alloc(ft_strlen(cmd->cmd) + 1);
@@ -54,11 +54,13 @@ static char	**join_params(t_cmd *cmd)
 			i++;
 		}
 	}
-	if (*(cmd->params))
+	if (cmd->params && *(cmd->params))
 	{
 		str[i] = lp_alloc(ft_strlen(cmd->params) + 1);
 		ft_strlcpy(str[i], cmd->params, ft_strlen(cmd->params) + 1);
+		i++;
 	}
+	str[i] = NULL;
 	return (str);
 }
 
