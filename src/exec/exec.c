@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 12:08:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:54:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,20 +165,12 @@ static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 void	exec(t_ast *ast, t_env *env_lst)
 {
 	t_cmd		*cmd;
-	t_fds		*fds;
-	char		*fd;
 	static long	error = 0;
 
 	ast->content = ft_strtrim(ast->content, " ");
 	cmd = NULL;
-	fds = NULL;
-	fd = exec_identify_fd(ast);
-	exec_store_other_fds(ast, &fds, fd);
-	print_fds(fds);
-	printf("FD =======> [%s]\n", fd);
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
 	exec_cmd(cmd, &error, env_lst);
 	cleanup_cmd(cmd);
-	exec_free_fds(fds);
 }

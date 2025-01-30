@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/23 15:46:47 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/01/30 15:00:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <env.h>
+# include <fcntl.h>
 # include "../libft/include/libft.h"
 # include <ast.h>
 # include <debug.h>
