@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 13:44:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:45:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,18 @@ int			find_first_size(char *str);
 
 // exec ast
 void		exec_ast(t_ast *ast, t_env *env_lst);
-void		handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
 void		exec_ast_next(t_ast *ast, t_env *env_lst);
 
 // exec ast utils
 char		*exec_trim_fd(char *fd);
 int			define_macro(char *fd);
 void		exec_ast_next(t_ast *ast, t_env *env_lst);
-void		handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
 void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
+
+// exec handle pipe
+void		handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2]);
+void		handle_pipe_child(t_ast *ast, t_env *env_lst, int pipefd[2],
+				int is_left);
 
 // exec heredoc
 t_heredoc	*handle_heredoc(char *delimiter);
