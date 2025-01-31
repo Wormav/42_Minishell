@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 14:36:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:43:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,45 +49,6 @@ void	exec_ast_next(t_ast *ast, t_env *env_lst)
 		handle_pipe(ast, env_lst, pipefd);
 	else if (ast->token == TOKEN_CMD)
 		exec(ast, env_lst);
-}
-
-void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2])
-{
-	pid_t pids[2];
-	if (pipe(pipefd) == -1)
-		return ;
-	pids[0] = fork();
-	if (pids[0] == -1)
-		return ;
-	if (pids[0] == 0)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		exec_ast_next(ast->left, env_lst);
-		exit(EXIT_SUCCESS);
-	}
-	close(pipefd[1]);
-	pids[1] = fork();
-	if (pids[1] == -1)
-	{
-		close(pipefd[0]);
-		waitpid(pids[0], NULL, 0);
-		return;
-	}
-	if (pids[1] == 0)
-	{
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		if (ast->right->token == TOKEN_CMD)
-			exec(ast->right, env_lst);
-		else
- 			exec_ast_next(ast->right, env_lst);
-		exit(EXIT_SUCCESS);
-	}
-	close(pipefd[0]);
-	waitpid(pids[0], NULL, 0);
-	waitpid(pids[1], NULL, 0);
 }
 
 void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim)
