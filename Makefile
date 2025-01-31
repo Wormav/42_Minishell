@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/30 17:30:33 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/31 12:22:12 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRCS		:=	main.c \
 				exec/exec_utils.c \
 				exec/exec_identify_fd.c \
 				exec/exec_parsing.c \
+				exec/exec_heredoc.c \
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
