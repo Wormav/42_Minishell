@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 16:21:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:33:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*exec_identify_se(t_ast *ast)
 
 	if (!ast)
 		return (NULL);
-	if (ast->token == TOKEN_REDIR_IN)
+	if (ast->token == TOKEN_REDIR_IN || ast->token == TOKEN_HEREDOC)
 		return (ast->content);
 	left = exec_identify_se(ast->left);
 	right = exec_identify_se(ast->right);

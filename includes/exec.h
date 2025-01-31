@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 17:28:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:21:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct s_fds
 	char			*fd_name;
 	struct s_fds	*next;
 }	t_fds;
+
+typedef struct s_heredoc
+{
+	char *delimiter;
+	char *content;
+	struct s_heredoc *next;
+} t_heredoc;
 
 // create cmd
 t_cmd	*exec_create_cmd(char *str);
@@ -59,13 +66,16 @@ int		find_first_size(char *str);
 // exec ast
 void	exec_ast(t_ast *ast, t_env *env_lst);
 void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
-void	exec_ast_right(t_ast *ast, t_env *env_lst);
+void	exec_ast_next(t_ast *ast, t_env *env_lst);
 
 // exec ast utils
 char	*exec_trim_fd(char *fd);
 int		define_macro(char *fd);
-void	exec_ast_right(t_ast *ast, t_env *env_lst);
+void	exec_ast_next(t_ast *ast, t_env *env_lst);
 void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
 void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
+
+// exec heredoc
+t_heredoc	*handle_heredoc(char *delimiter);
 
 #endif
