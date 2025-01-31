@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/31 14:47:51 by jlorette         ###   ########.fr        #
+#    Updated: 2025/01/31 17:17:42 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,10 @@ SRCS		:=	main.c \
 				utils/clean.c \
 				utils/ft_ltoa.c \
 				utils/ft_atol.c \
+				utils/cmd_filter_params.c \
 				utils/handle_bad_option.c \
 				utils/has_equal_sign.c \
+				utils/print_error_params.c \
 				env/env_parsing.c \
 				env/env_print.c \
 				env/env_get_env.c \

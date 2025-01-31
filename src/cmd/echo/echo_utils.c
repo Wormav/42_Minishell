@@ -6,9 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:17:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/29 18:29:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:06:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
 
 int	echo_check_dollar_sign(char *str)
 {
@@ -19,7 +21,7 @@ int	echo_check_dollar_sign(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && ft_isalnum(str[i + 1]))
 			return (1);
 		i++;
 	}
