@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 17:29:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:20:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
 	pid_t	pid;
 	int		status;
 
+	if (print_error_params(cmd, error))
+		return ;
+	cmd->params = parser_filter_quote(cmd->params);
 	test_env = env_tab(env_lst);
 	cmd_name = find_cmd(cmd, env_lst, error);
 	argv_cmd = join_params(cmd);
@@ -89,11 +92,11 @@ static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 
 	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(*error), "\"");
 	env_list_insert(&env_lst, env_lstnew(save_return));
+	if (cmd->params)
+		cmd_filter_params(&cmd);
 	if (!ft_strcmp(cmd->cmd, "echo"))
 		execute_echo(cmd, env_lst);
 	*error = 0;
-	if (cmd->params)
-		cmd->params = parser_filter_quote(cmd->params);
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		execute_pwd(cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "unset"))
