@@ -6,16 +6,16 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:52:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 12:21:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:49:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char *read_heredoc(char *delimiter)
+static char	*read_heredoc(char *delimiter)
 {
-	char *line;
-	char *content;
+	char	*line;
+	char	*content;
 
 	content = ft_strdup("");
 	while (1)
@@ -33,15 +33,32 @@ static char *read_heredoc(char *delimiter)
 	return (content);
 }
 
-t_heredoc *handle_heredoc(char *delimiter)
+t_heredoc	*handle_heredoc(char *delimiter)
 {
-	t_heredoc *new;
+	t_heredoc	*new;
+	int			flag;
+	char		*delimiter_trim;
 
+	flag = 0;
+	if (!ft_strncmp(delimiter, "\"", 1) || !ft_strncmp(delimiter, "'", 1))
+		flag = 1;
+	delimiter_trim = ft_strtrim(delimiter, "\"'");
 	new = lp_alloc(sizeof(t_heredoc));
 	if (!new)
 		return (NULL);
-	new->delimiter = ft_strdup(delimiter);
-	new->content = read_heredoc(delimiter);
-	new->next = NULL;
+	new->delimiter = delimiter_trim;
+	new->content = read_heredoc(delimiter_trim);
+	new->flag_env = flag;
 	return (new);
+}
+
+void	free_heredoc(t_heredoc *heredoc)
+{
+	if (!heredoc)
+		return ;
+	if (heredoc->content)
+		lp_free(heredoc->content);
+	if (heredoc->delimiter)
+		lp_free(heredoc->delimiter);
+	lp_free(heredoc);
 }

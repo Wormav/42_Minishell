@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 12:21:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:44:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,51 +31,52 @@ typedef struct s_fds
 
 typedef struct s_heredoc
 {
-	char *delimiter;
-	char *content;
-	struct s_heredoc *next;
-} t_heredoc;
+	char	*delimiter;
+	char	*content;
+	int		flag_env;
+}	t_heredoc;
 
 // create cmd
-t_cmd	*exec_create_cmd(char *str);
-void	cleanup_cmd(t_cmd *cmd);
+t_cmd		*exec_create_cmd(char *str);
+void		cleanup_cmd(t_cmd *cmd);
 
 // identify fd
-void	exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd);
-char	*exec_identify_fd(t_ast *ast);
-char	*exec_identify_se(t_ast *ast);
-void	exec_free_fds(t_fds *fds);
+void		exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd);
+char		*exec_identify_fd(t_ast *ast);
+char		*exec_identify_se(t_ast *ast);
+void		exec_free_fds(t_fds *fds);
 
 // exec
-void	exec(t_ast *ast, t_env *env_lst);
-char	*find_cmd(t_cmd *cmd, t_env *env, long *error);
+void		exec(t_ast *ast, t_env *env_lst);
+char		*find_cmd(t_cmd *cmd, t_env *env, long *error);
 
 // execve
-size_t	cmd_size(t_cmd *cmd);
-void	fill_params_array(char **str, t_cmd *cmd, int *i);
-char	**join_params(t_cmd *cmd);
+size_t		cmd_size(t_cmd *cmd);
+void		fill_params_array(char **str, t_cmd *cmd, int *i);
+char		**join_params(t_cmd *cmd);
 
 //utils
 
-int		skip_space(char *str);
-int		find_next_size(char *str);
-int		check_opts(char *str);
-int		count_args(char *str);
-int		find_first_size(char *str);
+int			skip_space(char *str);
+int			find_next_size(char *str);
+int			check_opts(char *str);
+int			count_args(char *str);
+int			find_first_size(char *str);
 
 // exec ast
-void	exec_ast(t_ast *ast, t_env *env_lst);
-void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
-void	exec_ast_next(t_ast *ast, t_env *env_lst);
+void		exec_ast(t_ast *ast, t_env *env_lst);
+void		handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
+void		exec_ast_next(t_ast *ast, t_env *env_lst);
 
 // exec ast utils
-char	*exec_trim_fd(char *fd);
-int		define_macro(char *fd);
-void	exec_ast_next(t_ast *ast, t_env *env_lst);
-void	handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
-void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
+char		*exec_trim_fd(char *fd);
+int			define_macro(char *fd);
+void		exec_ast_next(t_ast *ast, t_env *env_lst);
+void		handle_pipe(t_ast *ast, t_env *env_lst, int pipefd[2], pid_t pid);
+void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
 
 // exec heredoc
 t_heredoc	*handle_heredoc(char *delimiter);
+void		free_heredoc(t_heredoc *heredoc);
 
 #endif
