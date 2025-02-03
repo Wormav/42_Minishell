@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/30 11:20:39 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 22:24:06 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static void	process_parsing(char *argv1, t_env *env_lst)
 		token_identify_error(err, list, str);
 	list = parser_identify(list);
 	parser_define_priority(&list);
-	printf("\n\n");
-	print_token_list(list);
+//	printf("\n\n");
+//	print_token_list(list);
 	parser_join_tokens(list);
-	print_token_list(list);
+//	print_token_list(list);
 	ast = ast_create(list, ast);
-	print_tree(ast);
+//	print_tree(ast);
 	exec_ast(ast, env_lst);
 	clean_memory(ast, list, str);
 }
@@ -63,10 +63,9 @@ static void	process_parsing(char *argv1, t_env *env_lst)
 // 	process_parsing(argv[1], env_lst);
 // }
 
-int	main(int argc, char **argv, char **envp)
+int	main(__attribute__((unused))int argc,
+		__attribute__((unused))char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
 	char	*str;
 
 	struct sigaction	sa;
@@ -74,6 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	sa.sa_handler = __handle_sigint;
 	t_env	*env_lst = env_fill_list(envp);
 	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 	str = readline(PROMPT);
 	while (str)
 	{

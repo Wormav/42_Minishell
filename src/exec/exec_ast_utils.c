@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 11:52:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:44:21 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim)
 	if (*fd)
 		*fd_trim = exec_trim_fd(*fd);
 	exec_store_other_fds(ast, fds, *fd);
-	print_fds(*fds);
-	printf("FD =======> [%s]\n", *fd);
+//	print_fds(*fds);
+//	printf("FD =======> [%s]\n", *fd);
 }
