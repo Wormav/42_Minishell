@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 11:47:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:06:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
 	pid_t	pid;
 	int		status;
 
-	if (print_error_params(cmd, error))
-		return ;
-	cmd->params = parser_filter_quote(cmd->params);
 	test_env = env_tab(env_lst);
 	cmd_name = find_cmd(cmd, env_lst, error);
 	argv_cmd = join_params(cmd);
