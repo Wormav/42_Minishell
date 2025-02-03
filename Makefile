@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/03 11:51:38 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/03 16:06:30 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRCS		:=	main.c \
 				utils/cmd_filter_params.c \
 				utils/handle_bad_option.c \
 				utils/has_equal_sign.c \
-				utils/print_error_params.c \
+				utils/count_params_size.c \
 				env/env_parsing.c \
 				env/env_print.c \
 				env/env_get_env.c \
