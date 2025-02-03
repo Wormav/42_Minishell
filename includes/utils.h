@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:29:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 11:12:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:53:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int		has_equal_sign(char *str);
 char	*ft_ltoa(long n);
 void	cmd_filter_params(t_cmd **cmd);
 int		print_error_params(t_cmd *cmd, long *error);
-int		ast_content_pipe(t_ast *ast);
 
 #endif
