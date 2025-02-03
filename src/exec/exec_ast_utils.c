@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 14:43:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:52:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ int	define_macro(char *fd)
 void	exec_ast_next(t_ast *ast, t_env *env_lst)
 {
 	int		pipefd[2];
+	int		flag_exit;
 
+	flag_exit = 0;
+	if (ast->parent && ast->parent->token == TOKEN_PIPE)
+		flag_exit = 1;
 	if (!ast)
 		return ;
 	while (ast && ast->token != TOKEN_CMD && ast->token != TOKEN_PIPE)
@@ -48,7 +52,7 @@ void	exec_ast_next(t_ast *ast, t_env *env_lst)
 	if (ast->token == TOKEN_PIPE)
 		handle_pipe(ast, env_lst, pipefd);
 	else if (ast->token == TOKEN_CMD)
-		exec(ast, env_lst);
+		exec(ast, env_lst, &flag_exit);
 }
 
 void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim)
