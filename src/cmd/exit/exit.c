@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 10:53:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:51:21 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,13 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 	return (0);
 }
 
-void	execute_exit(t_cmd *cmd, long *exit_code)
+void	execute_exit(t_cmd *cmd, long *exit_code, int *flag)
 {
 	int		error_exit;
 	int		overflow_error;
 
-	overflow_error = 0;
+	if (*flag == 1)
+		return ;
 	printf("%s\n", "exit");
 	error_exit = handle_exit_errors(cmd, &overflow_error);
 	if (error_exit != 1 && error_exit != 0)

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 17:20:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:47:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	process_others_cmd(t_cmd *cmd, t_env *env_lst, long *error)
 	*error = WEXITSTATUS(status);
 }
 
-static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
+static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst, int *flag_exit)
 {
 	char	*save_return;
 
@@ -106,14 +106,14 @@ static void	exec_cmd(t_cmd *cmd, long *error, t_env *env_lst)
 	else if (!ft_strcmp(cmd->cmd, "export"))
 		execute_export(&env_lst, cmd, error);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
-		execute_exit(cmd, error);
+		execute_exit(cmd, error, flag_exit);
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		execute_env(env_lst, cmd, error);
 	else if (ft_strcmp(cmd->cmd, "echo"))
 		process_others_cmd(cmd, env_lst, error);
 }
 
-void	exec(t_ast *ast, t_env *env_lst)
+void	exec(t_ast *ast, t_env *env_lst, int *flag_exit)
 {
 	t_cmd		*cmd;
 	static long	error = 0;
@@ -122,6 +122,6 @@ void	exec(t_ast *ast, t_env *env_lst)
 	cmd = NULL;
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
-	exec_cmd(cmd, &error, env_lst);
+	exec_cmd(cmd, &error, env_lst, flag_exit);
 	cleanup_cmd(cmd);
 }
