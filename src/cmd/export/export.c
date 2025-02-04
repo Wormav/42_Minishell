@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 20:36:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:36:28 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	validate_params(char **split, long *error)
 			|| export_is_valid_key(split[i]) == 3)
 		{
 			*error = 1;
-			printf("minishell: export: `%s': not a valid identifier\n",
+			ft_printf(2, "minishell: export: `%s': not a valid identifier\n",
 				split[i]);
 			return (0);
 		}
@@ -64,7 +64,7 @@ void	execute_export(t_env **env, t_cmd *cmd, long *error)
 	if (cmd->options)
 	{
 		*error = 2;
-		printf("%s", handle_bad_option(cmd->options[0], "export"));
+		ft_printf(2, "%s", handle_bad_option(cmd->options[0], "export"));
 		return ;
 	}
 	if (!*(cmd->params) && !cmd->options)

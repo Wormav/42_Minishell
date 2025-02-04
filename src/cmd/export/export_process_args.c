@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:46:00 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 10:50:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:22:42 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,11 @@ void	export_process_args(char *split, long *error, t_env **env)
 	if (!valid_key)
 	{
 		*error = 1;
-		printf("bash: export: %s: not a valid identifier\n", split);
+		ft_printf(2, "minishell: export: %s: not a valid identifier\n", split);
 		return ;
 	}
 	if (export_find_next_sign('=', split) != (int)ft_strlen(split))
-	{
 		export_process_args_with_equal(split, valid_key, env);
-	}
 	else if (split)
-	{
 		env_list_insert(env, env_lstnew(split));
-	}
 }

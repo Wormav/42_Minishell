@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 21:19:41 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 22:14:32 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 	int		chdir_return;
 	char	*pwd;
 
-	*error = 2;
+	*error = 1;
 	if (access(cmd->params, 0) == F_OK)
 	{
 		chdir_return = chdir(cmd->params);
@@ -102,7 +102,7 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 				cmd->params);
 	}
 	else
-		ft_printf(2, "minishell: %s not a directory\n", cmd->params);
+		ft_printf(2, "minishell: No such file or directory\n");
 }
 
 void	execute_cd(t_env *env, t_cmd *cmd, long *error)
