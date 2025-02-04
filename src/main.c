@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 14:14:05 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:30:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include <minishell.h>
 #include <readline/readline.h>
 

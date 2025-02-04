@@ -6,13 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 14:25:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include <minishell.h>
-#include <stdio.h>
 
 static char	*handle_bang_error(char *param, long *error)
 {

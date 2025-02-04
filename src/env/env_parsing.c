@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 13:56:08 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,7 @@ void	env_list_remove(t_env **lst, char *to_remove)
 			if (prev)
 				prev->next = tmp->next;
 			else
-			{
-				printf("tmp avant bouger = {%s}\n", (char *)tmp->content);
 				*lst = tmp->next;
-				printf("lst deplace = {%s}\n", (char *)(*lst)->content);
-			}
 			lp_free(tmp);
 			tmp = NULL;
 			return ;
