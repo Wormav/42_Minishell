@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 22:36:07 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 08:53:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,13 @@ void	execute_exit(t_cmd *cmd, long *exit_code, int *flag)
 		return ;
 	printf("%s\n", "exit");
 	error_exit = handle_exit_errors(cmd, &overflow_error);
-	if (error_exit != 1 && error_exit != 0)
-		exit(error_exit);
+	if (error_exit)
+	{
+		*exit_code = error_exit;
+		if (error_exit == 2)
+			exit(2);
+		return ;
+	}
 	if (cmd->options)
 		*exit_code = ft_atol(cmd->options[0], &overflow_error);
 	else
