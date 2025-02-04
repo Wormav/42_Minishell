@@ -6,11 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:00:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:04:27 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include <minishell.h>
+#include <stdio.h>
 
 static char	*handle_bang_error(char *param, long *error)
 {
@@ -38,7 +40,7 @@ static char	*handle_bang_error(char *param, long *error)
 	return (NULL);
 }
 
-static void	process_unset_params(char **params, t_env *env_lst)
+static void	process_unset_params(char **params, t_env **env_lst)
 {
 	int	i;
 
@@ -46,9 +48,12 @@ static void	process_unset_params(char **params, t_env *env_lst)
 	while (params[i])
 	{
 		if (params[i][0] == '$')
-			env_list_remove(&env_lst, env_get_value(env_lst, params[i]));
+			env_list_remove(env_lst, env_get_value(*env_lst, params[i]));
 		else
-			env_list_remove(&env_lst, params[i]);
+			env_list_remove(env_lst, params[i]);
+		// DEBUG : Affiche la liste après chaque suppression
+		//printf("Après suppression de %s :\n", params[i]);
+		//env_print(env_lst); // Ajoute une fonction qui affiche la liste
 		i++;
 	}
 }
@@ -73,7 +78,7 @@ static char	*check_unset_params(char **params, long *error)
 	return (NULL);
 }
 
-void	execute_unset(t_cmd *cmd, long *error, t_env *env_lst)
+void	execute_unset(t_cmd *cmd, long *error, t_env **env_lst)
 {
 	char	*result;
 	char	**params;
@@ -91,6 +96,8 @@ void	execute_unset(t_cmd *cmd, long *error, t_env *env_lst)
 	if (result)
 		return ;
 	process_unset_params(params, env_lst);
+	printf("coucou\n");
+	//env_print(*env_lst); // Ajoute une fonction qui affiche la liste
 	free_split(params);
 	return ;
 }

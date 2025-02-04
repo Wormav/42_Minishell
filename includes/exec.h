@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 16:05:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:07:58 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char		*exec_identify_se(t_ast *ast);
 void		exec_free_fds(t_fds *fds);
 
 // exec
-void		exec(t_ast *ast, t_env *env_lst, int *flag_exit);
+//void		exec(t_ast *ast, t_env *env_lst, int *flag_exit);
+void	exec(t_ast *ast, t_env **env_lst, int *flag_exit);
 char		*find_cmd(t_cmd *cmd, t_env *env, long *error);
 
 // execve

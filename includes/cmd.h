@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 16:31:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:04:39 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 void	execute_echo(t_cmd *cmd, t_env *env);
 void	execute_pwd(t_cmd *cmd, long *error);
-void	execute_unset(t_cmd *cmd, long *error, t_env *env_lst);
+//void	execute_unset(t_cmd *cmd, long *error, t_env *env_lst);
+void	execute_unset(t_cmd *cmd, long *error, t_env **env_lst);
 void	execute_cd(t_env *env, t_cmd *cmd, long *error);
 void	execute_export(t_env **env, t_cmd *cmd, long *error);
 void	execute_exit(t_cmd *cmd, long *exit_code, int *flag_exit);
