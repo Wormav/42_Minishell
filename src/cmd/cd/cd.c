@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 23:01:27 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 21:19:41 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	case_twoo(t_env *env)
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", oldpwd)));
 		}
 		else
-			printf("bash: cd: %s: No such file or directory\n", home);
+			ft_printf(2, "bash: cd: %s: No such file or directory\n", home);
 	}
 	else
-		printf("bash: cd: HOME not set\n");
+		ft_printf(2, "bash: cd: HOME not set\n");
 	return (1);
 }
 
@@ -59,10 +59,11 @@ static int	case_one(t_env *env)
 						oldpwd)));
 		}
 		else
-			printf("bash: cd: %s: No such file or directory\n", oldpwd);
+			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
+				oldpwd);
 	}
 	else
-		printf("bash: cd: OLDPWD not set\n");
+		ft_printf(2, "bash: cd: OLDPWD not set\n");
 	return (1);
 }
 
@@ -97,10 +98,11 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 			*error = 0;
 		}
 		else
-			printf("bash: cd: %s: No such file or directory\n", cmd->params);
+			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
+				cmd->params);
 	}
 	else
-		printf("Minishell: %s not a directory\n", cmd->params);
+		ft_printf(2, "minishell: %s not a directory\n", cmd->params);
 }
 
 void	execute_cd(t_env *env, t_cmd *cmd, long *error)
@@ -117,7 +119,7 @@ void	execute_cd(t_env *env, t_cmd *cmd, long *error)
 		if (params[1])
 		{
 			*error = 1;
-			printf("bash: cd: too many arguments\n");
+			ft_printf(2, "minishell: cd: too many arguments\n");
 			return ;
 		}
 	}

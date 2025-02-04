@@ -6,10 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 08:53:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:48:18 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include <minishell.h>
 
 static char	*handle_bad_params(char *option)
@@ -90,13 +91,13 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 		if ((!ft_atol(params[0], overflow_error) && *overflow_error)
 			|| !content_valid_code(params[0]))
 		{
-			printf("%s", handle_bad_params(params[0]));
+			ft_putstr_fd(handle_bad_params(params[0]), 2);
 			return (2);
 		}
 	}
 	if ((cmd->options && params && params[0]) || (params && params[1]))
 	{
-		printf("bash: exit: too many arguments\n");
+		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 		return (1);
 	}
 	return (0);
