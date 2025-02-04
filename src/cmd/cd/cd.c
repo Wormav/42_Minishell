@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 17:57:01 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:01:27 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static int	case_twoo(t_env *env)
 
 	home = env_get_value(env, "$HOME");
 	oldpwd = env_get_value(env, "$OLDPWD");
+	if (!home || !oldpwd)
+		return (1);
 	if (home && access(home, 0) == F_OK)
 	{
 		tmp = env_get_value(env, "$PWD");
 		chdir_return = chdir(home);
 		if (chdir_return == 0)
 		{
-			env_list_insert(&env,
-				env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
-			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
-						oldpwd)));
+			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
+			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", oldpwd)));
 		}
 		else
 			printf("bash: cd: %s: No such file or directory\n", home);

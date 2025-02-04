@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/30 10:37:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 07:54:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int	validate_params(char **split, long *error)
 	i = 0;
 	while (split[i])
 	{
-		if (split[i][0] == '=')
+		if (split[i][0] == '=' || split[i][0] == '-')
 		{
 			*error = 1;
-			printf("bash: export: ʻ%s': not a valid identifier\n", split[i]);
+			printf("minishell: export: `%s': not a valid identifier\n",
+				split[i]);
 			return (0);
 		}
 		i++;
