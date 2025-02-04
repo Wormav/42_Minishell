@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 15:24:22 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:24:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	execute_export(t_env **env, t_cmd *cmd, long *error);
 void	execute_exit(t_cmd *cmd, long *exit_code, int *flag_exit);
 void	execute_env(t_env *env, t_cmd *cmd, long *error);
 int		export_is_valid_key(char *str);
-int		export_check_params(char *str);
 int		export_find_next_sign(char sign, char *str);
 char	*export_remove_plus_before_equal(char *str);
 void	export_process_args_with_equal(char *split, int valid_key, t_env **env);
