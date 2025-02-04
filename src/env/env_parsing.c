@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	env_list_remove(t_env **lst, char *to_remove)
 			else
 				*lst = tmp->next;
 			lp_free(tmp);
+			tmp = NULL;
 			return ;
 		}
 		prev = tmp;

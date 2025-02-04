@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 07:52:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:30:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ static void	process_parsing(char *argv1, t_env *env_lst)
 	exec_ast(ast, env_lst);
 	clean_memory(ast, list, str);
 }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	if (argc > 2)
-// 		return (1);
-// 	t_env	*env_lst = env_fill_list(env);
-// 	process_parsing(argv[1], env_lst);
-// }
 
 int	main(__attribute__((unused))int argc,
 		__attribute__((unused))char **argv, char **envp)

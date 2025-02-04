@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:00:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*handle_bang_error(char *param, long *error)
 	return (NULL);
 }
 
-static void	process_unset_params(char **params, t_env *env_lst)
+static void	process_unset_params(char **params, t_env **env_lst)
 {
 	int	i;
 
@@ -46,9 +46,9 @@ static void	process_unset_params(char **params, t_env *env_lst)
 	while (params[i])
 	{
 		if (params[i][0] == '$')
-			env_list_remove(&env_lst, env_get_value(env_lst, params[i]));
+			env_list_remove(env_lst, env_get_value(*env_lst, params[i]));
 		else
-			env_list_remove(&env_lst, params[i]);
+			env_list_remove(env_lst, params[i]);
 		i++;
 	}
 }
@@ -73,7 +73,7 @@ static char	*check_unset_params(char **params, long *error)
 	return (NULL);
 }
 
-void	execute_unset(t_cmd *cmd, long *error, t_env *env_lst)
+void	execute_unset(t_cmd *cmd, long *error, t_env **env_lst)
 {
 	char	*result;
 	char	**params;
