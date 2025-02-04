@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:17:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 16:35:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:19:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ char	*echo_process_status_exit(char *result, char *var_start, t_env *env)
 		return (result);
 	len = var_start - result;
 	total_len = len + ft_strlen(exit_str) + ft_strlen(var_start + 2) + 1;
-	new_result = ft_calloc(total_len, sizeof(char));
+	new_result = lp_alloc(total_len * sizeof(char));
 	if (!new_result)
 		return (result);
 	ft_strlcpy(new_result, result, len + 1);
 	ft_strlcat(new_result, exit_str, total_len);
 	ft_strlcat(new_result, var_start + 2, total_len);
-	free(result);
+	lp_free(result);
 	return (new_result);
 }
