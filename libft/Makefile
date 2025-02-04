@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/08 21:59:22 by stetrel           #+#    #+#              #
-#    Updated: 2025/01/22 17:08:51 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/04 20:52:54 by stetrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,10 @@ SRCS	:=		ctype/ft_isalpha.c \
 			  	lists/ft_lstmap.c \
 				float/ft_atof.c \
 				float/ft_strtof.c \
+				printf/ft_printf.c \
+				printf/ft_percent_function.c \
+				printf/ft_unsigned_nb.c \
+				printf/printf_strlen.c \
 
 SRCS	:=	$(addprefix $(SRCS_DIR)/, $(SRCS))
 
