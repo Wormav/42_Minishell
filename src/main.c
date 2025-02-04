@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 15:30:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:37:31 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	__handle_sigint(int sig)
 	rl_redisplay();
 }
 
-static void	process_parsing(char *argv1, t_env *env_lst)
+static void	process_parsing(char *argv1, t_env **env_lst)
 {
 	static int	err = 0;
 	t_token		*list;
@@ -75,7 +75,7 @@ int	main(__attribute__((unused))int argc,
 			continue ;
 		}
 		add_history(str);
-		process_parsing(str, env_lst);
+		process_parsing(str, &env_lst);
 		free(str);
 		str = readline(PROMPT);
 	}

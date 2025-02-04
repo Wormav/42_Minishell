@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 14:24:56 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:33:19 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exec_ast_next(t_ast *ast, t_env **env_lst)
 	if (!ast)
 		return ;
 	if (ast->token == TOKEN_PIPE)
-		handle_pipe(ast, *env_lst, pipefd);
+		handle_pipe(ast, env_lst, pipefd);
 	else if (ast->token == TOKEN_CMD)
 		exec(ast, env_lst, &flag_exit);
 }

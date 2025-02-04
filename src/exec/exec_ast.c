@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 15:30:11 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:36:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	exec_handle_output(char *fd_trim, char *fd)
 	}
 }
 
-static void	exec_handle_input_heredoc(char *input_file, t_env *env, int *input)
+static void	exec_handle_input_heredoc(char *input_file, t_env **env, int *input)
 {
 	t_heredoc	*heredoc;
 
@@ -39,7 +39,7 @@ static void	exec_handle_input_heredoc(char *input_file, t_env *env, int *input)
 		if (*input != -1)
 		{
 			if (heredoc->flag_env)
-				write(*input, env_replace_env_vars(env, heredoc->content),
+				write(*input, env_replace_env_vars(*env, heredoc->content),
 					ft_strlen(heredoc->content));
 			else
 				write(*input, heredoc->content,
@@ -57,7 +57,7 @@ static void	exec_handle_input_heredoc(char *input_file, t_env *env, int *input)
 	}
 }
 
-static void	exec_handle_input(t_ast *ast, t_env *env)
+static void	exec_handle_input(t_ast *ast, t_env **env)
 {
 	char	*input_file;
 	int		input_fd;
@@ -93,7 +93,7 @@ void	trunc_orders_fds(t_fds *fds)
 	}
 }
 
-void	exec_ast(t_ast *ast, t_env *env_lst)
+void	exec_ast(t_ast *ast, t_env **env_lst)
 {
 	int		stdin_backup;
 	int		stdout_backup;
@@ -110,7 +110,7 @@ void	exec_ast(t_ast *ast, t_env *env_lst)
 	stdout_backup = dup(STDOUT_FILENO);
 	exec_handle_input(ast, env_lst);
 	exec_handle_output(fd_trim, fd);
-	exec_ast_next(ast, env_lst);
+	exec_ast_next(ast,env_lst);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
