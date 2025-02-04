@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/03 19:43:10 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 07:51:34 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	handle_pipe_child(t_ast *ast, t_env *env_lst, int pipefd[2],
 		int is_left)
 {
-	int	flag = 0;
+	int	flag_exit;
 
+	flag_exit = 1;
 	if (is_left)
 	{
 		close(pipefd[0]);
@@ -29,7 +30,7 @@ void	handle_pipe_child(t_ast *ast, t_env *env_lst, int pipefd[2],
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		if (ast->right->token == TOKEN_CMD)
-			exec(ast->right, env_lst, &flag);
+			exec(ast->right, env_lst, &flag_exit);
 		else
 			exec_ast_next(ast->right, env_lst);
 	}
