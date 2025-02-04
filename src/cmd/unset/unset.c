@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 14:04:27 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/04 14:25:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ static void	process_unset_params(char **params, t_env **env_lst)
 			env_list_remove(env_lst, env_get_value(*env_lst, params[i]));
 		else
 			env_list_remove(env_lst, params[i]);
-		// DEBUG : Affiche la liste après chaque suppression
-		//printf("Après suppression de %s :\n", params[i]);
-		//env_print(env_lst); // Ajoute une fonction qui affiche la liste
 		i++;
 	}
 }
@@ -96,8 +93,6 @@ void	execute_unset(t_cmd *cmd, long *error, t_env **env_lst)
 	if (result)
 		return ;
 	process_unset_params(params, env_lst);
-	printf("coucou\n");
-	//env_print(*env_lst); // Ajoute une fonction qui affiche la liste
 	free_split(params);
 	return ;
 }
