@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:35:46 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 17:56:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 19:46:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ static int	check_syntax(t_token *prev, t_token *current)
 		return (ERR_SYNTAX_PIPE);
 	if (!prev && current->type == TOKEN_PIPE)
 		return (ERR_SYNTAX_PIPE);
-	if (current->type == TOKEN_PIPE && skip_space_token(current->next)->type != TOKEN_WORD)
+	if (current->type == TOKEN_PIPE
+		&& skip_space_token(current->next)->type != TOKEN_WORD)
 		return (ERR_SYNTAX_PIPE);
-	return(0);
+	return (0);
 }
 
-void	parser_errors_syntax(t_token *lst, int *error)
+void	parser_errors_syntax(t_token *lst, long *error, int *err)
 {
 	t_token	*tmp;
 	t_token	*prev;
@@ -52,15 +53,17 @@ void	parser_errors_syntax(t_token *lst, int *error)
 	{
 		if (!prev && print_error_syntax(check_syntax(prev, tmp)))
 		{
-			*error = 2;
+			*err = 2;
 			break ;
 		}
 		if (prev && print_error_syntax(check_syntax(prev, tmp)))
 		{
-			*error = 2;
+			*err = 2;
 			break ;
 		}
 		prev = tmp;
 		tmp = skip_space_token(tmp->next);
 	}
+	if (*err)
+		*error = *err;
 }

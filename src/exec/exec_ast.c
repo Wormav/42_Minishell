@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 21:20:26 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:08:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	trunc_orders_fds(t_fds *fds)
 	}
 }
 
-void	exec_ast(t_ast *ast, t_env **env_lst)
+void	exec_ast(t_ast *ast, t_env **env_lst, long *error)
 {
 	int		stdin_backup;
 	int		stdout_backup;
@@ -110,7 +110,7 @@ void	exec_ast(t_ast *ast, t_env **env_lst)
 	stdout_backup = dup(STDOUT_FILENO);
 	exec_handle_input(ast, env_lst);
 	exec_handle_output(fd_trim, fd);
-	exec_ast_next(ast, env_lst);
+	exec_ast_next(ast, env_lst, error);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);

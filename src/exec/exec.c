@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 14:35:27 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/02/05 19:42:58 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, long *error)
 
 static void	exec_cmd(t_cmd *cmd, long *error, t_env **env_lst, int *flag_exit)
 {
-	char	*save_return;
-
-	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(*error), "\"");
-	env_list_insert(env_lst, env_lstnew(save_return));
+	if (*error != 2)
+		save_return_val(error, env_lst);
 	if (cmd->params)
 		cmd_filter_params(&cmd);
 	if (!ft_strcmp(cmd->cmd, "echo"))
@@ -113,15 +111,14 @@ static void	exec_cmd(t_cmd *cmd, long *error, t_env **env_lst, int *flag_exit)
 		process_others_cmd(cmd, env_lst, error);
 }
 
-void	exec(t_ast *ast, t_env **env_lst, int *flag_exit)
+void	exec(t_ast *ast, t_env **env_lst, int *flag_exit, long *error)
 {
 	t_cmd		*cmd;
-	static long	error = 0;
 
 	ast->content = ft_strtrim(ast->content, " ");
 	cmd = NULL;
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
-	exec_cmd(cmd, &error, env_lst, flag_exit);
+	exec_cmd(cmd, error, env_lst, flag_exit);
 	cleanup_cmd(cmd);
 }

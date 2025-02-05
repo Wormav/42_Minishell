@@ -60,3 +60,5 @@ minishell
 .objs
 *.nfs*
 test
+teste_error.txt
+teste_main.txt

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 17:35:06 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 19:44:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	t_token		*list;
 	t_ast		*ast;
 	char 		*str;
+	static long	error = 0;
 
 	str = ft_strdup(argv1);
 	ast = NULL;
@@ -47,9 +48,12 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	err = parser_check(list);
 	if (err)
 		token_identify_error(err, list, str);
-	parser_errors_syntax(list, &err);
+	parser_errors_syntax(list, &error, &err);
 	if (err)
-		return ;
+	{
+		save_return_val(&error, env_lst);
+		return;
+	}
 	list = parser_identify(list);
 	parser_define_priority(&list);
 //	printf("\n\n");
@@ -58,7 +62,7 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 //	print_token_list(list);
 	ast = ast_create(list, ast);
 //	print_tree(ast);
-	exec_ast(ast, env_lst);
+	exec_ast(ast, env_lst, &error);
 	clean_memory(ast, list, str);
 }
 
