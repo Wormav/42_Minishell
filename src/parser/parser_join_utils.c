@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:52:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 16:12:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:13:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_token	*parser_join_word_and_cmd(t_token *list)
 	current = list;
 	while (current && current->next)
 	{
+		if ( current->type == TOKEN_CMD && cmd_content_only_space(current))
+			current->type = TOKEN_SPACE;
 		if (current->type == TOKEN_CMD && (current->next->type == TOKEN_WORD
 				|| current->next->type == TOKEN_ARGS
 				|| current->next->type == TOKEN_WAVE

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 15:29:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:34:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	exec(t_ast *ast, t_env **env_lst, int *flag_exit)
 	ast->content = ft_strtrim(ast->content, " ");
 	cmd = NULL;
 	cmd = exec_create_cmd(ast->content);
+	print_cmd(cmd);
 	trim_cmd_and_options(cmd);
 	exec_cmd(cmd, &error, env_lst, flag_exit);
 	cleanup_cmd(cmd);
