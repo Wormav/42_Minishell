@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:22:39 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 12:29:37 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:55:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,9 @@ t_token	*parser_join_tokens(t_token *list)
 	list = parser_join_heredoc_and_file(list);
 	list = parser_join_file_and_redir_in(list);
 	list = pipe_cmd(list);
+
+	// ! print
+	print_token_list(list);
+
 	return (list);
 }

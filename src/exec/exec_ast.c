@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 21:20:26 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:52:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	exec_ast(t_ast *ast, t_env **env_lst)
 	exec_handle_input(ast, env_lst);
 	exec_handle_output(fd_trim, fd);
 	exec_ast_next(ast, env_lst);
+	// !print
+	print_tree(ast);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
