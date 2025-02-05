@@ -6,39 +6,39 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 17:32:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 19:37:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	handle_pipe_child(t_ast *ast, t_env **env_lst, int pipefd[2],
-		int is_left)
+void	handle_pipe_child_left(t_ast *ast, t_env **env_lst, int pipefd[2],
+long *error)
+{
+	close(pipefd[0]);
+	dup2(pipefd[1], STDOUT_FILENO);
+	close(pipefd[1]);
+	exec_ast_next(ast->left, env_lst, error);
+	exit(EXIT_SUCCESS);
+}
+
+void	handle_pipe_child_right(t_ast *ast, t_env **env_lst,
+int pipefd[2], long *error)
 {
 	int	flag_exit;
 
 	flag_exit = 1;
-	if (is_left)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		exec_ast_next(ast->left, env_lst);
-	}
+	close(pipefd[1]);
+	dup2(pipefd[0], STDIN_FILENO);
+	close(pipefd[0]);
+	if (ast->right->token == TOKEN_CMD)
+		exec(ast->right, env_lst, &flag_exit, error);
 	else
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		if (ast->right->token == TOKEN_CMD)
-			exec(ast->right, env_lst, &flag_exit);
-		else
-			exec_ast_next(ast->right, env_lst);
-	}
+		exec_ast_next(ast->right, env_lst, error);
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2])
+void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], long *error)
 {
 	pid_t	pids[2];
 
@@ -48,7 +48,7 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2])
 	if (pids[0] == -1)
 		return ;
 	if (pids[0] == 0)
-		handle_pipe_child(ast, env_lst, pipefd, 1);
+		handle_pipe_child_left(ast, env_lst, pipefd, error);
 	close(pipefd[1]);
 	pids[1] = fork();
 	if (pids[1] == -1)
@@ -58,7 +58,7 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2])
 		return ;
 	}
 	if (pids[1] == 0)
-		handle_pipe_child(ast, env_lst, pipefd, 0);
+		handle_pipe_child_right(ast, env_lst, pipefd, error);
 	close(pipefd[0]);
 	waitpid(pids[0], NULL, 0);
 	waitpid(pids[1], NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 13:47:08 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 19:53:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ enum				e_token_error
 {
 	ERR_ODD_QUOTE = 1,
 	ERR_ODD_DQUOTE,
-	ERR_ODD_PARENTHESIS
+	ERR_ODD_PARENTHESIS,
+	ERR_SYNTAX_PIPE
 };
 
 enum				e_priority
@@ -60,6 +61,5 @@ t_token				*parser_join_file_and_redir_in(t_token *list);
 void				set_next_file_with_spaces(t_token *lst);
 void				set_next_cmd_with_spaces(t_token *lst);
 char				*parser_filter_quote(char *str);
-int					cmd_content_only_space(t_token *node);
 
 #endif
