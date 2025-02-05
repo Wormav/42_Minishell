@@ -6,12 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 13:00:29 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:02:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <readline/readline.h>
 
 #define PROMPT "minishell > "
 
@@ -46,9 +45,6 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	list = parser_identify(list);
 	parser_define_priority(&list);
 	parser_join_tokens(list);
-
-	// !print
-	print_token_list(list);
 	ast = ast_create(list, ast);
 	exec_ast(ast, env_lst);
 	clean_memory(ast, list, str);

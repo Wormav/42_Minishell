@@ -6,19 +6,22 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:52:02 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 12:13:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:18:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	join_tokens(t_token *current)
+static int	join_tokens(t_token *current, int flag_heredoc)
 {
 	char	*temp_str;
 	t_token	*to_lp_free;
 
 	temp_str = NULL;
-	temp_str = ft_strjoin(current->content, "");
+	if (flag_heredoc == 2)
+		temp_str = ft_strjoin(current->content, " ");
+	else
+		temp_str = ft_strjoin(current->content, "");
 	if (!temp_str)
 		return (0);
 	lp_free(current->content);
@@ -35,7 +38,7 @@ static int	join_tokens(t_token *current)
 	return (1);
 }
 
-t_token	*parser_join_word_and_cmd(t_token *list)
+t_token	*parser_join_word_and_cmd(t_token *list, int flag_heredoc)
 {
 	t_token	*head;
 	t_token	*current;
@@ -46,7 +49,8 @@ t_token	*parser_join_word_and_cmd(t_token *list)
 	current = list;
 	while (current && current->next)
 	{
-		if ( current->type == TOKEN_CMD && cmd_content_only_space(current))
+		if (flag_heredoc && current->type == TOKEN_CMD
+			&& cmd_content_only_space(current))
 			current->type = TOKEN_SPACE;
 		if (current->type == TOKEN_CMD && (current->next->type == TOKEN_WORD
 				|| current->next->type == TOKEN_ARGS
@@ -54,7 +58,7 @@ t_token	*parser_join_word_and_cmd(t_token *list)
 				|| current->next->type == TOKEN_SPACE
 				|| current->next->type == TOKEN_VAR))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, flag_heredoc))
 				return (head);
 		}
 		else
@@ -79,7 +83,7 @@ t_token	*parser_join_redir_and_file(t_token *list)
 			&& (current->next->type == TOKEN_FILE
 				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, 0))
 				return (head);
 		}
 		else
@@ -103,7 +107,7 @@ t_token	*parser_join_heredoc_and_file(t_token *list)
 			&& (current->next->type == TOKEN_LIMITER
 				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, 0))
 				return (head);
 		}
 		else
@@ -127,7 +131,7 @@ t_token	*parser_join_file_and_redir_in(t_token *list)
 			&& (current->next->type == TOKEN_FILE
 				|| current->next->type == TOKEN_SPACE))
 		{
-			if (!join_tokens(current))
+			if (!join_tokens(current, 0))
 				return (head);
 		}
 		else

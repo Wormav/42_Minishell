@@ -6,15 +6,15 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 12:38:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:42:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static t_ast   *here_doc_cmd_left(t_ast *root)
+static t_ast	*here_doc_cmd_left(t_ast *root)
 {
-	t_ast   *temp;
+	t_ast	*temp;
 
 	if (!root)
 		return (NULL);
