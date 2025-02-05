@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:40:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 22:33:36 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:03:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	is_not_good_char(char c)
 int	export_is_valid_key(char *str)
 {
 	if (ft_isdigit(*str) || *str == '=')
-		return (0);
+		return (3);
 	while (str && *str != '=')
 	{
 		if (!ft_isalnum(*str) && *str != '_')

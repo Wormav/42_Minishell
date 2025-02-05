@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 19:48:18 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:24:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	handle_option_errors(t_cmd *cmd)
 {
 	if (cmd->options)
 	{
+		cmd->options[0] = exit_trim_quote_first_option(cmd->options[0]);
 		if (cmd->options[1] || (cmd->options[0] && cmd->params[0] != 0))
 		{
 			printf("bash: exit: too many arguments\n");
@@ -110,7 +111,6 @@ void	execute_exit(t_cmd *cmd, long *exit_code, int *flag)
 
 	if (*flag == 1)
 		return ;
-	printf("%s\n", "exit");
 	error_exit = handle_exit_errors(cmd, &overflow_error);
 	if (error_exit)
 	{

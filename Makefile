@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/03 22:12:09 by stetrel          ###   ########.fr        #
+#    Updated: 2025/02/05 15:16:12 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS		:=	main.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
 				cmd/exit/exit.c \
+				cmd/exit/exit_utils.c \
 				cmd/export/export.c \
 				cmd/export/export_utils.c \
 				cmd/export/export_process_args.c \
