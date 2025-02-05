@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:52:47 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 13:49:58 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:38:05 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_heredoc	*handle_heredoc(char *delimiter)
 	int			flag;
 	char		*delimiter_trim;
 
-	flag = 0;
+	flag = 1;
 	if (!ft_strncmp(delimiter, "\"", 1) || !ft_strncmp(delimiter, "'", 1))
-		flag = 1;
+		flag = 0;
 	delimiter_trim = ft_strtrim(delimiter, "\"'");
 	new = lp_alloc(sizeof(t_heredoc));
 	if (!new)

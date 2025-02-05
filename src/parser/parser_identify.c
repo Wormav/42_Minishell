@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:39:02 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/30 16:05:45 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:57:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static t_token	*parser_identify_cmd(t_token *lst)
 			lst->type = TOKEN_CMD;
 		}
 		if (lst->type != TOKEN_SPACE && lst->next)
-			set_next_cmd(lst);
+		{
+			if (!cmd_content_only_space(lst))
+				set_next_cmd(lst);
+		}
 		lst = lst->next;
 	}
 	return (tmp);

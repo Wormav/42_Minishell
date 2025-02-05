@@ -60,3 +60,4 @@ minishell
 .objs
 *.nfs*
 test
+minishell_tester
