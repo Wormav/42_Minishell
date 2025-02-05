@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_errors_syntax.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stetrel <stetrel@42angouleme.fr>           +#+  +:+       +#+        */
+/*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:35:46 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 17:39:01 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/05 17:54:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static int	print_error_syntax(int err)
 {
 	if (err == ERR_SYNTAX_PIPE)
 		ft_printf(2, "minishell: syntax error near unexpected token `|'\n");
-	else 
+	else
 		return (0);
 	return (1);
 }
 
 static t_token	*skip_space_token(t_token *lst)
 {
-	while (lst && lst->type != TOKEN_SPACE)
+	while (lst && lst->type == TOKEN_SPACE)
 		lst = lst->next;
 	return (lst);
 }
@@ -36,16 +36,8 @@ static int	check_syntax(t_token *prev, t_token *current)
 		return (ERR_SYNTAX_PIPE);
 	if (!prev && current->type == TOKEN_PIPE)
 		return (ERR_SYNTAX_PIPE);
-	if (current->type == TOKEN_PIPE && (!current->next || current->next->type != TOKEN_WORD))
+	if (current->type == TOKEN_PIPE && skip_space_token(current->next)->type != TOKEN_WORD)
 		return (ERR_SYNTAX_PIPE);
-	if (prev && prev->type == TOKEN_PIPE && current->type != TOKEN_WORD)
-		return (ERR_SYNTAX_PIPE);
-	if (prev && prev->type == TOKEN_PIPE)
-	{
-		current = skip_space_token(current);
-		if (!current || current->type != TOKEN_CMD)
-			return (ERR_SYNTAX_PIPE);
-	}
 	return(0);
 }
 
