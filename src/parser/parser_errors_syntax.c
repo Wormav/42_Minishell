@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:35:46 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 17:54:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:56:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	parser_errors_syntax(t_token *lst, int *error)
 
 	tmp = lst;
 	prev = NULL;
-	print_token_list(lst);
 	while (tmp)
 	{
 		if (!prev && print_error_syntax(check_syntax(prev, tmp)))
