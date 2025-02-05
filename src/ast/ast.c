@@ -6,11 +6,31 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/22 17:16:45 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:38:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static t_ast   *here_doc_cmd_left(t_ast *root)
+{
+	t_ast   *temp;
+
+	if (!root)
+		return (NULL);
+	if (root->token && root->token == TOKEN_HEREDOC)
+	{
+		if (root->right && !root->left)
+		{
+			temp = root->right;
+			root->right = NULL;
+			root->left = temp;
+		}
+	}
+	root->left = here_doc_cmd_left(root->left);
+	root->right = here_doc_cmd_left(root->right);
+	return (root);
+}
 
 t_ast	*ast_create(t_token *lst, t_ast *root)
 {
@@ -36,5 +56,6 @@ t_ast	*ast_create(t_token *lst, t_ast *root)
 		free_token(left);
 		free_token(right);
 	}
+	root = here_doc_cmd_left(root);
 	return (root);
 }
