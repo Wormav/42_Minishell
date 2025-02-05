@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 17:37:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:56:51 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,16 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	list = token_parse_string(str);
 	check_unsupported_char(list, &err);
 	if (err)
+	{
 		parser_identify_error(err, list, str);
+		return ;
+	}
 	err = parser_check(list);
 	if (err)
 		token_identify_error(err, list, str);
+	parser_errors_syntax(list, &err);
+	if (err)
+		return ;
 	list = parser_identify(list);
 	parser_define_priority(&list);
 //	printf("\n\n");
