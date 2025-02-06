@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 13:11:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:07:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 	argv_cmd = join_params(cmd);
 	pid = fork();
 	if (pid == -1)
-		exit(1);
+		data_close_and_exit(data, 1);
 	if (pid == 0)
 	{
-		closefrom(3);
+		data_close_all_fd(data);
 		data->error = execute_child_process(cmd_name, argv_cmd, test_env, cmd);
 		if (data->error == 127)
-			exit(127);
+			data_close_and_exit(data, 127);
 	}
 	waitpid(pid, &status, 0);
 	data->error = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 13:06:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:35:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <data.h>
 
 void	execute_echo(t_cmd *cmd, t_env *env);
-void 	execute_pwd(t_cmd *cmd, t_data *data);
-void 	execute_unset(t_cmd *cmd, t_data *data, t_env **env_lst);
+void	execute_pwd(t_cmd *cmd, t_data *data);
+void	execute_unset(t_cmd *cmd, t_data *data, t_env **env_lst);
 void	execute_cd(t_env *env, t_cmd *cmd, t_data *data);
 void	execute_export(t_env **env, t_cmd *cmd, t_data *data);
 void	execute_exit(t_cmd *cmd, t_data *data, int *flag_exit);

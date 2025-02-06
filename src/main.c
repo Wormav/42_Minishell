@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/06 12:50:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:12:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	}
 	data.error_parsing = parser_check(list);
 	if (data.error_parsing)
-		token_identify_error(data.error_parsing, list, data.str_prompt);
+		token_identify_error(&data, list);
 	parser_errors_syntax(list, &data.error, &data.error_parsing);
 	if (data.error_parsing)
 	{

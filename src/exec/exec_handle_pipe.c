@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 13:14:18 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:07:19 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_data *data)
 	dup2(pipefd[1], STDOUT_FILENO);
 	close(pipefd[1]);
 	exec_ast_next(ast->left, env_lst, data);
-	exit(EXIT_SUCCESS);
+	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
 void	handle_pipe_child_right(t_ast *ast, t_env **env_lst,
@@ -35,7 +35,7 @@ int pipefd[2], t_data *data)
 		exec(ast->right, env_lst, &flag_exit, data);
 	else
 		exec_ast_next(ast->right, env_lst, data);
-	exit(EXIT_SUCCESS);
+	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
 void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)

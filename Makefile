@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/06 08:51:16 by stetrel          ###   ########.fr        #
+#    Updated: 2025/02/06 13:28:27 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCS		:=	main.c \
 				exec/exec_parsing.c \
 				exec/exec_heredoc.c \
 				exec/exec_handle_pipe.c \
+				data/data.c \
 
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
