@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/05 19:58:07 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/06 08:51:16 by stetrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,8 @@ MAKEFLAGS	+= --no-print-directory
 
 all: $(NAME)
 
+debug: CFLAGS += -D DEBUG=1
+debug: all
 
 $(NAME):	$(LIBFT_PATH)/libft.a $(OBJS)
 		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@ -lreadline

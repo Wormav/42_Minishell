@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 20:00:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 07:13:09 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ enum				e_token_error
 	ERR_ODD_QUOTE = 1,
 	ERR_ODD_DQUOTE,
 	ERR_ODD_PARENTHESIS,
-	ERR_SYNTAX_PIPE
+};
+
+enum	e_error_syntax
+{
+	ERR_SYNTAX_PIPE = 0b001,
+	ERR_SYNTAX_REDIR = 0b010,
+	ERR_SYNTAX_UNEXPECTED = 0b01001,
 };
 
 enum				e_priority
