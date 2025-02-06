@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/06 08:37:14 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/06 14:12:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,29 @@ void	__handle_sigint(int sig)
 
 static void	process_parsing(char *argv1, t_env **env_lst)
 {
-	static int	err = 0;
+	static	t_data data = {0};
 	t_token		*list;
 	t_ast		*ast;
-	char 		*str;
-	static long	error = 0;
 
-	str = ft_strdup(argv1);
+	data.str_prompt = ft_strdup(argv1);
 	ast = NULL;
-	check_odd_quotes(str, &err);
-	if (err)
-		return (lp_free(str));
-	list = token_parse_string(str);
-	check_unsupported_char(list, &err);
-	if (err)
+	check_odd_quotes(data.str_prompt, &data.error_parsing);
+	if (data.error_parsing)
+		return (lp_free(data.str_prompt));
+	list = token_parse_string(data.str_prompt);
+	check_unsupported_char(list, &data.error_parsing);
+	if (data.error_parsing)
 	{
-		parser_identify_error(err, list, str);
+		parser_identify_error(data.error_parsing, list, data.str_prompt);
 		return ;
 	}
-	err = parser_check(list);
-	if (err)
-		token_identify_error(err, list, str);
-	parser_errors_syntax(list, &error, &err);
-	if (err)
+	data.error_parsing = parser_check(list);
+	if (data.error_parsing)
+		token_identify_error(&data, list);
+	parser_errors_syntax(list, &data.error, &data.error_parsing);
+	if (data.error_parsing)
 	{
-		save_return_val(&error, env_lst);
+		save_return_val(&data, env_lst);
 		return;
 	}
 	list = parser_identify(list);
@@ -61,10 +59,10 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	#if DEBUG == 1
 		printf("debug activate\n");
 		print_tree(ast);
-	#endif	
+	#endif
 #endif
-	exec_ast(ast, env_lst, &error);
-	clean_memory(ast, list, str);
+	exec_ast(ast, env_lst, &data);
+	clean_memory(ast, list, data.str_prompt);
 }
 
 int	main(__attribute__((unused))int argc,

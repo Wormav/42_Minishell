@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 10:19:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:10:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	validate_params(char **split, long *error)
+static int	validate_params(char **split, t_data *data)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ static int	validate_params(char **split, long *error)
 		if (split[i][0] == '=' || split[i][0] == '-'
 			|| export_is_valid_key(split[0]) == 3)
 		{
-			*error = 1;
+			data->error = 1;
 			ft_printf(2, "minishell: export: `%s': not a valid identifier\n",
 				split[i]);
 			return (0);
@@ -32,14 +32,14 @@ static int	validate_params(char **split, long *error)
 	return (1);
 }
 
-static void	process_params(t_env *env, t_cmd *cmd, long *error)
+static void	process_params(t_env *env, t_cmd *cmd, t_data *data)
 {
 	char	**split;
 	int		i;
 
 	i = 0;
 	split = ft_split(env_replace_env_vars(env, cmd->params), ' ');
-	if (!validate_params(split, error))
+	if (!validate_params(split, data))
 		return ;
 	while (split[i])
 	{
@@ -48,8 +48,8 @@ static void	process_params(t_env *env, t_cmd *cmd, long *error)
 			free_split(split);
 			return ;
 		}
-		export_process_args(split[i], error, &env);
-		if (*error)
+		export_process_args(split[i], data, &env);
+		if (data->error)
 		{
 			free_split(split);
 			return ;
@@ -59,11 +59,11 @@ static void	process_params(t_env *env, t_cmd *cmd, long *error)
 	free_split(split);
 }
 
-void	execute_export(t_env **env, t_cmd *cmd, long *error)
+void	execute_export(t_env **env, t_cmd *cmd, t_data *data)
 {
 	if (cmd->options)
 	{
-		*error = 2;
+		data->error = 2;
 		ft_printf(2, "%s", handle_bad_option(cmd->options[0], "export"));
 		return ;
 	}
@@ -72,5 +72,5 @@ void	execute_export(t_env **env, t_cmd *cmd, long *error)
 		env_print(*env);
 		return ;
 	}
-	process_params(*env, cmd, error);
+	process_params(*env, cmd, data);
 }

@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_return.c                                      :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 19:39:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 12:50:12 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/06 14:36:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef DATA_H
+# define DATA_H
 
-void	save_return_val(t_data *data, t_env **env_lst)
+# define ARR_FD_SIZE 8192
+
+typedef struct s_data
 {
-	char	*save_return;
+	int		error_parsing;
+	char	*str_prompt;
+	long	error;
+	int		arr_fd[ARR_FD_SIZE];
+}	t_data;
 
-	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(data->error), "\"");
-	env_list_insert(env_lst, env_lstnew(save_return));
-}
+void	data_add_fd_to_array(t_data *data, int fd);
+void	data_close_all_fd(t_data *data);
+void	data_close_and_exit(t_data *data, long exit_code);
+
+#endif
