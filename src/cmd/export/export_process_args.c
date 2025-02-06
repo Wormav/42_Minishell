@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:46:00 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 15:14:21 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:00:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void	export_process_args_with_equal(char *split, int valid_key, t_env **env)
 	free_split(split_equal);
 }
 
-void	export_process_args(char *split, long *error, t_env **env)
+void	export_process_args(char *split, t_data *data, t_env **env)
 {
 	int	valid_key;
 
 	valid_key = export_is_valid_key(split);
 	if (!valid_key)
 	{
-		*error = 1;
+		data->error = 1;
 		ft_printf(2, "minishell: export: %s: not a valid identifier\n", split);
 		return ;
 	}

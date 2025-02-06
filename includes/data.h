@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_return.c                                      :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 19:39:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 12:50:12 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/06 12:18:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef DATA_H
+#define DATA_H
 
-void	save_return_val(t_data *data, t_env **env_lst)
+typedef struct s_data
 {
-	char	*save_return;
+	int		error_parsing;
+	char	*str_prompt;
+	long	error;
+	int		arr_fd[8192];
+} t_data;
 
-	save_return = ft_strsjoin(3, "?=\"", ft_ltoa(data->error), "\"");
-	env_list_insert(env_lst, env_lstnew(save_return));
-}
+#endif

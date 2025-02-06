@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 18:13:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:52:31 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	execute_pwd(t_cmd *cmd, long *error)
+void	execute_pwd(t_cmd *cmd, t_data *data)
 {
 	char	*pwd;
 	char	*result;
@@ -25,7 +25,7 @@ void	execute_pwd(t_cmd *cmd, long *error)
 		{
 			if (cmd->options[i][1])
 			{
-				*error = 2;
+				data->error = 2;
 				printf("%s\n", handle_bad_option(cmd->options[i], "pwd"));
 				return ;
 			}

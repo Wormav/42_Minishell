@@ -6,24 +6,24 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 19:37:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:14:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 void	handle_pipe_child_left(t_ast *ast, t_env **env_lst, int pipefd[2],
-long *error)
+t_data *data)
 {
 	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT_FILENO);
 	close(pipefd[1]);
-	exec_ast_next(ast->left, env_lst, error);
+	exec_ast_next(ast->left, env_lst, data);
 	exit(EXIT_SUCCESS);
 }
 
 void	handle_pipe_child_right(t_ast *ast, t_env **env_lst,
-int pipefd[2], long *error)
+int pipefd[2], t_data *data)
 {
 	int	flag_exit;
 
@@ -32,13 +32,13 @@ int pipefd[2], long *error)
 	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[0]);
 	if (ast->right->token == TOKEN_CMD)
-		exec(ast->right, env_lst, &flag_exit, error);
+		exec(ast->right, env_lst, &flag_exit, data);
 	else
-		exec_ast_next(ast->right, env_lst, error);
+		exec_ast_next(ast->right, env_lst, data);
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], long *error)
+void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
 {
 	pid_t	pids[2];
 
@@ -48,7 +48,7 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], long *error)
 	if (pids[0] == -1)
 		return ;
 	if (pids[0] == 0)
-		handle_pipe_child_left(ast, env_lst, pipefd, error);
+		handle_pipe_child_left(ast, env_lst, pipefd, data);
 	close(pipefd[1]);
 	pids[1] = fork();
 	if (pids[1] == -1)
@@ -58,7 +58,7 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], long *error)
 		return ;
 	}
 	if (pids[1] == 0)
-		handle_pipe_child_right(ast, env_lst, pipefd, error);
+		handle_pipe_child_right(ast, env_lst, pipefd, data);
 	close(pipefd[0]);
 	waitpid(pids[0], NULL, 0);
 	waitpid(pids[1], NULL, 0);

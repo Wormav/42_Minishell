@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/30 11:00:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:10:57 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	print_without_prefix(char *str)
 	printf("%s\n", str + 11);
 }
 
-void	execute_env(t_env *env, t_cmd *cmd, long *error)
+void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 {
 	if (cmd->options)
 	{
-		*error = 2;
+		data->error = 2;
 		printf("%s\n", handle_bad_option(cmd->options[0], "env"));
 		return ;
 	}
@@ -63,7 +63,7 @@ void	execute_env(t_env *env, t_cmd *cmd, long *error)
 		}
 		return ;
 	}
-	*error = 1;
+	data->error = 1;
 	if (*(cmd->params))
 		printf("bash: env: too many argument\n");
 }

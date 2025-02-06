@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/27 11:08:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/05 22:13:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define YELLOW "\033[33m"
 # define BLUE "\033[34m"
 # define RESET "\033[0m"
+
 
 static const char *token_to_string(int token) {
 	switch (token) {

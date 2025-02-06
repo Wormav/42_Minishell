@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 22:14:32 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:57:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,23 @@ static int	case_one(t_env *env)
 	return (1);
 }
 
-static int	check_options(t_cmd *cmd, t_env *env, long *error)
+static int	check_options(t_cmd *cmd, t_env *env, t_data *data)
 {
 	if (!ft_strcmp(cmd->options[0], "--"))
 		return (case_twoo(env));
 	if (!ft_strcmp(cmd->options[0], "-"))
 		return (case_one(env));
 	printf("%s", handle_bad_option(cmd->options[0], "cd"));
-	*error = 2;
+	data->error = 2;
 	return (1);
 }
 
-static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
+static void	handle_cd_execution(t_env *env, t_cmd *cmd, t_data *data)
 {
 	int		chdir_return;
 	char	*pwd;
 
-	*error = 1;
+	data->error = 1;
 	if (access(cmd->params, 0) == F_OK)
 	{
 		chdir_return = chdir(cmd->params);
@@ -95,7 +95,7 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
 						cmd->params)));
 			free(pwd);
-			*error = 0;
+			data->error = 0;
 		}
 		else
 			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
@@ -105,20 +105,20 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, long *error)
 		ft_printf(2, "minishell: No such file or directory\n");
 }
 
-void	execute_cd(t_env *env, t_cmd *cmd, long *error)
+void	execute_cd(t_env *env, t_cmd *cmd, t_data *data)
 {
 	int		options;
 	char	**params;
 
 	options = 0;
 	if (cmd->options)
-		options = check_options(cmd, env, error);
+		options = check_options(cmd, env, data);
 	if (cmd->params[0] != 0)
 	{
 		params = ft_split(cmd->params, ' ');
 		if (params[1])
 		{
-			*error = 1;
+			data->error = 1;
 			ft_printf(2, "minishell: cd: too many arguments\n");
 			return ;
 		}
@@ -128,5 +128,5 @@ void	execute_cd(t_env *env, t_cmd *cmd, long *error)
 	if (env_has_env_vars(cmd->params))
 		cmd->params = env_replace_env_vars(env, cmd->params);
 	if (!options)
-		handle_cd_execution(env, cmd, error);
+		handle_cd_execution(env, cmd, data);
 }

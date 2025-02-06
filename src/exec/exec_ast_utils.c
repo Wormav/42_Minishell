@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 19:19:01 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:51:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	define_macro(char *fd)
 		return (O_TRUNC);
 }
 
-void	exec_ast_next(t_ast *ast, t_env **env_lst, long *error)
+void	exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data)
 {
 	int		pipefd[2];
 	int		flag_exit;
@@ -50,9 +50,9 @@ void	exec_ast_next(t_ast *ast, t_env **env_lst, long *error)
 	if (!ast)
 		return ;
 	if (ast->token == TOKEN_PIPE)
-		handle_pipe(ast, env_lst, pipefd, error);
+		handle_pipe(ast, env_lst, pipefd, data);
 	else if (ast->token == TOKEN_CMD)
-		exec(ast, env_lst, &flag_exit, error);
+		exec(ast, env_lst, &flag_exit, data);
 }
 
 void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim)
