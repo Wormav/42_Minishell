@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 13:12:40 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:57:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 
 static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 {
-	//if (data->flag_erropen == true)
-	//	return ;
-	if (data->error != 2)
-		save_return_val(data, env_lst);
+	save_return_val(data, env_lst);
+	if (data->flag_erropen == true)
+		return ;
 	if (cmd->params)
 		cmd_filter_params(&cmd);
 	if (!ft_strcmp(cmd->cmd, "echo"))

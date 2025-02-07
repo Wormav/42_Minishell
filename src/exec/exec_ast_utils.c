@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 13:22:39 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:43:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim, t_data *
 		data->flag_erropen = true;
 		data->error = 2;
 		ft_printf(2, "minishell: %s: Permission denied\n", *fd);
-		return ;
+		if (data->flag_fork)
+			data_close_and_exit(data, data->error);
+		return;
 	}
 	if (*fd)
 		*fd_trim = exec_trim_fd(*fd);

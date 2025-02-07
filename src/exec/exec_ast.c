@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 13:26:09 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:43:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
 {
 	int	output_fd;
 
+	if (data->flag_erropen)
+		return;
 	if (fd_trim)
 	{
 		output_fd = open(fd_trim, O_WRONLY | O_CREAT | define_macro(fd),
@@ -90,58 +92,67 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 
 void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data)
 {
-	(void)env;
-	/*
-	* @pseudo-code
-	*	si on voit un '<'
-	*   on open le prochain token
-	*   et on dup2 l'entree standard (stdin) sur le fichier open: (dup2(fd, STDIN_FILENO))
-	*	close(fd) (lol le tableau de fd)
-	*	FIN
-	*
-	*	le seul probleme est de trouver ou integrer cette fonction
-	*/
-	if (!input_file)
-		return ;
-	char *trim = ft_strtrim(input_file, " <");
-	if (!trim)
-		return ;
-	int input_fd = open(trim, O_RDONLY);
-	if (input_fd == -1)
-	{
-		if (access(input_file, F_OK) != 0 || access(input_file, R_OK) != 0)
-		{
-			ft_printf(2, "minishell: %s: Permission Denied\n", trim);
-			data->error = 2;
-		}
-		else
-		{
-			ft_printf(2, "minishell: %s: No such file or directory\n", trim);
-			data->error = 1;
-		}
-		data->flag_erropen = true;
-		lp_free(trim);
-		return ;
-	}
-	data_add_fd_to_array(data, input_fd);
-	dup2(input_fd, STDIN_FILENO);
+    (void)env;
+    if (!input_file)
+        return;
+
+    char *trim = ft_strtrim(input_file, " <");
+    if (!trim)
+        return;
+
+    int input_fd = open(trim, O_RDONLY);
+    if (input_fd == -1)
+    {
+        if (access(trim, F_OK) == 0 && access(trim, R_OK) != 0)
+        {
+            ft_printf(2, "minishell: %s: Permission denied\n", trim);
+			if (data->flag_fork)
+			data_close_and_exit(data, data->error);
+            data->error = 2;
+        }
+        else
+        {
+            ft_printf(2, "minishell: %s: No such file or directory\n", trim);
+            data->error = 1;
+			if (data->flag_fork)
+				data_close_and_exit(data, data->error);
+        }
+        data->flag_erropen = true;
+        lp_free(trim);
+        return;
+    }
+
+    data_add_fd_to_array(data, input_fd);
+    dup2(input_fd, STDIN_FILENO);
+    lp_free(trim);
 }
 
 void	check_fds(t_fds *fds, char *fd, t_data *data)
 {
-	if (data->flag_erropen)
+	char *fd_trim;
+
+	if (data->flag_erropen || !fd)
 		return ;
-	if (access(fd, F_OK) != 0 || access(fd, R_OK) != 0)
+	fd_trim = exec_trim_fd(fd);
+	if (access(fd_trim, F_OK) == 0 && access(fd_trim, R_OK) != 0)
 	{
+		ft_printf(2, "minishell: %s: Permission denied\n", fd_trim);
+		if (data->flag_fork)
+			data_close_and_exit(data, data->error);
 		data->flag_erropen = true;
 		data->error = 2;
+		return ;
 	}
 	while (fds)
 	{
-		if (access(fds->fd_name, F_OK) != 0 || access(fds->fd_name, R_OK) != 0)
+		if (access(fds->fd_name, F_OK) == 0 && access(fds->fd_name, R_OK) != 0)
 		{
+			ft_printf(2, "minishell: %s: Permission denied\n", fds->fd_name);
 			data->flag_erropen = true;
 			data->error = 2;
+			if (data->flag_fork)
+				data_close_and_exit(data, data->error);
+			break ;
 		}
 		fds = fds->next;
 	}

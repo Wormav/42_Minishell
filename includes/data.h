@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 11:11:01 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:37:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct s_data
 	long	error;
 	int		arr_fd[ARR_FD_SIZE];
 	bool	flag_erropen;
-}	t_data;
+	bool 	flag_fork;
+} t_data;
 
 void	data_add_fd_to_array(t_data *data, int fd);
 void	data_close_all_fd(t_data *data);
