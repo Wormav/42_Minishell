@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 11:36:28 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:26:09 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,42 @@ void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data)
 	int input_fd = open(trim, O_RDONLY);
 	if (input_fd == -1)
 	{
-		if (access(input_file, F_OK) != 0 && access(input_file, R_OK) != 0)
+		if (access(input_file, F_OK) != 0 || access(input_file, R_OK) != 0)
+		{
 			ft_printf(2, "minishell: %s: Permission Denied\n", trim);
+			data->error = 2;
+		}
 		else
+		{
 			ft_printf(2, "minishell: %s: No such file or directory\n", trim);
-		data->error = 2;
+			data->error = 1;
+		}
 		data->flag_erropen = true;
 		lp_free(trim);
 		return ;
 	}
 	data_add_fd_to_array(data, input_fd);
 	dup2(input_fd, STDIN_FILENO);
+}
+
+void	check_fds(t_fds *fds, char *fd, t_data *data)
+{
+	if (data->flag_erropen)
+		return ;
+	if (access(fd, F_OK) != 0 || access(fd, R_OK) != 0)
+	{
+		data->flag_erropen = true;
+		data->error = 2;
+	}
+	while (fds)
+	{
+		if (access(fds->fd_name, F_OK) != 0 || access(fds->fd_name, R_OK) != 0)
+		{
+			data->flag_erropen = true;
+			data->error = 2;
+		}
+		fds = fds->next;
+	}
 }
 
 void	trunc_orders_fds(t_fds *fds, t_data *data)
@@ -159,7 +184,8 @@ void	exec_ast(t_ast *ast, t_env **env_lst, t_data *data)
 	data_add_fd_to_array(data, stdout_backup);
 	if (!ast || !env_lst)
 		return ;
-	exec_setup_fds(ast, &fds, &fd, &fd_trim);
+	exec_setup_fds(ast, &fds, &fd, &fd_trim, data);
+	check_fds(fds, fd, data);
 	exec_handle_input(ast, env_lst, data);
 	exec_handle_output(fd_trim, fd, data);
 	exec_ast_next(ast, env_lst, data);

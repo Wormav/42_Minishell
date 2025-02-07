@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 11:51:34 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:12:40 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 	int		status;
 
 	test_env = env_tab(*env_lst);
-	ft_printf(2, "fsjvjdfvjkdvnbjkdn");
-	if (data->flag_erropen == true)
-		return ;
 	if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
 		cmd_name = cmd->cmd;
 	else
@@ -92,6 +89,8 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 
 static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 {
+	//if (data->flag_erropen == true)
+	//	return ;
 	if (data->error != 2)
 		save_return_val(data, env_lst);
 	if (cmd->params)
