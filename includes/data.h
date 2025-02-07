@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:36:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:11:01 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 # define ARR_FD_SIZE 8192
 
+# include <stdbool.h>
+
 typedef struct s_data
 {
 	int		error_parsing;
 	char	*str_prompt;
 	long	error;
 	int		arr_fd[ARR_FD_SIZE];
+	bool	flag_erropen;
 }	t_data;
 
 void	data_add_fd_to_array(t_data *data, int fd);

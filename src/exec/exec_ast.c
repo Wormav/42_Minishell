@@ -6,11 +6,15 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:39:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:36:28 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "data.h"
+#include "exec.h"
+#include <fcntl.h>
 #include <minishell.h>
+#include <unistd.h>
 
 static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
 {
@@ -66,6 +70,8 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 	input_file = exec_identify_se(ast);
 	if (input_file && !ft_strncmp(input_file, "<<", 2))
 		exec_handle_input_heredoc(input_file, env, &input_fd, data);
+	else if (input_file && !ft_strncmp(input_file, "<", 1))
+		exec_handle_redir_in(input_file, env, data);
 	else
 	{
 		input_file = exec_trim_fd(input_file);
@@ -80,6 +86,40 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 			lp_free(input_file);
 		}
 	}
+}
+
+void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data)
+{
+	(void)env;
+	/*
+	* @pseudo-code
+	*	si on voit un '<'
+	*   on open le prochain token
+	*   et on dup2 l'entree standard (stdin) sur le fichier open: (dup2(fd, STDIN_FILENO))
+	*	close(fd) (lol le tableau de fd)
+	*	FIN
+	*
+	*	le seul probleme est de trouver ou integrer cette fonction
+	*/
+	if (!input_file)
+		return ;
+	char *trim = ft_strtrim(input_file, " <");
+	if (!trim)
+		return ;
+	int input_fd = open(trim, O_RDONLY);
+	if (input_fd == -1)
+	{
+		if (access(input_file, F_OK) != 0 && access(input_file, R_OK) != 0)
+			ft_printf(2, "minishell: %s: Permission Denied\n", trim);
+		else
+			ft_printf(2, "minishell: %s: No such file or directory\n", trim);
+		data->error = 2;
+		data->flag_erropen = true;
+		lp_free(trim);
+		return ;
+	}
+	data_add_fd_to_array(data, input_fd);
+	dup2(input_fd, STDIN_FILENO);
 }
 
 void	trunc_orders_fds(t_fds *fds, t_data *data)

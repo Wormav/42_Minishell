@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:36:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:29:47 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ void		handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2],
 // exec heredoc
 t_heredoc	*handle_heredoc(char *delimiter);
 void		free_heredoc(t_heredoc *heredoc);
+
+//exec_redir_in
+void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data);
 
 #endif
