@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:07:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:46:08 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
 	if (pids[0] == 0)
 		handle_pipe_child_left(ast, env_lst, pipefd, data);
 	close(pipefd[1]);
+	data->flag_fork = true;
 	pids[1] = fork();
 	if (pids[1] == -1)
 	{
+		data->flag_fork = false;
 		close(pipefd[0]);
 		waitpid(pids[0], NULL, 0);
 		return ;
@@ -62,4 +64,5 @@ void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
 	close(pipefd[0]);
 	waitpid(pids[0], NULL, 0);
 	waitpid(pids[1], NULL, 0);
+	data->flag_fork = false;
 }
