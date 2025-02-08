@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 13:23:47 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:38:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
 char		*exec_trim_fd(char *fd);
 int			define_macro(char *fd);
 void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
-//void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim);
+// ! trop de params refacto fds et fd dans une structure voir dans data
 void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim, t_data *data);
 
 // exec handle pipe
