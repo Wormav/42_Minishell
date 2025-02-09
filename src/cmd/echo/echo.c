@@ -6,84 +6,43 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 22:26:21 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:34:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*process_env_var_sq(t_env *env, char *result, char *var_start)
+static int	echo_check_option_n(char *str)
 {
-	char	*quote_start;
-	char	*quote_end;
+	int	i;
 
-	if (*(var_start + 1) == '=' || *(var_start + 1) == '+')
-		return (result);
-	if (*(var_start + 1) == '?')
-		return (parser_process_status_exit(result, var_start, env));
-	quote_start = ft_strchr(result, '\'');
-	while (quote_start && quote_start < var_start)
+	if (!str || str[0] != '-' || !str[1])
+		return (0);
+	i = 1;
+	while (str[i])
 	{
-		quote_end = ft_strchr(quote_start + 1, '\'');
-		if (!quote_end)
-			return (process_env_var(env, result, var_start));
-		if (var_start > quote_start && var_start < quote_end)
-			return (result);
-		quote_start = ft_strchr(quote_end + 1, '\'');
+		if (str[i] != 'n')
+			return (0);
+		i++;
 	}
-	return (process_env_var(env, result, var_start));
+	return (1);
 }
 
-static char	*process_env_vars_loop(t_env *env, char *result, char **pos)
+static int	echo_count_option_n(char **options)
 {
-	char	*prev_result;
-	int		in_quotes;
+	int	count;
+	int	i;
 
-	in_quotes = 0;
-	while (**pos)
+	if (!options)
+		return (0);
+	count = 0;
+	i = 0;
+	while (options[i] && echo_check_option_n(options[i]))
 	{
-		if (**pos == '\'')
-			in_quotes = !in_quotes;
-		else if (**pos == '$' && !in_quotes)
-		{
-			prev_result = ft_strdup(result);
-			result = process_env_var_sq(env, result, *pos);
-			if (ft_strcmp(prev_result, result) == 0)
-			{
-				lp_free(prev_result);
-				break ;
-			}
-			lp_free(prev_result);
-			*pos = result;
-			continue ;
-		}
-		(*pos)++;
+		count++;
+		i++;
 	}
-	return (result);
-}
-
-char	*env_replace_env_vars_sq(t_env *env, char *str)
-{
-	char	*result;
-	char	*pos;
-
-	if (!str)
-		return (NULL);
-	result = ft_strdup(str);
-	pos = result;
-	return (process_env_vars_loop(env, result, &pos));
-}
-
-void	process_with_dollar(char *str, t_env *env)
-{
-	char	*replace_env;
-	char	*filter_quotes;
-	char	*trim;
-
-	replace_env = env_replace_env_vars_sq(env, str);
-	filter_quotes = parser_filter_quote(replace_env);
-	trim = ft_strtrim(filter_quotes, " ");
-	printf("%s", trim);
+	return (count);
 }
 
 void	execute_echo(t_cmd *cmd, t_env *env)
@@ -91,6 +50,7 @@ void	execute_echo(t_cmd *cmd, t_env *env)
 	int	count_n;
 	int	i;
 
+	(void)env;
 	i = echo_count_option_n(cmd->options);
 	count_n = i;
 	if (cmd->options)
@@ -102,10 +62,7 @@ void	execute_echo(t_cmd *cmd, t_env *env)
 			i++;
 		}
 	}
-	if (!parser_check_dollar_sign(cmd->params))
-		printf("%s", parser_filter_quote(cmd->params));
-	else
-		process_with_dollar(cmd->params, env);
+	printf("%s", parser_filter_quote(cmd->params));
 	if (count_n)
 		return ;
 	printf("\n");

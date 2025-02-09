@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/08 12:38:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:56:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct s_fds
 	char			*fd_name;
 	struct s_fds	*next;
 }	t_fds;
+
+typedef struct s_fd_data
+{
+	char *fd;
+	struct s_fds	*fds;
+} t_fd_data;
 
 typedef struct s_heredoc
 {
