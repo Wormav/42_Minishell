@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:19:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/06 12:19:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:12:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@
 # include <exec.h>
 # include <data.h>
 
-static int	ack = 0;
+// static int	ack = 0;
 
 #endif
