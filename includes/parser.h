@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:37:29 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 22:20:38 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:09:38 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void				parser_errors_syntax(t_token *lst, long *error, int *err);
 int					cmd_content_only_space(t_token *node);
 void				parser_expand_var_env(t_data *data, t_env *env);
 int					parser_check_dollar_sign(char *str);
-char				*parser_process_status_exit(char *result, char *var_start, t_env *env);
+char				*parser_process_status_exit(char *result, char *var_start,
+						t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 22:55:35 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:20:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data)
 		exec(ast, env_lst, &flag_exit, data);
 }
 
-void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim, t_data *data)
+void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, t_data *data)
 {
 	*fd = exec_identify_fd(ast);
 	if (access(*fd, F_OK) == 0 && access(*fd, R_OK) != 0)
@@ -66,9 +66,7 @@ void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim, t_data *
 		ft_printf(2, "minishell: %s: Permission denied\n", *fd);
 		if (data->flag_fork)
 			data_close_and_exit(data, data->error);
-		return;
+		return ;
 	}
-	if (*fd)
-		*fd_trim = exec_trim_fd(*fd);
 	exec_store_other_fds(ast, fds, *fd);
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 22:56:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:26:36 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ typedef struct s_fds
 	char			*fd_name;
 	struct s_fds	*next;
 }	t_fds;
-
-typedef struct s_fd_data
-{
-	char *fd;
-	struct s_fds	*fds;
-} t_fd_data;
 
 typedef struct s_heredoc
 {
@@ -73,13 +67,13 @@ int			find_first_size(char *str);
 // exec ast
 void		exec_ast(t_ast *ast, t_env **env_lst, t_data *data);
 void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
+void 	exec_handle_redir_in(char *input_file, t_data *data);
 
 // exec ast utils
 char		*exec_trim_fd(char *fd);
 int			define_macro(char *fd);
 void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
-// ! trop de params refacto fds et fd dans une structure voir dans data
-void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, char **fd_trim, t_data *data);
+void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, t_data *data);
 
 // exec handle pipe
 void		handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2],
@@ -88,8 +82,5 @@ void		handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2],
 // exec heredoc
 t_heredoc	*handle_heredoc(char *delimiter);
 void		free_heredoc(t_heredoc *heredoc);
-
-//exec_redir_in
-void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data);
 
 #endif

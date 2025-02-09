@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   trunc_orders_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 05:35:36 by swenntetrel       #+#    #+#             */
-/*   Updated: 2025/02/09 23:25:13 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/09 23:18:58 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/09 23:19:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	clean_memory(t_ast *ast, t_token *token, char *str)
+void	trunc_orders_fds(t_fds *fds, t_data *data)
 {
-	if (ast)
-		ast_free(ast);
-	if (token)
-		free_token(token);
-	if (str)
-		lp_free(str);
-}
+	char	*fd_trim;
+	int		fd;
 
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
+	if (!fds)
+		return ;
+	while (fds)
 	{
-		lp_free(split[i]);
-		i++;
+		if (!ft_strncmp(fds->fd_name, "> ", 2))
+		{
+			fd_trim = ft_strtrim(fds->fd_name, "> ");
+			fd = open(fd_trim, O_TRUNC | O_CREAT);
+			if (fd != -1)
+				data_add_fd_to_array(data, fd);
+		}
+		fds = fds->next;
 	}
-	lp_free(split);
 }
