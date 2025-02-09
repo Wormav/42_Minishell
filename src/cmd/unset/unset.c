@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 12:54:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:30:43 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ static void	process_unset_params(char **params, t_env **env_lst)
 	i = 0;
 	while (params[i])
 	{
-		if (params[i][0] == '$')
-			env_list_remove(env_lst, env_get_value(*env_lst, params[i]));
-		else
-			env_list_remove(env_lst, params[i]);
+		env_list_remove(env_lst, params[i]);
 		i++;
 	}
 }

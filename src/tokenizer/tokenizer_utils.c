@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 08:14:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:15:49 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	find_token(t_tokenmap *token_map, char *str)
 		return (TOKEN_DPIPE);
 	if (!ft_strcmp(str, "&&"))
 		return (TOKEN_D_AND);
-	if (*str == '$')
-		return (TOKEN_VAR);
 	if (!ft_strcmp(str, "'-'") || !ft_strcmp(str, "\"-\""))
 		return (TOKEN_ARGS);
 	if (*str == '-')

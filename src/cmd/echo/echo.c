@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/04 08:09:46 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:26:21 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*process_env_var_sq(t_env *env, char *result, char *var_start)
 	if (*(var_start + 1) == '=' || *(var_start + 1) == '+')
 		return (result);
 	if (*(var_start + 1) == '?')
-		return (echo_process_status_exit(result, var_start, env));
+		return (parser_process_status_exit(result, var_start, env));
 	quote_start = ft_strchr(result, '\'');
 	while (quote_start && quote_start < var_start)
 	{
@@ -102,7 +102,7 @@ void	execute_echo(t_cmd *cmd, t_env *env)
 			i++;
 		}
 	}
-	if (!echo_check_dollar_sign(cmd->params))
+	if (!parser_check_dollar_sign(cmd->params))
 		printf("%s", parser_filter_quote(cmd->params));
 	else
 		process_with_dollar(cmd->params, env);

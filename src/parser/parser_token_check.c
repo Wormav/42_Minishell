@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:11:30 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 11:34:59 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/09 21:55:29 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	token_check_quote(t_token *lst)
 {
 	int	quote;
 
+	if (!lst)
+		return (0);
 	quote = 0;
 	while (lst->next)
 	{
@@ -30,6 +32,8 @@ static int	token_check_dquote(t_token *lst)
 {
 	int	dquote;
 
+	if (!lst)
+		return (0);
 	dquote = 0;
 	while (lst->next)
 	{
