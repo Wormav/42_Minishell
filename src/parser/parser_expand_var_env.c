@@ -6,97 +6,86 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:57:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 18:36:49 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:39:41 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int handle_exit_status(char *result, int *j, t_env *env)
+static char *process_env_var_sq(t_env *env, char *result, char *var_start)
 {
-	char *exit_value;
+	char *quote_start;
+	char *quote_end;
 
-	exit_value = env_get_value(env, "$?");
-	if (exit_value)
+	if (*(var_start + 1) == '=' || *(var_start + 1) == '+')
+		return (result);
+	if (*(var_start + 1) == '?')
+		return (echo_process_status_exit(result, var_start, env));
+	quote_start = ft_strchr(result, '\'');
+	while (quote_start && quote_start < var_start)
 	{
-		size_t len = ft_strlen(exit_value);
-		ft_strlcat(result, exit_value, *j + len + 1);
-		*j += len;
+		quote_end = ft_strchr(quote_start + 1, '\'');
+		if (!quote_end)
+			return (process_env_var(env, result, var_start));
+		if (var_start > quote_start && var_start < quote_end)
+			return (result);
+		quote_start = ft_strchr(quote_end + 1, '\'');
 	}
-	return 2;
+	return (process_env_var(env, result, var_start));
 }
 
-static int handle_env_var(char *str, char *result, int *j, t_env *env)
+static char *process_env_vars_loop(t_env *env, char *result, char **pos)
 {
-    int var_len = 0;
-    char *var_name;
-    char *value;
+	char *prev_result;
+	int in_quotes;
 
-    str++;
-    while (str[var_len] && (isalnum(str[var_len]) || str[var_len] == '_'))
-        var_len++;
-    var_name = ft_substr(str, 0, var_len);
-    if (!var_name)
-        return 1;
-    char *search_key = ft_strjoin("$", var_name);
-    value = env_get_value(env, search_key);
-    lp_free(var_name);
-    lp_free(search_key);
-    if (value)
-    {
-        size_t len = ft_strlen(value);
-        ft_strlcat(result, value, *j + len + 1);
-        *j += len;
-    }
-    return var_len + 1;
+	in_quotes = 0;
+	while (**pos)
+	{
+		if (**pos == '\'')
+			in_quotes = !in_quotes;
+		else if (**pos == '$' && !in_quotes)
+		{
+			prev_result = ft_strdup(result);
+			result = process_env_var_sq(env, result, *pos);
+			if (ft_strcmp(prev_result, result) == 0)
+			{
+				lp_free(prev_result);
+				break;
+			}
+			lp_free(prev_result);
+			*pos = result;
+			continue;
+		}
+		(*pos)++;
+	}
+	return (result);
 }
 
-static char *init_expansion(char *str)
+static char *env_replace_env_vars_sq(t_env *env, char *str)
 {
 	char *result;
+	char *pos;
 
-	result = lp_alloc((strlen(str) * 4 + 1) * sizeof(char));
-	if (!result)
-		return NULL;
-	return result;
-}
-
-static void process_var_expansion(char *str, char *result, int *i, int *j, t_env *env, int in_single_quotes)
-{
-	if (!in_single_quotes && str[*i] == '$')
-	{
-		if (str[*i + 1] == '?')
-			*i += handle_exit_status(result, j, env);
-		else if (isalnum(str[*i + 1]) || str[*i + 1] == '_')
-			*i += handle_env_var(str + *i, result, j, env);
-		else
-			result[(*j)++] = str[(*i)++];
-	}
-	else
-		result[(*j)++] = str[(*i)++];
+	if (!str)
+		return (NULL);
+	result = ft_strdup(str);
+	pos = result;
+	return (process_env_vars_loop(env, result, &pos));
 }
 
 void parser_expand_var_env(t_data *data, t_env *env)
 {
-	char *result;
-	int i;
-	int j;
-	int in_single_quotes;
+	char *expanded;
 
-	i = 0;
-	j = 0;
-	in_single_quotes = 0;
 	if (!data->str_prompt)
 		return;
-	if (!(result = init_expansion(data->str_prompt)))
+	if (!echo_check_dollar_sign(data->str_prompt))
 		return;
-	while (data->str_prompt[i])
+	expanded = env_replace_env_vars_sq(env, data->str_prompt);
+	if (expanded)
 	{
-		if (data->str_prompt[i] == '\'')
-			in_single_quotes = !in_single_quotes;
-		process_var_expansion(data->str_prompt, result, &i, &j, env, in_single_quotes);
+		lp_free(data->str_prompt);
+		data->str_prompt = expanded;
 	}
-	result[j] = '\0';
-	lp_free(data->str_prompt);
-	data->str_prompt = result;
 }
