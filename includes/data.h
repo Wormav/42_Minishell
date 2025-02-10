@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 13:48:58 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:17:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ typedef struct s_data
 void	data_add_fd_to_array(t_data *data, int fd);
 void	data_close_all_fd(t_data *data);
 void	data_close_and_exit(t_data *data, long exit_code);
+void	data_init(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:25:09 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:38:00 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:28:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,20 @@ void	data_close_and_exit(t_data *data, long exit_code)
 		i++;
 	}
 	exit(exit_code);
+}
+
+void	data_init(t_data *data)
+{
+	int	i;
+
+	if (!data)
+		return;
+	data->error_parsing = 0;
+	data->str_prompt = NULL;
+	data->error = 0;
+	data->flag_erropen = false;
+	data->flag_fork = false;
+	i = 0;
+	while (i < ARR_FD_SIZE)
+		data->arr_fd[i++] = 0;
 }

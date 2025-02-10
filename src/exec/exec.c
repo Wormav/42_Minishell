@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 15:57:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:37:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char **env_lst, t_cmd *cmd)
 	return (0);
 }
 
-static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
+static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
+int *ack)
 {
 	char	**test_env;
 	char	*cmd_name;
@@ -73,6 +74,7 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 	else
 		cmd_name = find_cmd(cmd, *env_lst, &data->error);
 	argv_cmd = join_params(cmd);
+	*ack = 42;
 	pid = fork();
 	if (pid == -1)
 		data_close_and_exit(data, 1);
@@ -89,6 +91,8 @@ static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 
 static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 {
+	extern int	ack;
+
 	save_return_val(data, env_lst);
 	if (data->flag_erropen == true)
 		return ;
@@ -110,7 +114,8 @@ static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		execute_env(*env_lst, cmd, data);
 	else if (ft_strcmp(cmd->cmd, "echo"))
-		process_others_cmd(cmd, env_lst, data);
+		process_others_cmd(cmd, env_lst, data, &ack);
+	ack = 0;
 }
 
 void	exec(t_ast *ast, t_env **env_lst, int *flag_exit, t_data *data)

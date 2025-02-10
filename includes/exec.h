@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 23:26:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:36:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			find_first_size(char *str);
 // exec ast
 void		exec_ast(t_ast *ast, t_env **env_lst, t_data *data);
 void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
-void 	exec_handle_redir_in(char *input_file, t_data *data);
+void		exec_handle_redir_in(char *input_file, t_data *data);
 
 // exec ast utils
 char		*exec_trim_fd(char *fd);
