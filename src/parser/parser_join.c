@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:22:39 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 14:43:06 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:45:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,47 @@ static t_token	*pipe_cmd(t_token *list)
 	return (head);
 }
 
-static int	check_heredoc(t_token *list)
+static char	*join_cmd_content(t_token *tmp)
 {
-	while (list)
+	t_token	*curr;
+	char	*new_content;
+	char	*temp;
+
+	new_content = ft_strdup(tmp->content);
+	curr = tmp->next;
+	while (curr && curr->type != TOKEN_PIPE)
 	{
-		if (list->type == TOKEN_HEREDOC)
-			return (1);
-		list = list->next;
+		if (curr->type == TOKEN_CMD)
+		{
+			temp = new_content;
+			new_content = ft_strjoin(temp, curr->content);
+			lp_free(temp);
+			curr->type = TOKEN_WORD;
+		}
+		curr = curr->next;
 	}
-	return (0);
+	return (new_content);
+}
+
+static t_token	*join_cmd(t_token *list)
+{
+	t_token	*head;
+	t_token	*tmp;
+	char	*new_content;
+
+	tmp = list;
+	head = list;
+	while (tmp)
+	{
+		if (tmp->type == TOKEN_CMD)
+		{
+			new_content = join_cmd_content(tmp);
+			lp_free(tmp->content);
+			tmp->content = new_content;
+		}
+		tmp = tmp->next;
+	}
+	return (head);
 }
 
 t_token	*parser_join_tokens(t_token *list)
@@ -85,5 +117,6 @@ t_token	*parser_join_tokens(t_token *list)
 		list = pipe_cmd(list);
 		list = parser_join_word_and_cmd(list, 2);
 	}
+	list = join_cmd(list);
 	return (list);
 }
