@@ -27,5 +27,6 @@ void	cmd_filter_params(t_cmd **cmd);
 int		count_params_size(char *params);
 void	save_return_val(t_data *data, t_env **env_lst);
 int		check_heredoc(t_token *list);
+void	trunc_orders_fds(t_fds *fds, t_data *data);
 
 #endif

@@ -32,8 +32,10 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	t_token		*list;
 	t_ast		*ast;
 
+	save_return_val(&data, env_lst);
 	data.str_prompt = ft_strdup(argv1);
 	ast = NULL;
+	parser_expand_var_env(&data, *env_lst);
 	check_odd_quotes(data.str_prompt, &data.error_parsing);
 	if (data.error_parsing)
 		return (lp_free(data.str_prompt));

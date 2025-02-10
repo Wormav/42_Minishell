@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 22:13:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:16:14 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static const char *token_to_string(int token) {
 		case TOKEN_DQUOTE: return "TOKEN_DQUOTE";
 		case TOKEN_L_PARENTHESIS: return "TOKEN_L_PARENTHESIS";
 		case TOKEN_R_PARENTHESIS: return "TOKEN_R_PARENTHESIS";
-		case TOKEN_VAR: return "TOKEN_VAR";
 		case TOKEN_WAVE: return "TOKEN_WAVE";
 		case TOKEN_WORD: return "TOKEN_WORD";
 		case TOKEN_ARGS: return "TOKEN_ARGS";

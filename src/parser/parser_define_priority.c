@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:09:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 11:36:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:22:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	parser_define_priority(t_token **list)
 	t_token	*tmp;
 	int		index;
 
+	if (*list == NULL)
+		return ;
 	tmp = (*list);
 	index = 0;
 	while (tmp->next)

@@ -72,6 +72,8 @@ static t_token	*parser_identify_files(t_token *lst)
 
 t_token	*parser_identify(t_token *list)
 {
+	if (!list)
+		return (list);
 	list = parser_identify_files(list);
 	list = parser_identify_cmd(list);
 	return (list);

@@ -43,12 +43,15 @@ SRCS		:=	main.c \
 				parser/parser_clean_quotes.c \
 				parser/parser_dquotes.c \
 				parser/parser_errors_syntax.c \
+				parser/parser_expand_var_env.c \
+				parser/parser_expend_var_env_utils.c \
 				errors/token_errors.c \
 				errors/error_odd_quotes.c \
 				errors/error_not_supported.c \
 				utils/clean.c \
 				utils/ft_ltoa.c \
 				utils/ft_atol.c \
+				utils/trunc_orders_fds.c \
 				utils/cmd_filter_params.c \
 				utils/handle_bad_option.c \
 				utils/has_equal_sign.c \
@@ -62,7 +65,6 @@ SRCS		:=	main.c \
 				env/env_list_create.c \
 				env/env_utils.c \
 				cmd/echo/echo.c \
-				cmd/echo/echo_utils.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \

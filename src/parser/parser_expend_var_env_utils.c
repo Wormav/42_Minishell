@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_utils.c                                       :+:      :+:    :+:   */
+/*   parser_expend_var_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 18:17:21 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/04 08:19:44 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/09 22:18:19 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/09 22:23:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	echo_check_dollar_sign(char *str)
+int	parser_check_dollar_sign(char *str)
 {
 	int	i;
 	int	in_quotes;
@@ -37,40 +37,7 @@ int	echo_check_dollar_sign(char *str)
 	return (0);
 }
 
-static int	echo_check_option_n(char *str)
-{
-	int	i;
-
-	if (!str || str[0] != '-' || !str[1])
-		return (0);
-	i = 1;
-	while (str[i])
-	{
-		if (str[i] != 'n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	echo_count_option_n(char **options)
-{
-	int	count;
-	int	i;
-
-	if (!options)
-		return (0);
-	count = 0;
-	i = 0;
-	while (options[i] && echo_check_option_n(options[i]))
-	{
-		count++;
-		i++;
-	}
-	return (count);
-}
-
-char	*echo_process_status_exit(char *result, char *var_start, t_env *env)
+char	*parser_process_status_exit(char *result, char *var_start, t_env *env)
 {
 	char	*new_result;
 	char	*exit_str;
