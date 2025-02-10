@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.h                                             :+:      :+:    :+:   */
+/*   check_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 13:48:58 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/10 13:45:57 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/10 13:46:14 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include <minishell.h>
 
-# define ARR_FD_SIZE 8192
-
-# include <stdbool.h>
-
-typedef struct s_data
+int	check_heredoc(t_token *list)
 {
-	int		error_parsing;
-	char	*str_prompt;
-	long	error;
-	int		arr_fd[ARR_FD_SIZE];
-	bool	flag_erropen;
-	bool	flag_fork;
-}	t_data;
-
-void	data_add_fd_to_array(t_data *data, int fd);
-void	data_close_all_fd(t_data *data);
-void	data_close_and_exit(t_data *data, long exit_code);
-
-#endif
+	while (list)
+	{
+		if (list->type == TOKEN_HEREDOC)
+			return (1);
+		list = list->next;
+	}
+	return (0);
+}
