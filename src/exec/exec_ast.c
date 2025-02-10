@@ -6,10 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 23:27:15 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:07:00 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include <minishell.h>
 
 static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
@@ -69,7 +70,7 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 	if (input_file && !ft_strncmp(input_file, "<<", 2))
 		exec_handle_input_heredoc(input_file, env, &input_fd, data);
 	else if (input_file && !ft_strncmp(input_file, "<", 1))
-		exec_handle_redir_in(input_file, data);
+		exec_handle_redir_in(parser_filter_quote(input_file), data);
 	else
 	{
 		input_file = exec_trim_fd(input_file);
