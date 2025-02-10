@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/10 11:37:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:36:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,49 @@
 
 #define PROMPT "minishell > "
 
-static int	ack = 0;
+int ack = 0;
 
-void	__handle_sigint(int sig)
+void __handle_sigint(int sig)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	ack = 130;
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+    (void)sig;
+    write(1, "\n", 1);
+    if (ack != 42)
+    {
+        ack = 130;
+        rl_replace_line("", 0);
+        rl_on_new_line();
+        rl_redisplay();
+    }
+    else
+        ack = 130;
 }
 
-static void	process_parsing(char *argv1, t_env **env_lst)
+static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 {
-	static	t_data data = {0};
 	t_token		*list;
 	t_ast		*ast;
 
-	save_return_val(&data, env_lst);
-	data.str_prompt = ft_strdup(argv1);
+	save_return_val(data, env_lst);
+	data->str_prompt = ft_strdup(prompt);
 	ast = NULL;
-	parser_expand_var_env(&data, *env_lst);
-	check_odd_quotes(data.str_prompt, &data.error_parsing);
-	if (data.error_parsing)
-		return (lp_free(data.str_prompt));
-	list = token_parse_string(data.str_prompt);
-	check_unsupported_char(list, &data.error_parsing);
-	if (data.error_parsing)
+	parser_expand_var_env(data, *env_lst);
+	check_odd_quotes(data->str_prompt, &data->error_parsing);
+	if (data->error_parsing)
+		return (lp_free(data->str_prompt));
+	list = token_parse_string(data->str_prompt);
+	check_unsupported_char(list, &data->error_parsing);
+	if (data->error_parsing)
 	{
-		parser_identify_error(data.error_parsing, list, data.str_prompt);
+		parser_identify_error(data->error_parsing, list, data->str_prompt);
 		return ;
 	}
-	data.error_parsing = parser_check(list);
-	if (data.error_parsing)
-		token_identify_error(&data, list);
-	parser_errors_syntax(list, &data.error, &data.error_parsing);
-	if (data.error_parsing)
+	data->error_parsing = parser_check(list);
+	if (data->error_parsing)
+		token_identify_error(data, list);
+	parser_errors_syntax(list, &data->error, &data->error_parsing);
+	if (data->error_parsing)
 	{
-		save_return_val(&data, env_lst);
+		save_return_val(data, env_lst);
 		return;
 	}
 	list = parser_identify(list);
@@ -67,19 +71,23 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 		print_token_list(list);
 #endif
 #endif
-	exec_ast(ast, env_lst, &data);
-	clean_memory(ast, list, data.str_prompt);
+	exec_ast(ast, env_lst, data);
+	clean_memory(ast, list, data->str_prompt);
 }
 
 int	main(__attribute__((unused))int argc,
 		__attribute__((unused))char **argv, char **envp)
 {
 	char	*str;
+	static	t_data data = {0};
+	struct sigaction sa;
+	t_env *env_lst;
 
-	struct sigaction	sa;
+	data_init(&data);
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = __handle_sigint;
-	t_env	*env_lst = env_fill_list(envp);
+	env_lst = env_fill_list(envp);
+	env_list_insert(&env_lst, env_lstnew("?=\"0\""));
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 	str = readline(PROMPT);
@@ -91,7 +99,7 @@ int	main(__attribute__((unused))int argc,
 			continue ;
 		}
 		add_history(str);
-		process_parsing(str, &env_lst);
+		process_parsing(str, &env_lst, &data);
 		free(str);
 		str = readline(PROMPT);
 	}

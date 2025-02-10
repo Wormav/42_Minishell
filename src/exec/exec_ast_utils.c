@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 13:08:10 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:39:33 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ void	exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data)
 
 void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, t_data *data)
 {
-    *fd = exec_identify_fd(ast);
-    if (*fd == NULL)
-        return ;
-    if (access(*fd, F_OK) == 0 && access(*fd, R_OK) != 0)
-    {
-        data->flag_erropen = true;
-        data->error = 2;
-        ft_printf(2, "minishell: %s: Permission denied\n", *fd);
-        if (data->flag_fork)
-            data_close_and_exit(data, data->error);
-        return ;
-    }
-    exec_store_other_fds(ast, fds, *fd);
+	*fd = exec_identify_fd(ast);
+	if (*fd == NULL)
+		return ;
+	if (access(*fd, F_OK) == 0 && access(*fd, R_OK) != 0)
+	{
+		data->flag_erropen = true;
+		data->error = 2;
+		ft_printf(2, "minishell: %s: Permission denied\n", *fd);
+		if (data->flag_fork)
+			data_close_and_exit(data, data->error);
+		return ;
+	}
+	exec_store_other_fds(ast, fds, *fd);
 }
