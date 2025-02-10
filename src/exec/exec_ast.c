@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/08 12:38:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:27:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
 	int	output_fd;
 
 	if (data->flag_erropen)
-		return;
+		return ;
 	if (fd_trim)
 	{
 		output_fd = open(fd_trim, O_WRONLY | O_CREAT | define_macro(fd),
@@ -69,7 +69,7 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 	if (input_file && !ft_strncmp(input_file, "<<", 2))
 		exec_handle_input_heredoc(input_file, env, &input_fd, data);
 	else if (input_file && !ft_strncmp(input_file, "<", 1))
-		exec_handle_redir_in(input_file, env, data);
+		exec_handle_redir_in(input_file, data);
 	else
 	{
 		input_file = exec_trim_fd(input_file);
@@ -86,16 +86,13 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 	}
 }
 
-void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data)
+void	exec_handle_redir_in(char *input_file, t_data *data)
 {
-    (void)env;
     if (!input_file)
         return;
-
     char *trim = ft_strtrim(input_file, " <");
     if (!trim)
         return;
-
     int input_fd = open(trim, O_RDONLY);
     if (input_fd == -1)
     {
@@ -117,7 +114,6 @@ void	exec_handle_redir_in(char *input_file, t_env **env, t_data *data)
         lp_free(trim);
         return;
     }
-
     data_add_fd_to_array(data, input_fd);
     dup2(input_fd, STDIN_FILENO);
     lp_free(trim);
@@ -154,26 +150,6 @@ void	check_fds(t_fds *fds, char *fd, t_data *data)
 	}
 }
 
-void	trunc_orders_fds(t_fds *fds, t_data *data)
-{
-	char	*fd_trim;
-	int		fd;
-
-	if (!fds)
-		return ;
-	while (fds)
-	{
-		if (!ft_strncmp(fds->fd_name, "> ", 2))
-		{
-			fd_trim = ft_strtrim(fds->fd_name, "> ");
-			fd = open(fd_trim, O_TRUNC | O_CREAT);
-			if (fd != -1)
-				data_add_fd_to_array(data, fd);
-		}
-		fds = fds->next;
-	}
-}
-
 void	exec_ast(t_ast *ast, t_env **env_lst, t_data *data)
 {
 	int		stdin_backup;
@@ -191,7 +167,8 @@ void	exec_ast(t_ast *ast, t_env **env_lst, t_data *data)
 	data_add_fd_to_array(data, stdout_backup);
 	if (!ast || !env_lst)
 		return ;
-	exec_setup_fds(ast, &fds, &fd, &fd_trim, data);
+	exec_setup_fds(ast, &fds, &fd, data);
+	fd_trim = exec_trim_fd(fd);
 	check_fds(fds, fd, data);
 	exec_handle_input(ast, env_lst, data);
 	exec_handle_output(fd_trim, fd, data);

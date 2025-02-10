@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/27 11:05:28 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:14:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ enum			e_token
 	TOKEN_WAVE,
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
-	TOKEN_VAR,
 	TOKEN_WORD,
 	TOKEN_ARGS,
 	TOKEN_DPIPE,

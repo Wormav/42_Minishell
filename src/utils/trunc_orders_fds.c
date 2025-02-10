@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_errors.c                                     :+:      :+:    :+:   */
+/*   trunc_orders_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 18:49:42 by jlorette         ###   ########.fr       */
+/*   Created: 2025/02/09 23:18:58 by jlorette          #+#    #+#             */
+/*   Updated: 2025/02/09 23:19:25 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// !code d'erreur a change en fonction de la sortie
-
-void	token_identify_error(t_data *data, t_token *lst)
+void	trunc_orders_fds(t_fds *fds, t_data *data)
 {
-	lp_free(data->str_prompt);
-	free_token(lst);
-	if (data->error == ERR_ODD_QUOTE)
-		write (2, "Not an odd number of quote\n", 27);
-	else if (data->error == ERR_ODD_DQUOTE)
-		write (2, "Not an odd number of dquote\n", 28);
-	data_close_and_exit(data, 1);
+	char	*fd_trim;
+	int		fd;
+
+	if (!fds)
+		return ;
+	while (fds)
+	{
+		if (!ft_strncmp(fds->fd_name, "> ", 2))
+		{
+			fd_trim = ft_strtrim(fds->fd_name, "> ");
+			fd = open(fd_trim, O_TRUNC | O_CREAT);
+			if (fd != -1)
+				data_add_fd_to_array(data, fd);
+		}
+		fds = fds->next;
+	}
 }

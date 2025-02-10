@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/07 16:41:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 23:15:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	case_twoo(t_env *env)
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", oldpwd)));
 		}
 		else
-			ft_printf(2, "minishell: cd: %s: No such file or directory\n", home);
+			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
+				home);
 	}
 	else
 		ft_printf(2, "bash: cd: HOME not set\n");
@@ -125,8 +126,6 @@ void	execute_cd(t_env *env, t_cmd *cmd, t_data *data)
 	}
 	if (cmd->params[0] == 0)
 		cmd->params = ft_strdup(env_get_value(env, "$HOME"));
-	if (env_has_env_vars(cmd->params))
-		cmd->params = env_replace_env_vars(env, cmd->params);
 	if (!options)
 		handle_cd_execution(env, cmd, data);
 }

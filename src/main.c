@@ -6,13 +6,15 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/06 14:12:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:54:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 #define PROMPT "minishell > "
+
+static int	ack = 0;
 
 void	__handle_sigint(int sig)
 {
@@ -30,8 +32,10 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 	t_token		*list;
 	t_ast		*ast;
 
+	save_return_val(&data, env_lst);
 	data.str_prompt = ft_strdup(argv1);
 	ast = NULL;
+	parser_expand_var_env(&data, *env_lst);
 	check_odd_quotes(data.str_prompt, &data.error_parsing);
 	if (data.error_parsing)
 		return (lp_free(data.str_prompt));
@@ -58,8 +62,10 @@ static void	process_parsing(char *argv1, t_env **env_lst)
 #ifdef DEBUG
 	#if DEBUG == 1
 		printf("debug activate\n");
+		print_token_list(list);
 		print_tree(ast);
-	#endif
+		print_token_list(list);
+#endif
 #endif
 	exec_ast(ast, env_lst, &data);
 	clean_memory(ast, list, data.str_prompt);

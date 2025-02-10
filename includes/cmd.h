@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 14:35:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:35:54 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ int		export_find_next_sign(char sign, char *str);
 char	*export_remove_plus_before_equal(char *str);
 void	export_process_args_with_equal(char *split, int valid_key, t_env **env);
 void	export_process_args(char *split, t_data *data, t_env **env);
-int		echo_count_option_n(char **options);
-int		echo_check_dollar_sign(char *str);
-char	*echo_process_status_exit(char *result, char *var_start, t_env *env);
 char	*exit_trim_quote_first_option(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/06 13:10:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:29:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	process_params(t_env *env, t_cmd *cmd, t_data *data)
 	int		i;
 
 	i = 0;
-	split = ft_split(env_replace_env_vars(env, cmd->params), ' ');
+	split = ft_split(cmd->params, ' ');
 	if (!validate_params(split, data))
 		return ;
 	while (split[i])
