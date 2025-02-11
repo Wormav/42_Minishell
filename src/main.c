@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/10 20:36:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:40:06 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void __handle_sigint(int sig)
     write(1, "\n", 1);
     if (ack != 42)
     {
-        ack = 130;
         rl_replace_line("", 0);
         rl_on_new_line();
         rl_redisplay();

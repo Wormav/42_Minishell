@@ -6,10 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 19:37:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:37:05 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
 #include <minishell.h>
 
 static void	trim_cmd_and_options(t_cmd *cmd)
@@ -41,22 +42,36 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 static long	execute_child_process(char *cmd_name, char **argv_cmd,
 char **env_lst, t_cmd *cmd)
 {
+	if ((!ft_strncmp(cmd->cmd, "./", 2) || *(cmd->cmd) == '/'))
+	{
+		if (is_directory(cmd->cmd))
+		{
+			ft_printf(2, "minishell: %s: Is a directory\n", cmd->cmd);
+				exit(126);
+		}
+		else if (access(cmd->cmd, F_OK) != 0)
+			ft_printf(2, "minishell: %s: No such file or directory\n", cmd->cmd);
+		exit(127);
+	}
+	if (!ft_isalpha(*(cmd->cmd)) && is_directory(cmd->cmd))
+	{
+		ft_printf(2, "minishell: %s: Is a directory\n", cmd->cmd);
+		exit(126);
+	}
 	if (!cmd_name)
 	{
 		if (execve(cmd->cmd, argv_cmd, env_lst) == -1)
 		{
-			ft_putendl_fd(ft_strsjoin(3, "bash: ", cmd->cmd,
-					": command not found"), 2);
-			return (127);
+			ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+			exit(127);
 		}
 	}
 	if (execve(cmd_name, argv_cmd, env_lst) == -1)
 	{
-		ft_putendl_fd(ft_strsjoin(3, "bash: ", cmd_name,
-				": command not found"), 2);
-		return (127);
+		ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+		exit(127);
 	}
-	return (0);
+	exit(0);
 }
 
 static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
@@ -79,7 +94,9 @@ int *ack)
 	if (pid == -1)
 		data_close_and_exit(data, 1);
 	if (pid == 0)
-	{
+	{ 
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		data_close_all_fd(data);
 		data->error = execute_child_process(cmd_name, argv_cmd, test_env, cmd);
 		if (data->error == 127)

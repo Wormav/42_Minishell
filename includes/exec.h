@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 19:36:40 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:06:08 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <ast.h>
 # include <env.h>
 # include <data.h>
+# include <sys/stat.h>
 
 typedef struct s_cmd
 {
@@ -74,6 +75,7 @@ char		*exec_trim_fd(char *fd);
 int			define_macro(char *fd);
 void		exec_ast_next(t_ast *ast, t_env **env_lst, t_data *data);
 void		exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, t_data *data);
+int			is_directory(const char *path);
 
 // exec handle pipe
 void		handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2],

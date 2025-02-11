@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 19:38:21 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:41:41 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include <minishell.h>
 
 static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
@@ -89,20 +88,21 @@ static void	exec_handle_input(t_ast *ast, t_env **env, t_data *data)
 
 void	exec_handle_redir_in(char *input_file, t_data *data)
 {
-    if (!input_file)
-        return;
     char *trim = ft_strtrim(input_file, " <");
-    if (!trim)
-        return;
     int input_fd = open(trim, O_RDONLY);
-    if (input_fd == -1)
+
+	if (!input_file)
+		return;
+	if (!trim)
+		return;
+	if (input_fd == -1)
     {
         if (access(trim, F_OK) == 0 && access(trim, R_OK) != 0)
         {
             ft_printf(2, "minishell: %s: Permission denied\n", trim);
 			if (data->flag_fork)
 			data_close_and_exit(data, data->error);
-            data->error = 2;
+            data->error = 1;
         }
         else
         {
@@ -133,7 +133,7 @@ void	check_fds(t_fds *fds, char *fd, t_data *data)
 		if (data->flag_fork)
 			data_close_and_exit(data, data->error);
 		data->flag_erropen = true;
-		data->error = 2;
+		data->error = 1;
 		return ;
 	}
 	while (fds)
@@ -142,7 +142,7 @@ void	check_fds(t_fds *fds, char *fd, t_data *data)
 		{
 			ft_printf(2, "minishell: %s: Permission denied\n", fds->fd_name);
 			data->flag_erropen = true;
-			data->error = 2;
+			data->error = 1;
 			if (data->flag_fork)
 				data_close_and_exit(data, data->error);
 			break ;
