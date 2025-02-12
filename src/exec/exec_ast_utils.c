@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:59:04 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 19:39:33 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:05:31 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ void	exec_setup_fds(t_ast *ast, t_fds **fds, char **fd, t_data *data)
 		return ;
 	}
 	exec_store_other_fds(ast, fds, *fd);
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	file;
+
+	if (stat(path, &file) == 0)
+		return (S_ISDIR(file.st_mode));
+	return (0);
 }
