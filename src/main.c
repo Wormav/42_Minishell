@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/11 20:40:06 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:09:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,39 @@ static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 	clean_memory(ast, list, data->str_prompt);
 }
 
-int	main(__attribute__((unused))int argc,
-		__attribute__((unused))char **argv, char **envp)
+int main(__attribute__((unused))int argc,
+        __attribute__((unused))char **argv, char **envp)
 {
-	char	*str;
-	static	t_data data = {0};
-	struct sigaction sa;
-	t_env *env_lst;
+    char    *str;
+    static  t_data data = {0};
+    struct sigaction sa;
+    t_env *env_lst;
 
-	data_init(&data);
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = __handle_sigint;
-	env_lst = env_fill_list(envp);
-	env_list_insert(&env_lst, env_lstnew("?=\"0\""));
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
-	str = readline(PROMPT);
-	while (str)
-	{
-		if (!*str)
-		{
-			str = readline(PROMPT);
-			continue ;
-		}
-		add_history(str);
-		process_parsing(str, &env_lst, &data);
-		free(str);
-		str = readline(PROMPT);
-	}
-	rl_clear_history();
+    data_init(&data);
+    ft_memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = __handle_sigint;
+    env_lst = env_fill_list(envp);
+    env_list_insert(&env_lst, env_lstnew("?=\"0\""));
+    sigaction(SIGINT, &sa, NULL);
+    signal(SIGQUIT, SIG_IGN);
+    using_history();
+    str = readline(PROMPT);
+    while (str)
+    {
+        if (!*str)
+        {
+            free(str);
+            str = readline(PROMPT);
+            continue;
+        }
+        add_history(str);
+        process_parsing(str, &env_lst, &data);
+        free(str);
+        str = readline(PROMPT);
+    }
+    clear_history();
+    if (str)
+        free(str);
+    rl_clear_history();
     return (0);
 }
