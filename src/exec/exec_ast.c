@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 13:48:54 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:23:30 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,30 +90,24 @@ void	exec_handle_redir_in(char *input_file, t_data *data)
 {
     char *trim = ft_strtrim(input_file, " <");
     int input_fd = open(trim, O_RDONLY);
-
-	if (!input_file)
-		return;
-	if (!trim)
-		return;
+	if (!input_file || !trim)
+		return ;
+	data->flag_redir_in = true;
 	if (input_fd == -1)
-    {
+	{
         if (access(trim, F_OK) == 0 && access(trim, R_OK) != 0)
         {
             ft_printf(2, "minishell: %s: Permission denied\n", trim);
-			if (data->flag_fork)
-			data_close_and_exit(data, data->error);
             data->error = 1;
         }
         else
         {
             ft_printf(2, "minishell: %s: No such file or directory\n", trim);
             data->error = 1;
-			if (data->flag_fork)
-				data_close_and_exit(data, data->error);
         }
         data->flag_erropen = true;
         lp_free(trim);
-        return;
+        return ;
     }
     data_add_fd_to_array(data, input_fd);
     dup2(input_fd, STDIN_FILENO);

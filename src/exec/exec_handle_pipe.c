@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 13:49:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:17:39 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,33 @@ int pipefd[2], t_data *data)
 	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
-void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
+void handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
 {
-	pid_t	pids[2];
+    pid_t   pids[2];
+    int     status[2];
 
-	if (pipe(pipefd) == -1)
-		return ;
-	pids[0] = fork();
-	if (pids[0] == -1)
-		return ;
-	if (pids[0] == 0)
-		handle_pipe_child_left(ast, env_lst, pipefd, data);
-	close(pipefd[1]);
-	data->flag_fork = true;
-	pids[1] = fork();
-	if (pids[1] == -1)
-	{
-		data->flag_fork = false;
-		close(pipefd[0]);
-		waitpid(pids[0], NULL, 0);
-		return ;
-	}
-	if (pids[1] == 0)
-		handle_pipe_child_right(ast, env_lst, pipefd, data);
-	close(pipefd[0]);
-	waitpid(pids[0], NULL, 0);
-	waitpid(pids[1], NULL, 0);
-	data->flag_fork = false;
+    if (pipe(pipefd) == -1)
+        return ;
+    pids[0] = fork();
+    if (pids[0] == -1)
+        return ;
+    if (pids[0] == 0)
+        handle_pipe_child_left(ast, env_lst, pipefd, data);
+    close(pipefd[1]);
+    data->flag_fork = true;
+    pids[1] = fork();
+    if (pids[1] == -1)
+    {
+        data->flag_fork = false;
+        close(pipefd[0]);
+        waitpid(-1, NULL, 0);
+        return ;
+    }
+    if (pids[1] == 0)
+        handle_pipe_child_right(ast, env_lst, pipefd, data);
+    close(pipefd[0]);
+    waitpid(pids[1], &status[1], 0);
+    waitpid(pids[0], &status[0], 0);
+    data->error = WEXITSTATUS(status[1]); // On prend toujours le code de sortie du dernier processus
+    data->flag_fork = false;
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/12 11:20:21 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:05:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 	t_ast		*ast;
 
 	save_return_val(data, env_lst);
+	data_init(data);
 	data->str_prompt = ft_strdup(prompt);
 	ast = NULL;
 	parser_expand_var_env(data, *env_lst);

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 13:48:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:24:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 	}
 }
 
-static long	execute_child_process(char *cmd_name, char **argv_cmd,
+static void	execute_child_process(char *cmd_name, char **argv_cmd,
 char **env_lst, t_cmd *cmd)
 {
 	if ((!ft_strncmp(cmd->cmd, "./", 2) || *(cmd->cmd) == '/'))
@@ -98,7 +98,7 @@ int *ack)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		data_close_all_fd(data);
-		data->error = execute_child_process(cmd_name, argv_cmd, test_env, cmd);
+		execute_child_process(cmd_name, argv_cmd, test_env, cmd);
 		if (data->error == 127)
 			data_close_and_exit(data, 127);
 	}
@@ -111,8 +111,8 @@ static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 	extern int	ack;
 
 	save_return_val(data, env_lst);
-	if (data->flag_erropen == true)
-		return ;
+	if (data->flag_erropen == true && !data->flag_fork)
+		return;
 	if (cmd->params)
 		cmd_filter_params(&cmd);
 	if (!ft_strcmp(cmd->cmd, "echo"))
