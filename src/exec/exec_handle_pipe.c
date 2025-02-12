@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 17:53:10 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:47:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,44 @@ int pipefd[2], t_data *data)
 	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
-void handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
+static int	init_pipe_left(t_ast *ast, t_env **env_lst, int pipefd[2],
+t_data *data)
 {
-    pid_t   pids[2];
-    int     status[2];
+	pid_t	pid;
 
-    if (pipe(pipefd) == -1)
-        return ;
-    pids[0] = fork();
-    if (pids[0] == -1)
-        return ;
-    if (pids[0] == 0)
-        handle_pipe_child_left(ast, env_lst, pipefd, data);
-    close(pipefd[1]);
-    data->flag_fork = true;
-    pids[1] = fork();
-    if (pids[1] == -1)
-    {
-        data->flag_fork = false;
-        close(pipefd[0]);
-        waitpid(-1, NULL, 0);
-        return ;
-    }
-    if (pids[1] == 0)
-        handle_pipe_child_right(ast, env_lst, pipefd, data);
-    close(pipefd[0]);
- 	waitpid(pids[1], &status[1], 0);
-    waitpid(pids[0], &status[0], 0);
-    data->error = WEXITSTATUS(status[1]);
-    data->flag_fork = false;
+	if (pipe(pipefd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == -1)
+		return (-1);
+	if (pid == 0)
+		handle_pipe_child_left(ast, env_lst, pipefd, data);
+	return (pid);
+}
+
+void	handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
+{
+	pid_t	pids[2];
+	int		status[2];
+
+	pids[0] = init_pipe_left(ast, env_lst, pipefd, data);
+	if (pids[0] == -1)
+		return ;
+	close(pipefd[1]);
+	data->flag_fork = true;
+	pids[1] = fork();
+	if (pids[1] == -1)
+	{
+		data->flag_fork = false;
+		close(pipefd[0]);
+		waitpid(-1, NULL, 0);
+		return ;
+	}
+	if (pids[1] == 0)
+		handle_pipe_child_right(ast, env_lst, pipefd, data);
+	close(pipefd[0]);
+	waitpid(pids[1], &status[1], 0);
+	waitpid(pids[0], &status[0], 0);
+	data->error = WEXITSTATUS(status[1]);
+	data->flag_fork = false;
 }
