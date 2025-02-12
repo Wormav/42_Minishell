@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:43:53 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 22:16:14 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:44:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,23 @@ void print_fds(t_fds *fds)
 		printf("FD: [%s]\n", fds->fd_name ? fds->fd_name : "NULL");
 		fds = fds->next;
 	}
+	printf("==========================================\n\n");
+}
+
+void print_data(t_data *data)
+{
+	printf("\n================= Data Info =================\n");
+	if (!data)
+	{
+		printf("Data structure is NULL\n");
+		printf("==========================================\n\n");
+		return;
+	}
+
+	printf("Error parsing: %d\n", data->error_parsing);
+	printf("Prompt string: %s\n", data->str_prompt ? data->str_prompt : "NULL");
+	printf("Error code: %ld\n", data->error);
+	printf("Error open flag: %s\n", data->flag_erropen ? "true" : "false");
+	printf("Fork flag: %s\n", data->flag_fork ? "true" : "false");
 	printf("==========================================\n\n");
 }

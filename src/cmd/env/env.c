@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 13:10:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:25:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	{
 		while (env)
 		{
-			printf("%s\n", (char *)env->content);
+			if (ft_strncmp(env->content, "?=", 2))
+				printf("%s\n", (char *)env->content);
 			env = env->next;
 		}
 		return ;

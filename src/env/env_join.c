@@ -6,12 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 07:55:05 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 18:41:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "utils.h"
 #include <minishell.h>
 
 void	env_join(char *to_join, t_env **env)

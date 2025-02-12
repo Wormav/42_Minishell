@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:13:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 20:17:27 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:23:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_data
 	int		arr_fd[ARR_FD_SIZE];
 	bool	flag_erropen;
 	bool	flag_fork;
+	bool	flag_redir_in;
 }	t_data;
 
 void	data_add_fd_to_array(t_data *data, int fd);

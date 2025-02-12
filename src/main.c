@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/11 14:09:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:33:57 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int ack = 0;
 
 void __handle_sigint(int sig)
 {
-    (void)sig;
-    write(1, "\n", 1);
+	(void)sig;
+	write(1, "\n", 1);
     if (ack != 42)
     {
         rl_replace_line("", 0);
@@ -36,6 +36,7 @@ static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 	t_ast		*ast;
 
 	save_return_val(data, env_lst);
+	data_init(data);
 	data->str_prompt = ft_strdup(prompt);
 	ast = NULL;
 	parser_expand_var_env(data, *env_lst);

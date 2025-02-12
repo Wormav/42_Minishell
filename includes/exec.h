@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/11 20:06:08 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:51:59 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void		exec_free_fds(t_fds *fds);
 // exec
 void		exec(t_ast *ast, t_env **env_lst, int *flag_exit, t_data *data);
 char		*find_cmd(t_cmd *cmd, t_env *env, long *error);
+void		execute_child_process(char *cmd_name, char **argv_cmd,
+				char **env_lst, t_cmd *cmd);
 
 // execve
 int			cmd_size(t_cmd *cmd);
@@ -84,5 +86,15 @@ void		handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2],
 // exec heredoc
 t_heredoc	*handle_heredoc(char *delimiter);
 void		free_heredoc(t_heredoc *heredoc);
+
+// exec_error_fd
+void		handle_output_error(char *fd, t_data *data);
+void		check_fd_permissions(char *fd_trim, t_data *data);
+void		exec_handle_output(char *fd_trim, char *fd, t_data *data);
+void		exec_handle_redir_in(char *input_file, t_data *data);
+
+// exec_others_commands.c
+void		process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
+				int *ack);
 
 #endif
