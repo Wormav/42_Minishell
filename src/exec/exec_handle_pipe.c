@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 17:07:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:53:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void handle_pipe(t_ast *ast, t_env **env_lst, int pipefd[2], t_data *data)
     if (pids[1] == 0)
         handle_pipe_child_right(ast, env_lst, pipefd, data);
     close(pipefd[0]);
-    waitpid(-1, &status[1], 0);
-    waitpid(-1, &status[0], 0);
+ 	waitpid(pids[1], &status[1], 0);
+    waitpid(pids[0], &status[0], 0);
     data->error = WEXITSTATUS(status[1]);
     data->flag_fork = false;
 }
