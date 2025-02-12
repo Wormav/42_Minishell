@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 15:52:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:25:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	exec_handle_output(char *fd_trim, char *fd, t_data *data)
             	data->error = 1;
         	}
         	data->flag_erropen = true;
-        	lp_free(fd);
         	return ;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 16:19:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:37:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	trim_cmd_and_options(t_cmd *cmd)
 static void	execute_child_process(char *cmd_name, char **argv_cmd,
 char **env_lst, t_cmd *cmd)
 {
+	cmd->cmd = ft_strtrim(cmd->cmd, "\t ");
 	if ((!ft_strncmp(cmd->cmd, "./", 2) || *(cmd->cmd) == '/'))
 	{
 		if (is_directory(cmd->cmd))
@@ -79,7 +80,6 @@ char **env_lst, t_cmd *cmd)
 		ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
 		exit(127);
 	}
-	exit(0);
 }
 
 static void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
@@ -112,6 +112,8 @@ int *ack)
 	}
 	waitpid(pid, &status, 0);
 	data->error = WEXITSTATUS(status);
+	if (data->error)
+		data_close_and_exit(data, data->error);
 }
 
 static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
@@ -152,6 +154,5 @@ void	exec(t_ast *ast, t_env **env_lst, int *flag_exit, t_data *data)
 	cmd = exec_create_cmd(ast->content);
 	trim_cmd_and_options(cmd);
 	exec_cmd(cmd, data, env_lst, flag_exit);
-	data->flag_erropen = false;
 	cleanup_cmd(cmd);
 }
