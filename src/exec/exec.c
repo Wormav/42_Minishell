@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:30:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include <minishell.h>
 
 static void	trim_cmd_and_options(t_cmd *cmd)

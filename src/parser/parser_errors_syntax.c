@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:35:46 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/12 11:24:15 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:02 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
 #include <minishell.h>
 
 static int	print_error_syntax(int err, char *token)

@@ -6,11 +6,10 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 21:45:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:22 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include <minishell.h>
 
 static char	*handle_bad_params(char *option)
