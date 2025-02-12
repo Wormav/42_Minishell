@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:35:46 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/11 21:39:59 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:24:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	check_first(t_token *current, t_token *prev)
 {
 	if (!prev && current->type == TOKEN_PIPE)
 		return (ERR_SYNTAX_PIPE);
-	if (!prev && (current->type == TOKEN_APPEND
-			|| current->type == TOKEN_HEREDOC))
+	if (!prev && (current->type == TOKEN_APPEND))
 		return (ERR_SYNTAX_REDIR);
 	return (0);
 }
@@ -52,8 +51,7 @@ static int	check_syntax(t_token *prev, t_token *current)
 		return (first);
 	if (!prev && current->type == TOKEN_PIPE)
 		return (ERR_SYNTAX_PIPE);
-	if (!prev && (current->type == TOKEN_APPEND
-			|| current->type == TOKEN_HEREDOC))
+	if (!prev && (current->type == TOKEN_APPEND))
 		return (ERR_SYNTAX_REDIR);
 	if ((current->type == TOKEN_REDIR_IN
 			|| current->type == TOKEN_REDIR_OUT

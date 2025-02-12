@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/11 14:09:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:20:21 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int ack = 0;
 
 void __handle_sigint(int sig)
 {
-    (void)sig;
-    write(1, "\n", 1);
+	(void)sig;
+	write(1, "\n", 1);
     if (ack != 42)
     {
         rl_replace_line("", 0);

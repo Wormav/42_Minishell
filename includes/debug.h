@@ -27,5 +27,6 @@ void	print_token_list(t_token *head);
 void	print_tree(t_ast *ast);
 void	print_cmd(t_cmd *cmd);
 void	print_fds(t_fds *fds);
+void	print_data(t_data *data);
 
 #endif

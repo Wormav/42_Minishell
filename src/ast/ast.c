@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:42:50 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/05 19:53:28 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:30:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static t_ast	*here_doc_cmd_left(t_ast *root)
 
 	if (!root)
 		return (NULL);
-	if (root->token && root->token == TOKEN_HEREDOC)
+	if (root->token && (root->token == TOKEN_HEREDOC
+			|| root->token == TOKEN_REDIR_IN))
 	{
 		if (root->right && !root->left)
 		{
