@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 15:24:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:19:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,16 @@ char **env_lst, t_cmd *cmd)
 				exit(126);
 		}
 		else if (access(cmd->cmd, F_OK) != 0)
+		{
 			ft_printf(2, "minishell: %s: No such file or directory\n", cmd->cmd);
-		exit(127);
+			exit(127);
+		}
+		else if (access(cmd->cmd, R_OK) != 0)
+		{
+			ft_printf(2, "minishell: %s: Permission denied\n", cmd->cmd);
+			exit(126);
+		}
+
 	}
 	if (!ft_isalpha(*(cmd->cmd)) && is_directory(cmd->cmd))
 	{
