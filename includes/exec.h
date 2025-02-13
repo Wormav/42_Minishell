@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:51:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:10:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void		exec_handle_output(char *fd_trim, char *fd, t_data *data);
 void		exec_handle_redir_in(char *input_file, t_data *data);
 
 // exec_others_commands.c
-void		process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
-				int *ack);
+void		process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data);
 
 #endif
