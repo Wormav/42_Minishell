@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:49:56 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 22:14:47 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:35:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ enum			e_token
 	TOKEN_FILE,
 	TOKEN_CMD,
 	TOKEN_LIMITER,
-	TOKEN_SPACE
+	TOKEN_SPACE,
+	TOKEN_SEMICOLON
 };
 
 typedef struct s_map

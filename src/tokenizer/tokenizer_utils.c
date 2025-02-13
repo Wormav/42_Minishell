@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 08:42:43 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 22:15:49 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:37:22 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_multiple_pipe_and(char *str)
 
 int	check_simple_token(char *str)
 {
-	static const char	*simple_tokens = "|<>&()'\"~*";
+	static const char *simple_tokens = "|<>&()'\"~*;";
 	int					i;
 
 	if (!str || !*str)
@@ -93,12 +93,7 @@ int	find_token(t_tokenmap *token_map, char *str)
 
 int	scan_token(char *str)
 {
-	static t_tokenmap	static_map[] = {{"|", TOKEN_PIPE}, {"<",
-		TOKEN_REDIR_IN}, {">", TOKEN_REDIR_OUT}, {"\"", TOKEN_DQUOTE}, {"'",
-		TOKEN_QUOTE}, {"<<", TOKEN_HEREDOC}, {">>", TOKEN_APPEND}, {"(",
-		TOKEN_L_PARENTHESIS}, {")", TOKEN_R_PARENTHESIS}, {"~", TOKEN_WAVE},
-	{"-", TOKEN_ARGS}, {"||", TOKEN_DPIPE}, {"*", TOKEN_WILDCARD},
-	{NULL, TOKEN_WORD}};
+	static t_tokenmap static_map[] = {{"|", TOKEN_PIPE}, {"<", TOKEN_REDIR_IN}, {">", TOKEN_REDIR_OUT}, {"\"", TOKEN_DQUOTE}, {"'", TOKEN_QUOTE}, {"<<", TOKEN_HEREDOC}, {">>", TOKEN_APPEND}, {"(", TOKEN_L_PARENTHESIS}, {")", TOKEN_R_PARENTHESIS}, {"~", TOKEN_WAVE}, {"-", TOKEN_ARGS}, {"||", TOKEN_DPIPE}, {"*", TOKEN_WILDCARD}, {";", TOKEN_SEMICOLON}, {NULL, TOKEN_WORD}};
 
 	return (find_token(static_map, str));
 }
