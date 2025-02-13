@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 10:55:09 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:21:53 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	setup_child_signals(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
+
 
 static void	handle_child_execution(t_cmd *cmd, char **test_env,
 	char *cmd_name, t_data *data)
@@ -38,30 +39,53 @@ static char	*prepare_command(t_cmd *cmd, t_env *env_lst, long *error)
 	return (find_cmd(cmd, env_lst, error));
 }
 
-static void	wait_and_check_status(pid_t pid, t_data *data)
+static void wait_and_check_status(pid_t pid, t_data *data)
 {
-	int	status;
+    int status;
 
-	waitpid(pid, &status, 0);
-	data->error = WEXITSTATUS(status);
-	if (data->error == 1)
-		data_close_and_exit(data, data->error);
+    waitpid(pid, &status, 0);
+    if (WIFSIGNALED(status))
+    {
+        if (WTERMSIG(status) == SIGINT)
+            data->error = 130;
+        else if (WTERMSIG(status) == SIGQUIT)
+            data->error = 131;
+    }
+    else
+        data->error = WEXITSTATUS(status);
 }
 
-void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data,
-	int *ack)
+static void handler_fork(int sig)
 {
-	char	**test_env;
-	char	*cmd_name;
-	pid_t	pid;
+    (void)sig;
+    if (sig == SIGINT)
+    {
+        write(1, "\n", 1);
+    }
+    else if (sig == SIGQUIT)
+    {
+        write(1, "Quit\n", 5);
+    }
+}
 
-	test_env = env_tab(*env_lst);
-	cmd_name = prepare_command(cmd, *env_lst, &data->error);
-	*ack = 42;
-	pid = fork();
-	if (pid == -1)
-		data_close_and_exit(data, 1);
-	if (pid == 0)
-		handle_child_execution(cmd, test_env, cmd_name, data);
-	wait_and_check_status(pid, data);
+void process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
+{
+    char **test_env;
+    char *cmd_name;
+    pid_t pid;
+    struct sigaction sa;
+    test_env = env_tab(*env_lst);
+    cmd_name = prepare_command(cmd, *env_lst, &data->error);
+    ft_memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handler_fork;
+    sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGQUIT, &sa, NULL);
+    pid = fork();
+    if (pid == -1)
+        data_close_and_exit(data, 1);
+    if (pid == 0)
+        handle_child_execution(cmd, test_env, cmd_name, data);
+    wait_and_check_status(pid, data);
+    signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
 }

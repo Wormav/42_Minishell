@@ -6,11 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 12:15:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:30:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <unistd.h>
+#include <termios.h>
 
 #define PROMPT "minishell > "
 
@@ -20,13 +22,10 @@ void __handle_sigint(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-    if (ack != 42)
-    {
-        rl_replace_line("", 0);
-        rl_on_new_line();
-        rl_redisplay();
-    }
-        ack = 130;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+    rl_redisplay();
+    ack = 130;
 }
 
 static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
@@ -34,9 +33,9 @@ static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 	t_token		*list;
 	t_ast		*ast;
 
-	if (ack == 130)
+	if (ack == 130 || ack == 131)
     {
-        data->error = 130;
+        data->error = ack;
         ack = 0;
 	}
 	save_return_val(data, env_lst);
@@ -94,7 +93,6 @@ int main(__attribute__((unused))int argc,
     env_list_insert(&env_lst, env_lstnew("?=\"0\""));
     sigaction(SIGINT, &sa, NULL);
     signal(SIGQUIT, SIG_IGN);
-    using_history();
     str = readline(PROMPT);
     while (str)
     {

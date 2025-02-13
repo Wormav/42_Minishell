@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:55:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:11:15 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static void	exec_cmd(t_cmd *cmd, t_data *data, t_env **env_lst, int *flag_exit)
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		execute_env(*env_lst, cmd, data);
 	else if (ft_strcmp(cmd->cmd, "echo"))
-		process_others_cmd(cmd, env_lst, data, &ack);
+		process_others_cmd(cmd, env_lst, data);
 	ack = 0;
 }
 

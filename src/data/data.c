@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:25:09 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 17:27:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:28:36 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	data_init(t_data *data)
 		return ;
 	data->error_parsing = 0;
 	data->str_prompt = NULL;
-	data->error = 0;
+	if (!data->error)
+		data->error = 0;
 	data->flag_erropen = false;
 	data->flag_fork = false;
 	data->flag_redir_in = false;
