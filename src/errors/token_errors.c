@@ -6,13 +6,11 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:40:13 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/09 18:49:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:20:19 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// !code d'erreur a change en fonction de la sortie
 
 void	token_identify_error(t_data *data, t_token *lst)
 {
