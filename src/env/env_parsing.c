@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/05 14:32:30 by swenntetrel      ###   ########.fr       */
+/*   Updated: 2025/02/13 22:48:37 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 static int	check_dup(char *node1, char *node2)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (node1[i] && node1[i] != '=')
 		i++;
+	while (node2[j] && node2[j] != '=')
+		j++;
+	if (i != j)
+		return (0);
 	return (!ft_strncmp(node1, node2, i));
 }
 
