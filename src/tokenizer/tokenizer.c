@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/01/22 17:15:48 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:34:26 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	check_end_of_token(char *str)
 		return (size);
 	if (check_simple_token(start) > 0)
 		return (check_simple_token(start));
-	while (*start && !ft_strchr(" |$<>\"'()", *start) && *start != ' ')
+	while (*start && !ft_strchr(" |$<>\"'();", *start) && *start != ' ')
 		start++;
 	return (start - str);
 }
