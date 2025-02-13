@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 18:39:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:46:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ int	g_ack = 0;
 
 static void	process_parsing_init(char *prompt, t_env **env_lst, t_data *data)
 {
-    if (g_ack == 130 || g_ack == 131)
-    {
-        data->error = g_ack;
-        g_ack = 0;
-    }
-    save_return_val(data, env_lst);
-    data_init(data);
-    data->str_prompt = ft_strdup(prompt);
-    parser_expand_var_env(data, *env_lst);
-    check_odd_quotes(data->str_prompt, &data->error_parsing);
-    if (data->error_parsing)
-        token_identify_error(data, NULL);
+	if (g_ack == 130 || g_ack == 131)
+	{
+		data->error = g_ack;
+		g_ack = 0;
+	}
+	save_return_val(data, env_lst);
+	data_init(data);
+	data->str_prompt = ft_strdup(prompt);
+	parser_expand_var_env(data, *env_lst);
+	check_odd_quotes(data->str_prompt, &data->error_parsing);
+	if (data->error_parsing)
+		token_identify_error(data, NULL);
 }
 
 static void	process_parsing_checks(t_token *list, t_data *data, t_env **env_lst)
