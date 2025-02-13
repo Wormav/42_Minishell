@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:01:05 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/31 18:10:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:14:14 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	print_error_params(t_cmd *cmd, long *error)
 	if (error_code == 0)
 		return (0);
 	if (error_code == -1)
-		printf("%s: '': No such file or directory\n", cmd->cmd);
+		ft_printf(2, "%s: '': No such file or directory\n", cmd->cmd);
 	else
 	{
 		string_error = create_string_spaces_error(error_code);
-		printf("%s: cannot access '%s': No such file or directory\n",
+		ft_printf(2, "%s: cannot access '%s': No such file or directory\n",
 			cmd->cmd, string_error);
 		lp_free(string_error);
 	}

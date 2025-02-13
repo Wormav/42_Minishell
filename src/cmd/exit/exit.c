@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:01:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:55:22 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:27 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ static char	*handle_bad_params(char *option)
 	char	*error_message;
 	char	*space_pos;
 
-	error_message = lp_alloc(ft_strlen("bash: exit: ")
+	error_message = lp_alloc(ft_strlen("minishell: exit: ")
 			+ ft_strlen(option)
 			+ ft_strlen(": numeric argument required\n") + 1);
 	if (!error_message)
 		return (NULL);
-	ft_strlcpy(error_message, "bash: exit: ", ft_strlen("bash: exit: ") + 1);
+	ft_strlcpy(error_message, "minishell: exit: ",
+		ft_strlen("minishell: exit: ") + 1);
 	ft_strlcat(error_message, option, ft_strlen(error_message)
 		+ ft_strlen(option) + 1);
 	space_pos = ft_strchr(option, ' ');
@@ -63,12 +64,12 @@ static int	handle_option_errors(t_cmd *cmd)
 		cmd->options[0] = exit_trim_quote_first_option(cmd->options[0]);
 		if (cmd->options[1] || (cmd->options[0] && cmd->params[0] != 0))
 		{
-			printf("bash: exit: too many arguments\n");
+			ft_printf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
 		else if (!content_valid_code(cmd->options[0]))
 		{
-			printf("%s", handle_bad_params(cmd->options[0]));
+			ft_printf(2, "%s", handle_bad_params(cmd->options[0]));
 			return (2);
 		}
 	}
@@ -97,7 +98,7 @@ static int	handle_exit_errors(t_cmd *cmd, int *overflow_error)
 	}
 	if ((cmd->options && params && params[0]) || (params && params[1]))
 	{
-		ft_putstr_fd("bash: exit: too many arguments\n", 2);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		return (1);
 	}
 	return (0);

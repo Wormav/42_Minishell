@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 16:25:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	if (cmd->options)
 	{
 		data->error = 2;
-		printf("%s\n", handle_bad_option(cmd->options[0], "env"));
+		ft_printf(2, "%s\n", handle_bad_option(cmd->options[0], "env"));
 		return ;
 	}
 	if ((!*(cmd->params) && !cmd->options) || check_env_param(cmd->params))
@@ -66,5 +66,5 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	}
 	data->error = 1;
 	if (*(cmd->params))
-		printf("bash: env: too many argument\n");
+		ft_printf(2, "minishell: env: too many argument\n");
 }

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 22:30:43 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:13:44 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*handle_bang_error(char *param, t_data *data)
 		after_bang = ft_strdup(param + i);
 		if (!after_bang)
 			return (NULL);
-		error_message = ft_strjoin("bash: ", after_bang);
+		error_message = ft_strjoin("minishell: ", after_bang);
 		lp_free(after_bang);
 		if (!error_message)
 			return (NULL);
@@ -78,7 +78,7 @@ void	execute_unset(t_cmd *cmd, t_data *data, t_env **env_lst)
 	if (cmd->options)
 	{
 		data->error = 2;
-		printf("%s\n", handle_bad_option(cmd->options[0], "unset"));
+		ft_printf(2, "%s\n", handle_bad_option(cmd->options[0], "unset"));
 		return ;
 	}
 	params = ft_split(cmd->params, ' ');
