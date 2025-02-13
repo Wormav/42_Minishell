@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:31:25 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:55:09 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	wait_and_check_status(pid_t pid, t_data *data)
 
 	waitpid(pid, &status, 0);
 	data->error = WEXITSTATUS(status);
-	if (data->error)
+	if (data->error == 1)
 		data_close_and_exit(data, data->error);
 }
 
