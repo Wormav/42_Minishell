@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:06 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:58:01 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,18 @@ static void	wait_and_check_status(pid_t pid, t_data *data)
 
 static void handler_fork(int sig)
 {
-    (void)sig;
-    if (sig == SIGINT)
+	extern int ack;
+	(void)sig;
+	if (sig == SIGINT)
     {
-        write(1, "\n", 1);
-    }
+		ack = 130;
+		write(1, "\n", 1);
+	}
     else if (sig == SIGQUIT)
     {
-        write(1, "Quit\n", 5);
-    }
+		ack = 131;
+		write(1, "Quit\n", 5);
+	}
 }
 
 void process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
