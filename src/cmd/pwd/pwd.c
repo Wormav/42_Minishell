@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:20:20 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/06 12:52:31 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:13:34 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_pwd(t_cmd *cmd, t_data *data)
 			if (cmd->options[i][1])
 			{
 				data->error = 2;
-				printf("%s\n", handle_bad_option(cmd->options[i], "pwd"));
+				ft_printf(2, "%s\n", handle_bad_option(cmd->options[i], "pwd"));
 				return ;
 			}
 			i++;

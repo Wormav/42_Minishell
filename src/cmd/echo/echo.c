@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/12 17:28:50 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:44:57 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_echo(t_cmd *cmd, t_env *env)
 		while (cmd->options[i])
 		{
 			if (ft_strcmp(cmd->options[i], "-n") || i != 0)
-				printf("%s ", cmd->options[i]);
+				ft_printf(2, "%s ", cmd->options[i]);
 			i++;
 		}
 	}

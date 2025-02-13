@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/09 23:15:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:36 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	case_twoo(t_env *env)
 				home);
 	}
 	else
-		ft_printf(2, "bash: cd: HOME not set\n");
+		ft_printf(2, "minishell: cd: HOME not set\n");
 	return (1);
 }
 
@@ -64,7 +64,7 @@ static int	case_one(t_env *env)
 				oldpwd);
 	}
 	else
-		ft_printf(2, "bash: cd: OLDPWD not set\n");
+		ft_printf(2, "minishell: cd: OLDPWD not set\n");
 	return (1);
 }
 
@@ -74,7 +74,7 @@ static int	check_options(t_cmd *cmd, t_env *env, t_data *data)
 		return (case_twoo(env));
 	if (!ft_strcmp(cmd->options[0], "-"))
 		return (case_one(env));
-	printf("%s", handle_bad_option(cmd->options[0], "cd"));
+	ft_printf(2, "%s", handle_bad_option(cmd->options[0], "cd"));
 	data->error = 2;
 	return (1);
 }
