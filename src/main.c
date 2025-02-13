@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 12:09:04 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:15:57 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ int main(__attribute__((unused))int argc,
         free(str);
         str = readline(PROMPT);
     }
-    clear_history();
-    if (str)
+	printf("exit\n");
+	clear_history();
+	if (str)
         free(str);
     rl_clear_history();
     return (0);
