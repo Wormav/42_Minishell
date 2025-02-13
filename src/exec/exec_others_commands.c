@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 14:21:53 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:52:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,14 @@ static char	*prepare_command(t_cmd *cmd, t_env *env_lst, long *error)
 	return (find_cmd(cmd, env_lst, error));
 }
 
-static void wait_and_check_status(pid_t pid, t_data *data)
+static void	wait_and_check_status(pid_t pid, t_data *data)
 {
-    int status;
+	int	status;
 
-    waitpid(pid, &status, 0);
-    if (WIFSIGNALED(status))
-    {
-        if (WTERMSIG(status) == SIGINT)
-            data->error = 130;
-        else if (WTERMSIG(status) == SIGQUIT)
-            data->error = 131;
-    }
-    else
-        data->error = WEXITSTATUS(status);
+	waitpid(pid, &status, 0);
+	data->error = WEXITSTATUS(status);
+	if (data->error == 1)
+		data_close_and_exit(data, data->error);
 }
 
 static void handler_fork(int sig)
@@ -74,6 +68,7 @@ void process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
     char *cmd_name;
     pid_t pid;
     struct sigaction sa;
+
     test_env = env_tab(*env_lst);
     cmd_name = prepare_command(cmd, *env_lst, &data->error);
     ft_memset(&sa, 0, sizeof(sa));
