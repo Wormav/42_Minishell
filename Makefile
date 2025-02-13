@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/12 18:26:27 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/13 10:16:26 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS		:=	main.c \
 				utils/ft_ltoa.c \
 				utils/ft_atol.c \
 				utils/trunc_orders_fds.c \
+				utils/split_export.c \
 				utils/cmd_filter_params.c \
 				utils/handle_bad_option.c \
 				utils/has_equal_sign.c \

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:46:00 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 12:10:41 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:31:12 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	export_process_args(char *split, t_data *data, t_env **env)
 {
 	int	valid_key;
 
+	split = parser_filter_quote(split);
 	valid_key = export_is_valid_key(split);
 	if (!valid_key)
 	{
