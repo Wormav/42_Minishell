@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 14:30:03 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:11:51 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@
 #define PROMPT "minishell > "
 
 int ack = 0;
-
-void __handle_sigint(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-    rl_redisplay();
-    ack = 130;
-}
 
 static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 {
@@ -88,7 +78,7 @@ int main(__attribute__((unused))int argc,
 
     data_init(&data);
     ft_memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = __handle_sigint;
+    sa.sa_handler = handle_sigint;
     env_lst = env_fill_list(envp);
     env_list_insert(&env_lst, env_lstnew("?=\"0\""));
     sigaction(SIGINT, &sa, NULL);

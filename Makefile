@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/13 10:16:26 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/13 15:13:57 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRCS		:=	main.c \
 				exec/exec_error_fd.c \
 				exec/exec_others_commands.c \
 				data/data.c \
+				signals/signals.c \
 
 
 SRCS		:= $(addprefix $(SRCS_DIR)/, $(SRCS))
