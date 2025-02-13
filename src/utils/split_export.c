@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:12:05 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 10:15:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:59:23 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_free_all(char **result, int words)
 
 static void	ft_search_index(char const *s, int *start, int *end)
 {
-	int in_quotes;
+	int	in_quotes;
 
 	while (s[*end] == ' ')
 		(*end)++;
@@ -57,12 +57,12 @@ static void	ft_search_index(char const *s, int *start, int *end)
 		if (!in_quotes && s[*end + 1] == ' ')
 		{
 			(*end)++;
-			break;
+			break ;
 		}
 		if (!s[*end + 1])
 		{
 			(*end)++;
-			break;
+			break ;
 		}
 		(*end)++;
 	}
