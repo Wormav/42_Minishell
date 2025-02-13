@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/12 16:33:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:09:04 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void __handle_sigint(int sig)
         rl_on_new_line();
         rl_redisplay();
     }
-    else
         ack = 130;
 }
 
@@ -35,6 +34,11 @@ static void	process_parsing(char *prompt, t_env **env_lst, t_data *data)
 	t_token		*list;
 	t_ast		*ast;
 
+	if (ack == 130)
+    {
+        data->error = 130;
+        ack = 0;
+	}
 	save_return_val(data, env_lst);
 	data_init(data);
 	data->str_prompt = ft_strdup(prompt);
