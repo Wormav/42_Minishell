@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 08:25:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 09:26:28 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	if (cmd->options)
 	{
 		data->error = 2;
-		ft_printf(2, "%s\n", handle_bad_option(cmd->options[0], "env"));
+		ft_printf(2, "%s", handle_bad_option(cmd->options[0], "env"));
 		return ;
 	}
 	if ((!*(cmd->params) && !cmd->options) || check_env_param(cmd->params))

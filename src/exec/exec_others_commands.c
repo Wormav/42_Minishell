@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 18:42:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:46:13 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	process_others_cmd(t_cmd *cmd, t_env **env_lst, t_data *data)
 	if (pid == -1)
 		data_close_and_exit(data, 1);
 	if (pid == 0)
+	{
 		handle_child_execution(cmd, env_arr, cmd_name, data);
+		rl_clear_history();
+	}
 	wait_and_check_status(pid, data);
 	sa.sa_handler = handle_sigint;
 	sigaction(SIGINT, &sa, NULL);
