@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 17:46:12 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:25:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void	print_without_prefix(char *str)
 	printf("%s\n", str + 11);
 }
 
+static int	content_equal(char *str)
+{
+	while (*str)
+	{
+		if (*str == '=')
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
 void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 {
 	if (cmd->options)
@@ -58,7 +69,8 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	{
 		while (env)
 		{
-			if (ft_strncmp(env->content, "?=", 2))
+			if (ft_strncmp(env->content, "?=", 2)
+				&& content_equal(env->content))
 				printf("%s\n", (char *)env->content);
 			env = env->next;
 		}
