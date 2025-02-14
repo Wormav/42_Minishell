@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 08:07:34 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 14:10:42 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:40:52 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		cleanup_cmd(t_cmd *cmd);
 void		exec_store_other_fds(t_ast *ast, t_fds **list, char *main_fd);
 char		*exec_identify_fd(t_ast *ast);
 char		*exec_identify_se(t_ast *ast);
-void		exec_free_fds(t_fds *fds);
+void		exec_free_fds(t_fds *fds, int stdin, int stdout);
 
 // exec
 void		exec(t_ast *ast, t_env **env_lst, int *flag_exit, t_data *data);

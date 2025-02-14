@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:17:03 by jlorette          #+#    #+#             */
-/*   Updated: 2025/01/25 19:47:15 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 09:23:52 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ int	find_first_size(char *str)
 		while (*str && *str != '"')
 			str++;
 	}
-	else
-	{
-		flag = 0;
-		while (*str && *str != ' ')
-			str++;
-	}
+	str++;
+	flag = 0;
+	while (*str && *str != ' ')
+		str++;
 	return ((str - start) + flag);
 }
 

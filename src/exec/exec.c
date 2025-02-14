@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 15:21:05 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 09:03:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ static void	check_command_access(t_cmd *cmd)
 		if (is_directory(cmd->cmd))
 		{
 			ft_printf(2, "minishell: %s: Is a directory\n", cmd->cmd);
-			exit(126);
+			exit_and_clear_history(126);
 		}
 		else if (access(cmd->cmd, F_OK) != 0)
 		{
 			ft_printf(2, "minishell: %s: No such file or directory\n",
 				cmd->cmd);
-			exit(127);
+				exit_and_clear_history(127);
 		}
 		else if (access(cmd->cmd, R_OK) != 0)
 		{
 			ft_printf(2, "minishell: %s: Permission denied\n", cmd->cmd);
-			exit(126);
+			exit_and_clear_history(126);
 		}
 	}
 	if (!ft_isalpha(*(cmd->cmd)) && is_directory(cmd->cmd))
 	{
 		ft_printf(2, "minishell: %s: Is a directory\n", cmd->cmd);
-		exit(126);
+		exit_and_clear_history(126);
 	}
 }
 
@@ -76,12 +76,14 @@ char **env_lst, t_cmd *cmd)
 		if (execve(cmd->cmd, argv_cmd, env_lst) == -1)
 		{
 			ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+			rl_clear_history();
 			exit(127);
 		}
 	}
 	if (execve(cmd_name, argv_cmd, env_lst) == -1)
 	{
 		ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+		rl_clear_history();
 		exit(127);
 	}
 }

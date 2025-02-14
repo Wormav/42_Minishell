@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:20:27 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/10 13:08:51 by stetrel          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:42:03 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exec_free_fds(t_fds *fds)
+void	exec_free_fds(t_fds *fds, int stdin, int stdout)
 {
 	t_fds	*tmp;
 
@@ -24,6 +24,8 @@ void	exec_free_fds(t_fds *fds)
 		lp_free(fds);
 		fds = tmp;
 	}
+	close(stdin);
+	close(stdout);
 }
 
 char	*exec_identify_fd(t_ast *ast)

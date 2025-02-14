@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 18:15:09 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:41:09 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ void	exec_ast(t_ast *ast, t_env **env_lst, t_data *data)
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	trunc_orders_fds(fds, data);
-	exec_free_fds(fds);
+	exec_free_fds(fds, stdin_backup, stdout_backup);
 }
