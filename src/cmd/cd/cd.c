@@ -6,104 +6,53 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 17:46:36 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:09:19 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	case_twoo(t_env *env)
-{
-	int		chdir_return;
-	char	*tmp;
-	char	*home;
-	char	*oldpwd;
-
-	home = env_get_value(env, "$HOME");
-	oldpwd = env_get_value(env, "$OLDPWD");
-	if (!home || !oldpwd)
-		return (1);
-	if (home && access(home, 0) == F_OK)
-	{
-		tmp = env_get_value(env, "$PWD");
-		chdir_return = chdir(home);
-		if (chdir_return == 0)
-		{
-			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
-			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", oldpwd)));
-		}
-		else
-			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
-				home);
-	}
-	else
-		ft_printf(2, "minishell: cd: HOME not set\n");
-	return (1);
-}
-
-static int	case_one(t_env *env)
-{
-	int		chdir_return;
-	char	*tmp;
-	char	*oldpwd;
-
-	oldpwd = env_get_value(env, "$OLDPWD");
-	if (oldpwd && access(oldpwd, 0) == F_OK)
-	{
-		tmp = env_get_value(env, "$PWD");
-		chdir_return = chdir(oldpwd);
-		if (chdir_return == 0)
-		{
-			env_list_insert(&env,
-				env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
-			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
-						oldpwd)));
-		}
-		else
-			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
-				oldpwd);
-	}
-	else
-		ft_printf(2, "minishell: cd: OLDPWD not set\n");
-	return (1);
-}
-
 static int	check_options(t_cmd *cmd, t_env *env, t_data *data)
 {
 	if (!ft_strcmp(cmd->options[0], "--"))
-		return (case_twoo(env));
+		return (cd_case_twoo(env));
 	if (!ft_strcmp(cmd->options[0], "-"))
-		return (case_one(env));
+		return (cd_case_one(env));
 	ft_printf(2, "%s", handle_bad_option(cmd->options[0], "cd"));
 	data->error = 2;
 	return (1);
 }
 
+static void	update_env_after_cd(t_env *env, char *expanded_path, t_data *data)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=", pwd)));
+	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", expanded_path)));
+	free(pwd);
+	data->error = 0;
+}
+
 static void	handle_cd_execution(t_env *env, t_cmd *cmd, t_data *data)
 {
 	int		chdir_return;
-	char	*pwd;
+	char	*expanded_path;
 
 	data->error = 1;
-	if (access(cmd->params, 0) == F_OK)
+	expanded_path = cd_expand_tilde(cmd->params, env);
+	if (access(expanded_path, 0) == F_OK)
 	{
-		chdir_return = chdir(cmd->params);
+		chdir_return = chdir(expanded_path);
 		if (chdir_return == 0)
-		{
-			pwd = getcwd(NULL, 0);
-			env_list_insert(&env,
-				env_lstnew(ft_strsjoin(2, "OLDPDW", pwd)));
-			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
-						cmd->params)));
-			free(pwd);
-			data->error = 0;
-		}
+			update_env_after_cd(env, expanded_path, data);
 		else
 			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
-				cmd->params);
+				expanded_path);
 	}
 	else
 		ft_printf(2, "minishell: No such file or directory\n");
+	lp_free(expanded_path);
 }
 
 void	execute_cd(t_env *env, t_cmd *cmd, t_data *data)

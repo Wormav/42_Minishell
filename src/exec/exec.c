@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:18:29 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 09:03:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:09:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	check_command_access(t_cmd *cmd)
 		{
 			ft_printf(2, "minishell: %s: No such file or directory\n",
 				cmd->cmd);
-				exit_and_clear_history(127);
+			exit_and_clear_history(127);
 		}
 		else if (access(cmd->cmd, R_OK) != 0)
 		{

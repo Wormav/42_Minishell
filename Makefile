@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/14 08:51:43 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/14 09:55:03 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS		:=	main.c \
 				cmd/pwd/pwd.c \
 				cmd/unset/unset.c \
 				cmd/cd/cd.c \
+				cmd/cd/cd_utils.c \
 				cmd/exit/exit.c \
 				cmd/exit/exit_utils.c \
 				cmd/export/export.c \

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:29:14 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/12 17:29:28 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:05:45 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ char	*export_remove_plus_before_equal(char *str);
 void	export_process_args_with_equal(char *split, int valid_key, t_env **env);
 void	export_process_args(char *split, t_data *data, t_env **env);
 char	*exit_trim_quote_first_option(char *str);
+char	*cd_expand_tilde(char *path, t_env *env);
+int		cd_case_one(t_env *env);
+int		cd_case_twoo(t_env *env);
 
 #endif
