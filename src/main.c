@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 16:54:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:46:10 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	process_parsing_init(char *prompt, t_env **env_lst, t_data *data)
 	parser_expand_var_env(data, *env_lst);
 	check_odd_quotes(data->str_prompt, &data->error_parsing);
 	if (data->error_parsing)
-		lp_free(data->str_prompt);
+		token_identify_error(data, NULL);
 }
 
 static void	process_parsing_checks(t_token *list, t_data *data, t_env **env_lst)

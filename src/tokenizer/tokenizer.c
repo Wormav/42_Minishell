@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:11:22 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 15:34:26 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:17:42 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	identify_space(char *str)
 {
-	while (*str && *str == ' ')
+	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
 	return (!(*str));
 }

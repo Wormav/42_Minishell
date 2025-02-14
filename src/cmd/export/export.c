@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:58 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 10:59:01 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:47:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	validate_params(char **split, t_data *data)
 	while (split[i])
 	{
 		if (split[i][0] == '=' || split[i][0] == '-'
-			|| export_is_valid_key(split[0]) == 3)
+			|| export_is_valid_key(split[i]) == 3)
 		{
 			data->error = 1;
 			ft_printf(2, "minishell: export: `%s': not a valid identifier\n",
@@ -32,7 +32,7 @@ static int	validate_params(char **split, t_data *data)
 	return (1);
 }
 
-static void	process_params(t_env *env, t_cmd *cmd, t_data *data)
+static void	process_params(t_env **env, t_cmd *cmd, t_data *data)
 {
 	char	**split;
 	int		i;
@@ -43,8 +43,7 @@ static void	process_params(t_env *env, t_cmd *cmd, t_data *data)
 		return ;
 	while (split[i])
 	{
-		if (has_equal_sign(split[i]))
-			export_process_args(split[i], data, &env);
+		export_process_args(split[i], data, env);
 		if (data->error)
 		{
 			free_split(split);
@@ -68,5 +67,5 @@ void	execute_export(t_env **env, t_cmd *cmd, t_data *data)
 		env_print(*env);
 		return ;
 	}
-	process_params(*env, cmd, data);
+	process_params(env, cmd, data);
 }
