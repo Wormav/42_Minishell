@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 10:09:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:53:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static int	check_options(t_cmd *cmd, t_env *env, t_data *data)
 	return (1);
 }
 
-static void	update_env_after_cd(t_env *env, char *expanded_path, t_data *data)
+static void	update_env_after_cd(t_env *env, t_data *data)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=", pwd)));
-	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", expanded_path)));
+	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=",
+		env_get_value(env, "$PWD"))));
+	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", pwd)));
 	free(pwd);
 	data->error = 0;
 }
@@ -45,7 +46,7 @@ static void	handle_cd_execution(t_env *env, t_cmd *cmd, t_data *data)
 	{
 		chdir_return = chdir(expanded_path);
 		if (chdir_return == 0)
-			update_env_after_cd(env, expanded_path, data);
+			update_env_after_cd(env, data);
 		else
 			ft_printf(2, "minishell: cd: %s: No such file or directory\n",
 				expanded_path);

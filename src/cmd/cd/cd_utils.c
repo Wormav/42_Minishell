@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:53:37 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 10:08:23 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:52:55 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	cd_case_one(t_env *env)
 				env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=",
 						oldpwd)));
+			printf("%s\n", env_get_value(env, "$PWD"));
 		}
 		else
 			ft_printf(2, "minishell: cd: %s: No such file or directory\n",

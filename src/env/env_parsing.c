@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 06:42:12 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/17 11:20:20 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 11:37:48 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	env_list_insert(t_env **lst, t_env *node)
 	{
 		if (check_dup(tmp->content, node->content) == 1)
 		{
-			if (!has_equal_sign(tmp->content))
+			if (has_equal_sign(node->content))
 				tmp->content = node->content;
 			lp_free(node);
 			return ;
