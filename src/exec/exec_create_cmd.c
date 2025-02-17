@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 07:33:28 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 09:21:17 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:55:20 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_cmd	*exec_create_cmd(char *str)
 		return (NULL);
 	while (str)
 	{
+		str = filter_tab(str);
 		next_size = find_first_size(str);
 		cmd->cmd = parser_filter_quote(ft_substr(str, 0, next_size));
 		str += next_size;

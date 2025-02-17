@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:29:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 08:51:24 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:47:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		check_heredoc(t_token *list);
 void	trunc_orders_fds(t_fds *fds, t_data *data);
 char	**split_export(char const *str);
 void	exit_and_clear_history(long exit_code);
+char	*filter_tab(char *str);
 
 #endif
