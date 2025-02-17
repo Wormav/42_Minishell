@@ -6,13 +6,13 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:44:32 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/17 14:51:24 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:31:18 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int handle_quotes(char *result, int i, int *quote)
+static int	handle_quotes(char *result, int i, int *quote)
 {
 	if (result[i] == '"' && (i == 0 || result[i - 1] != '\\'))
 	{
@@ -33,11 +33,11 @@ static int handle_quotes(char *result, int i, int *quote)
 	return (i + 1);
 }
 
-char *filter_tab(char *str)
+char	*filter_tab(char *str)
 {
-	int i;
-	int quote;
-	char *result;
+	int		i;
+	int		quote;
+	char	*result;
 
 	if (!str)
 		return (NULL);
