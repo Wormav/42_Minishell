@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/14 09:55:03 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/17 14:48:15 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS		:=	main.c \
 				utils/count_params_size.c \
 				utils/check_heredoc.c \
 				utils/exit_and_clear_history.c \
+				utils/filter_tab.c \
 				utils/save_return.c \
 				env/env_parsing.c \
 				env/env_print.c \
