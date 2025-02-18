@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:43:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 13:23:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:35:50 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,29 @@ t_data *data)
 	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
-void	handle_pipe_child_right(t_ast *ast, t_env **env_lst,
-int pipefd[2], t_data *data)
+void	handle_pipe_child_right(t_ast *ast, t_env **env_lst, int pipefd[2],
+t_data *data)
 {
 	int	flag_exit;
 
 	flag_exit = 1;
-	close(pipefd[1]);
-	dup2(pipefd[0], STDIN_FILENO);
-	close(pipefd[0]);
-	if (ast->right->token == TOKEN_CMD)
-		exec(ast->right, env_lst, &flag_exit, data);
-	else
-		exec_ast_next(ast->right, env_lst, data);
+	if (pipefd)
+	{
+		close(pipefd[1]);
+		if (dup2(pipefd[0], STDIN_FILENO) == -1)
+		{
+			ft_printf(2, "minishell: dup2 failed\n");
+			data_close_and_exit(data, EXIT_FAILURE);
+		}
+		close(pipefd[0]);
+	}
+	if (ast && ast->right)
+	{
+		if (ast->right->token == TOKEN_CMD)
+			exec(ast->right, env_lst, &flag_exit, data);
+		else
+			exec_ast_next(ast->right, env_lst, data);
+	}
 	data_close_and_exit(data, EXIT_SUCCESS);
 }
 
