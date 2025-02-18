@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:57:13 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/17 15:30:59 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:39:40 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,48 @@ static char	*process_env_var_sq(t_env *env, char *result, char *var_start)
 	return (process_env_var(env, result, var_start));
 }
 
-static char	*process_env_vars_loop(t_env *env, char *result, char **pos)
+static char	*handle_dollar_sign(t_env *env, char *result, char **pos,
+int in_quotes)
 {
 	char	*prev_result;
+
+	if ((*pos)[1] == '"')
+	{
+		(*pos)++;
+		return (result);
+	}
+	if (!in_quotes || (in_quotes && (*pos)[1] != '"'))
+	{
+		prev_result = ft_strdup(result);
+		result = process_env_var_sq(env, result, *pos);
+		if (ft_strcmp(prev_result, result) == 0)
+		{
+			lp_free(prev_result);
+			return (NULL);
+		}
+		lp_free(prev_result);
+		*pos = result;
+	}
+	return (result);
+}
+
+static char	*process_env_vars_loop(t_env *env, char *result, char **pos)
+{
 	int		in_quotes;
+	char	*processed;
 
 	in_quotes = 0;
 	while (**pos)
 	{
-		if (**pos == '\'')
+		if (**pos == '"')
 			in_quotes = !in_quotes;
-		else if (**pos == '$' && !in_quotes)
+		else if (**pos == '$')
 		{
-			prev_result = ft_strdup(result);
-			result = process_env_var_sq(env, result, *pos);
-			if (ft_strcmp(prev_result, result) == 0)
-			{
-				lp_free(prev_result);
+			processed = handle_dollar_sign(env, result, pos, in_quotes);
+			if (processed == NULL)
 				break ;
-			}
-			lp_free(prev_result);
-			*pos = result;
+			if (processed != result)
+				result = processed;
 			continue ;
 		}
 		(*pos)++;
