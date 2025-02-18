@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:58:24 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/18 12:22:16 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:28:56 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	execute_env(t_env *env, t_cmd *cmd, t_data *data)
 	{
 		while (env)
 		{
-			if (ft_strncmp(env->content, "?=", 2 && ft_strncmp(env->content, "PATH=:./", 8))
+			if (ft_strncmp(env->content, "?=", 2
+					&& ft_strncmp(env->content, "PATH=:./", 8))
 				&& content_equal(env->content))
 				printf("%s\n", (char *)env->content);
 			env = env->next;

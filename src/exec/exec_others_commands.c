@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/18 12:04:06 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:28:32 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static void	handle_child_execution(t_cmd *cmd, char **env_arr,
 
 static char	*prepare_command(t_cmd *cmd, t_env *env_lst, long *error)
 {
-    if (ft_strchr(cmd->cmd, '/'))
-    {
-        if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
-            return (cmd->cmd);
-        *error = 127;
-        	return (NULL);
-    }
+	if (ft_strchr(cmd->cmd, '/'))
+	{
+		if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
+			return (cmd->cmd);
+		*error = 127;
+		return (NULL);
+	}
 	else if (ft_strcmp(env_get_value(env_lst, "$PATH"), ":./"))
 	{
 		if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
