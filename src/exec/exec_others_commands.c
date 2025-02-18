@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/18 12:28:32 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 20:07:40 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,17 @@ static void	handle_child_execution(t_cmd *cmd, char **env_arr,
 	setup_child_signals();
 	if (!cmd_name)
 	{
-		ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+		if (*(cmd->cmd) == '.' && access(cmd->cmd, F_OK) == 0
+			&& access(cmd->cmd, X_OK) != 0)
+		{
+			ft_printf(2, "minishell: %s: Permission denied\n", cmd->cmd);
+			data_close_and_exit(data, 126);
+		}
+		if (ft_strchr(cmd->cmd, '/'))
+			ft_printf(2,
+				"minishell: %s: No such file or directory\n", cmd->cmd);
+		else
+			ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
 		data_close_and_exit(data, 127);
 	}
 	data_close_all_fd(data);
