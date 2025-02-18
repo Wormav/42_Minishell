@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 08:46:13 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:04:06 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static void	handle_child_execution(t_cmd *cmd, char **env_arr,
 
 	argv_cmd = join_params(cmd);
 	setup_child_signals();
+	if (!cmd_name)
+	{
+		ft_printf(2, "minishell: %s: command not found\n", cmd->cmd);
+		data_close_and_exit(data, 127);
+	}
 	data_close_all_fd(data);
 	execute_child_process(cmd_name, argv_cmd, env_arr, cmd);
 	if (data->error == 127)
@@ -27,9 +32,22 @@ static void	handle_child_execution(t_cmd *cmd, char **env_arr,
 
 static char	*prepare_command(t_cmd *cmd, t_env *env_lst, long *error)
 {
-	if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
-		return (cmd->cmd);
-	return (find_cmd(cmd, env_lst, error));
+    if (ft_strchr(cmd->cmd, '/'))
+    {
+        if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
+            return (cmd->cmd);
+        *error = 127;
+        	return (NULL);
+    }
+	else if (ft_strcmp(env_get_value(env_lst, "$PATH"), ":./"))
+	{
+		if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
+			return (NULL);
+		else
+			return (find_cmd(cmd, env_lst, error));
+	}
+	else
+		return (ft_strjoin("./", cmd->cmd));
 }
 
 static void	wait_and_check_status(pid_t pid, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:52:46 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/13 17:13:44 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/18 11:58:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	process_unset_params(char **params, t_env **env_lst)
 	while (params[i])
 	{
 		env_list_remove(env_lst, params[i]);
+		if (!ft_strcmp(params[i], "PATH"))
+			env_list_insert(env_lst, env_lstnew("PATH=:./"));
 		i++;
 	}
 }
