@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/17 14:48:15 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/21 15:14:54 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS		:=	main.c \
 				utils/clean.c \
 				utils/ft_ltoa.c \
 				utils/ft_atol.c \
+				utils/reduce_spaces.c \
 				utils/trunc_orders_fds.c \
 				utils/split_export.c \
 				utils/cmd_filter_params.c \
