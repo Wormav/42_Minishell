@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/21 10:45:19 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:56:39 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	update_env_after_cd(t_env *env, t_data *data)
 	tmp = env_get_value(env, "$PWD");
 	if (tmp)
 		env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=",
-						tmp)));
+					tmp)));
 	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", pwd)));
 	free(pwd);
 	data->error = 0;

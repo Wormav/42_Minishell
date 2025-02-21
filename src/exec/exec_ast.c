@@ -6,23 +6,23 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/21 13:45:07 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:58:11 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void write_heredoc_content(t_heredoc *heredoc, int fd, t_env **env)
+static void	write_heredoc_content(t_heredoc *heredoc, int fd, t_env **env)
 {
-	char    *expanded;
-	size_t  expanded_len;
+	char	*expanded;
+	size_t	expanded_len;
 
 	if (heredoc->flag_env)
 	{
 		expanded = env_replace_env_vars(*env, heredoc->content);
-		expanded_len = expanded ? ft_strlen(expanded) : 0;
 		if (expanded)
 		{
+			expanded_len = ft_strlen(expanded);
 			write(fd, expanded, expanded_len);
 			lp_free(expanded);
 		}
@@ -31,9 +31,10 @@ static void write_heredoc_content(t_heredoc *heredoc, int fd, t_env **env)
 		write(fd, heredoc->content, ft_strlen(heredoc->content));
 }
 
-static void exec_handle_input_heredoc(char *input_file, t_env **env, int *input, t_data *data)
+static void	exec_handle_input_heredoc(char *input_file, t_env **env,
+int *input, t_data *data)
 {
-	t_heredoc *heredoc;
+	t_heredoc	*heredoc;
 
 	heredoc = handle_heredoc(ft_strtrim(input_file + 2, " "));
 	if (heredoc)
