@@ -6,16 +6,34 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:11:26 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/14 08:41:09 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:45:07 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	exec_handle_input_heredoc(char *input_file, t_env **env,
-int*input, t_data *data)
+static void write_heredoc_content(t_heredoc *heredoc, int fd, t_env **env)
 {
-	t_heredoc	*heredoc;
+	char    *expanded;
+	size_t  expanded_len;
+
+	if (heredoc->flag_env)
+	{
+		expanded = env_replace_env_vars(*env, heredoc->content);
+		expanded_len = expanded ? ft_strlen(expanded) : 0;
+		if (expanded)
+		{
+			write(fd, expanded, expanded_len);
+			lp_free(expanded);
+		}
+	}
+	else
+		write(fd, heredoc->content, ft_strlen(heredoc->content));
+}
+
+static void exec_handle_input_heredoc(char *input_file, t_env **env, int *input, t_data *data)
+{
+	t_heredoc *heredoc;
 
 	heredoc = handle_heredoc(ft_strtrim(input_file + 2, " "));
 	if (heredoc)
@@ -23,18 +41,14 @@ int*input, t_data *data)
 		*input = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (*input != -1)
 		{
-			if (heredoc->flag_env)
-				write(*input, env_replace_env_vars(*env, heredoc->content),
-					ft_strlen(heredoc->content));
-			else
-				write(*input, heredoc->content,
-					ft_strlen(heredoc->content));
+			write_heredoc_content(heredoc, *input, env);
 			close(*input);
 			*input = open(".tmp", O_RDONLY);
 			if (*input != -1)
 			{
 				dup2(*input, STDIN_FILENO);
-				data_add_fd_to_array(data, *input);
+				close(*input);
+				data_add_fd_to_array(data, STDIN_FILENO);
 			}
 		}
 		free_heredoc(heredoc);
