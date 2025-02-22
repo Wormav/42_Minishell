@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 15:12:22 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/21 15:37:51 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/22 11:35:47 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_state(t_space_state *state, char *str)
 {
-	state->result = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	state->result = lp_alloc(sizeof(char) * (ft_strlen(str) + 1));
 	state->i = 0;
 	state->j = 0;
 	state->in_quotes = 0;
