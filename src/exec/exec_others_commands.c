@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:24:16 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/21 13:58:24 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/22 08:53:01 by stetrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*prepare_command(t_cmd *cmd, t_env *env_lst, long *error)
 	}
 	else if (path_value && ft_strcmp(path_value, ":./"))
 	{
-		if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) == 0)
+		if (access(cmd->cmd, F_OK) == 0 && access(cmd->cmd, X_OK) != 0)
 			return (NULL);
 		else
 			return (find_cmd(cmd, env_lst, error));
