@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:37:41 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/17 16:30:02 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:56:39 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ static int	check_options(t_cmd *cmd, t_env *env, t_data *data)
 static void	update_env_after_cd(t_env *env, t_data *data)
 {
 	char	*pwd;
+	char	*tmp;
 
 	pwd = getcwd(NULL, 0);
-	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=",
-				env_get_value(env, "$PWD"))));
+	tmp = env_get_value(env, "$PWD");
+	if (tmp)
+		env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=",
+					tmp)));
 	env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", pwd)));
 	free(pwd);
 	data->error = 0;

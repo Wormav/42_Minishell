@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:53:37 by jlorette          #+#    #+#             */
-/*   Updated: 2025/02/17 13:52:55 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 10:36:16 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	cd_case_twoo(t_env *env)
 	{
 		tmp = env_get_value(env, "$PWD");
 		chdir_return = chdir(home);
-		if (chdir_return == 0)
+		if (chdir_return == 0 && tmp)
 		{
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));
 			env_list_insert(&env, env_lstnew(ft_strsjoin(2, "PWD=", oldpwd)));
@@ -69,7 +69,7 @@ int	cd_case_one(t_env *env)
 	{
 		tmp = env_get_value(env, "$PWD");
 		chdir_return = chdir(oldpwd);
-		if (chdir_return == 0)
+		if (chdir_return == 0 && tmp)
 		{
 			env_list_insert(&env,
 				env_lstnew(ft_strsjoin(2, "OLDPWD=", tmp)));

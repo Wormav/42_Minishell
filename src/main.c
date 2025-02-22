@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:37:21 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/18 12:33:34 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:52:17 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,8 @@ __attribute__((unused))char **argv, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	process_readline(&str, &env_lst, &data);
 	printf("exit\n");
-	clear_history();
 	if (str)
 		free(str);
 	rl_clear_history();
-	return (0);
+	return (data.error);
 }

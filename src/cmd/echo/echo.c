@@ -6,7 +6,7 @@
 /*   By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:32:55 by stetrel           #+#    #+#             */
-/*   Updated: 2025/02/13 17:44:57 by jlorette         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:20:35 by jlorette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	execute_echo(t_cmd *cmd, t_env *env)
 			i++;
 		}
 	}
-	printf("%s", parser_filter_quote(cmd->params));
+	printf("%s", parser_filter_quote(reduce_spaces(cmd->params)));
 	if (count_n)
 		return ;
 	printf("\n");
