@@ -6,7 +6,7 @@
 #    By: jlorette <jlorette@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 09:17:45 by stetrel           #+#    #+#              #
-#    Updated: 2025/02/21 15:14:54 by jlorette         ###   ########.fr        #
+#    Updated: 2025/02/24 07:33:44 by jlorette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS		:=	main.c \
 			   	tokenizer/token/token_push.c \
 			   	tokenizer/token/token_free.c \
 			   	tokenizer/tokenizer_utils.c \
-				debug/debug.c \
 				ast/ast.c \
 				ast/ast_utils.c \
 				ast/ast_token_split.c \
@@ -110,9 +109,6 @@ MAKEFLAGS	+= --no-print-directory
 ################################################################################
 
 all: $(NAME)
-
-debug: CFLAGS += -D DEBUG=1
-debug: all
 
 $(NAME):	$(LIBFT_PATH)/libft.a $(OBJS)
 		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH)/libft.a -o $@ -lreadline
